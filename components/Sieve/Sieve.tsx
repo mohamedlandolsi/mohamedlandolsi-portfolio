@@ -68,7 +68,7 @@ export function Sieve({ slug, animate = true }: { slug: string; animate?: boolea
           {animate && (
             <>
               {" "}
-              <Link href={`/work/${slug}`}>How the gates work</Link>
+              <Link href={`/work/${slug}#what-i-built`}>How the gates work</Link>
             </>
           )}
         </figcaption>

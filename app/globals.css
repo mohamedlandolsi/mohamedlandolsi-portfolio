@@ -48,8 +48,8 @@
     --color-panel-2: #D9DBD3;
     --color-text: #171A22;
     --color-dim: #4C5364;
-    --color-faint: #5B6373;
-    --color-amber: #8F5608;
+    --color-faint: #585F6E;
+    --color-amber: #865108;
     --color-cyan: #0A6A5B;
     --color-line: rgba(23, 26, 34, 0.1);
     --color-line-strong: rgba(23, 26, 34, 0.18);
@@ -66,8 +66,8 @@
   --color-panel-2: #D9DBD3;
   --color-text: #171A22;
   --color-dim: #4C5364;
-  --color-faint: #5B6373;
-  --color-amber: #8F5608;
+  --color-faint: #585F6E;
+  --color-amber: #865108;
   --color-cyan: #0A6A5B;
   --color-line: rgba(23, 26, 34, 0.1);
   --color-line-strong: rgba(23, 26, 34, 0.18);
@@ -256,8 +256,9 @@
   /* Cells separated by 1px lines: number strips, spec grids, matrices. */
   .cells { display: grid; gap: 1px; overflow: hidden; border: 1px solid var(--color-line-strong); border-radius: var(--radius); background: var(--color-line-strong); }
   .cell { background: var(--color-panel); }
-  .proof-strip { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-  .proof-item { padding: 16px 18px; transition: transform 0.25s ease, background-color 0.25s ease; }
+  /* Flex, like the reference: the last row stretches instead of leaving an empty cell. */
+  .proof-strip { display: flex; flex-wrap: wrap; }
+  .proof-item { flex: 1 1 140px; padding: 16px 18px; transition: transform 0.25s ease, background-color 0.25s ease; }
   .proof-item:hover { background: var(--color-panel-2); }
   .proof-num { display: block; font-family: var(--font-display); font-weight: 700; font-size: 1.6rem; line-height: 1; color: var(--color-cyan); white-space: nowrap; }
   .proof-label { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.4; letter-spacing: 0.03em; color: var(--color-faint); }
@@ -341,7 +342,10 @@
   .decision > summary::-webkit-details-marker { display: none; }
   .decision > summary:hover { background: var(--color-panel-2); }
   .decision-id { flex: none; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; color: var(--color-amber); }
-  .decision-title { font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-cyan); }
+  .decision-title { flex: 1; font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-cyan); }
+  /* The reference's chevron, drawn in CSS (text presentation, not an emoji). */
+  .decision > summary::after { content: "\25B6\FE0E"; flex: none; font-size: 0.7rem; color: var(--color-faint); transition: transform 0.2s ease; }
+  .decision[open] > summary::after { transform: rotate(90deg); }
   .decision-content { padding: 6px 18px 22px; border-top: 1px solid var(--color-line); }
   .decision::details-content { block-size: 0; overflow: hidden; transition: block-size 0.34s ease, content-visibility 0.34s allow-discrete; }
   .decision[open]::details-content { block-size: auto; }

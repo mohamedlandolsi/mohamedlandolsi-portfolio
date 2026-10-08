@@ -11,9 +11,9 @@ The source of truth is `app/globals.css` (Tailwind v4, CSS-first `@theme`). This
 | `--color-panel-2` | `#1B2438` | `#D9DBD3` | Hover fill, spec cells, tooltips, nested surfaces |
 | `--color-text` | `#E8E6DE` | `#171A22` | Headings and primary text |
 | `--color-dim` | `#8D96AA` | `#4C5364` | Running text, descriptions, mono nav |
-| `--color-faint` | `#7C869B` | `#5B6373` | Tags, labels under numbers, footnote, the sieve's source field |
+| `--color-faint` | `#7C869B` | `#585F6E` | Tags, labels under numbers, footnote, the sieve's source field |
 | `--color-cyan` | `#6FE3C9` | `#0A6A5B` | Links, numbers, data, passed companies |
-| `--color-amber` | `#FFB300` | `#8F5608` | Status, kickers, period badges, the human review step, focus outline |
+| `--color-amber` | `#FFB300` | `#865108` | Status, kickers, period badges, the human review step, focus outline |
 | `--color-line` | text at 10% | text at 10% | Section rules, rows inside panels, the background grid |
 | `--color-line-strong` | text at 18% | text at 18% | Panel borders, cell separators |
 
