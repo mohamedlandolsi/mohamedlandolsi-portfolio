@@ -61,10 +61,11 @@ export function homeGraph(): object[] {
   return [website, page, person];
 }
 
-/** A case study as an article about a piece of software, with its repository when content/ names it. */
+/** A case study as an article. When content/ names a repository, the article is about that source code. */
 export function caseStudyGraph(meta: CaseStudyMeta, project: Project): object[] {
   const url = absolute(`/work/${project.slug}`);
   const softwareId = `${url}#software`;
+  const repo = isTodo(project.links.repo) ? null : project.links.repo;
   const images = getScreenshots(project.slug).map((shot) => absolute(shot.file));
   const article = {
     "@type": "TechArticle",
@@ -80,15 +81,15 @@ export function caseStudyGraph(meta: CaseStudyMeta, project: Project): object[] 
     author: { "@id": PERSON_ID },
     publisher: { "@id": PERSON_ID },
     isPartOf: { "@id": WEBSITE_ID },
-    about: { "@id": softwareId },
+    ...(repo && { about: { "@id": softwareId } }),
   };
-  const software = {
+  const software = repo && {
     "@type": "SoftwareSourceCode",
     "@id": softwareId,
     name: project.title,
     description: project.one_liner,
-    ...(!isTodo(project.links.repo) && { codeRepository: project.links.repo }),
+    codeRepository: repo,
     author: { "@id": PERSON_ID },
   };
-  return [article, software, personRef, website];
+  return [article, ...(software ? [software] : []), personRef, website];
 }

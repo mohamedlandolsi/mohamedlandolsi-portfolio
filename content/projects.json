@@ -181,8 +181,8 @@
   {
     "slug": "wavess",
     "title": "Wavess GTM platform (internship)",
-    "one_liner": "A federated B2B SaaS platform that connects market signals to LinkedIn content and GTM actions for small B2B teams.",
-    "role": "Software engineering intern on a small remote team",
+    "one_liner": "A multi-tenant SaaS platform that connects market signals to LinkedIn content and GTM actions for small B2B teams.",
+    "role": "Software engineering intern: analysis, architecture, full-stack build",
     "period": "December 2025 to May 2026",
     "status": "Delivered; end-of-studies report defended",
     "stack": [
@@ -210,12 +210,12 @@
       {
         "claim": "W2",
         "value": "4",
-        "label": "platform parts sharing one core library"
+        "label": "platform parts: three services on one shared core library"
       },
       {
         "claim": "W3",
         "value": "57",
-        "label": "requirements traced to user stories (46 functional, 11 non-functional)"
+        "label": "requirements traced to user stories"
       },
       {
         "claim": "W4",

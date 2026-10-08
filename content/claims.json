@@ -218,7 +218,7 @@
   {
     "id": "W2",
     "value": "4",
-    "label": "platform parts sharing one core library and one database",
+    "label": "platform parts: three services on one shared core library",
     "inline": "4 parts sharing one core library and one database",
     "source": "report p.52 to 54, p.65",
     "date": "2026",
@@ -227,7 +227,7 @@
   {
     "id": "W3",
     "value": "57",
-    "label": "requirements traced to user stories (46 functional, 11 non-functional)",
+    "label": "requirements traced to user stories",
     "inline": "46 functional and 11 non-functional requirements and 15 user stories, linked in a two-way traceability matrix",
     "source": "report tables 2.5 to 2.9, A.3",
     "date": "2026",
@@ -284,6 +284,15 @@
     "label": "enrichment providers (Apify, Tavily) in background workers",
     "inline": "Apify and Tavily, running in ARQ background workers on Redis",
     "source": "report p.62 to 63, p.121 to 123",
+    "date": "2026",
+    "status": "verified"
+  },
+  {
+    "id": "W10",
+    "value": "5",
+    "label": "access layers every request passes before business logic",
+    "inline": "five access layers: token verification, tenant resolution, organization entitlement, user entitlement and a route guard",
+    "source": "report Table 3.1, p.67",
     "date": "2026",
     "status": "verified"
   },

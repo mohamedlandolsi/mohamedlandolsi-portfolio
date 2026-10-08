@@ -41,7 +41,7 @@ Register them in `mdx-components.tsx` (required by `@next/mdx` in the App Router
 | `gtm-engine-overview` | `docs/reference/gtm-engine-architecture.md` (first Mermaid diagram and the run order table) |
 | `job-radar-overview` | `docs/reference/job-radar-spec.md` section 3 (as-built wiring) |
 | `wavess-architecture` | `docs/reference/wavess/p69-069.png` (Figure 2.13). Redraw: Portal, Tropicc, Oceanss on top; Wavess-Core below; shared PostgreSQL, Redis, workers and LLM chain at the bottom. No client names |
-| `llm-fallback-chain` (optional) | `docs/reference/wavess/p78-078.png` (Figure 2.18) |
+| `wavess-llm-router` | Report section 3.2.2 and Table 3.2 (the three routing paths), with `docs/reference/wavess/p78-078.png` (Figure 2.18). Fallbacks are listed as a set: the report does not give their order |
 
 Style: see the `design-system` skill (`sieve.md`, last section).
 
@@ -49,7 +49,7 @@ Style: see the `design-system` skill (`sieve.md`, last section).
 
 Frontmatter `published` and `updated` are ISO dates (`2026-10-08`). Set `published` when the page first goes live and change `updated` whenever its content changes: the sitemap, the `article:` tags and the structured data read them.
 
-Frontmatter `status: draft` pages build but are excluded from navigation and sitemap and carry `noindex`. Switch to `status: published` only after the `content-guard` checklist passes and Mohamed has confirmed any `verify` notes. The Wavess case study needs his confirmation of his personal contributions before publishing.
+Frontmatter `status: draft` pages build but are excluded from navigation and sitemap and carry `noindex`. Switch to `status: published` only after the `content-guard` checklist passes and Mohamed has confirmed any `verify` notes. The Wavess case study was published on 8 October 2026, after he confirmed his share of the work (recorded in `content/claims.md`). It never names clients or people and shows no product screenshots.
 
 ## Metadata
 

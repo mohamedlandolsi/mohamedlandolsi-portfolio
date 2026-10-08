@@ -219,7 +219,8 @@ export function DecisionLog({ groups }: { groups: DecisionGroup[] }) {
         const inGroup = visible[index];
         const headingId = `log-${group.slug}`;
         return (
-          <section key={group.slug} className="decision-group" aria-labelledby={headingId} hidden={inGroup.length === 0}>
+          // The slug is the anchor that a case study's "All N decisions for this project" link points at.
+          <section key={group.slug} id={group.slug} className="decision-group" aria-labelledby={headingId} hidden={inGroup.length === 0}>
             <div className="sec-head">
               <h2 id={headingId} className="sec-title">
                 {group.title}

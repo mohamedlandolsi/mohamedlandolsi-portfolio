@@ -2,6 +2,7 @@ import { DecisionLog, type DecisionGroup } from "@/components/DecisionLog/Decisi
 import { InlineScript } from "@/components/InlineScript/InlineScript";
 import { isPublished } from "@/lib/case-studies";
 import { getDecision, getDecisions, getProjects } from "@/lib/content";
+import { countWord } from "@/lib/format";
 import { pageMetadata } from "@/lib/metadata";
 
 /** Decisions grouped by project, in the order of content/projects.json (the newest project is first there). */
@@ -55,7 +56,7 @@ export default function Decisions() {
       <header className="hero decision-hero">
         <h1 className="type-h1">Decision log</h1>
         <p className="thesis">
-          {total} decisions from {groups.length === 2 ? "two" : groups.length} projects, each with its context, the
+          {total} decisions from {countWord(groups.length)} projects, each with its context, the
           choice and what it cost. A superseded decision stays in the log and links to what replaced it.
         </p>
       </header>

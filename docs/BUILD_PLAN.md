@@ -119,3 +119,16 @@ Built on 8 October 2026, after the first deploy.
 Left for Mohamed, outside the repo: verify the domain in Google Search Console and Bing Webmaster Tools and submit `/sitemap.xml`; give both GitHub repositories a description, the case study address as website and topics.
 
 Added after review: both `.dev` hosts now redirect every path to `www.mohamedlandolsi.tech` (`next.config.ts`), so the site is served from one address.
+
+## Phase 10: Wavess case study and decisions
+
+Built on 8 October 2026 from the end-of-studies report and the defense deck, read as text (the report's 179 pages and the deck's 21 slides).
+
+- **Share of the work:** the report is impersonal and mentions other developers. Mohamed confirmed that the analysis, the architecture and the implementation of all four parts were his, reviewed by the team, and that the architecture decisions were his proposals, reviewed by the CEO. `content/claims.md` records it; the `verify` notes in `content/experience.json` are gone.
+- **Case study:** `/work/wavess` is published in the standard structure: the problem, what I built (the architecture diagram, the three phases, a new redrawn diagram of the LLM router's three paths), three decisions, what broke, results, next steps. One new claim, W10 (the access layers of a request).
+- **Decisions:** 27 entries, `ADR-WV-01` to `ADR-WV-27`, each with the report section and page in `source_internal`. The log now has three project groups. A group's slug is its anchor, so "All N decisions for this project" lands on the group (it used to land on the top of the page, for every project).
+- **Job title:** "Software engineering intern (GTM platform and LLM integration)": the real title with its scope, not a title the certificate does not carry.
+- **CV:** the Wavess entry has a one-line summary and four one-line highlights so the page still prints on one A4 page (19 px to spare in Chromium).
+- **Not used:** the six client names and the CEO's name, which both documents state openly; product screenshots; the report's own figures (redrawn, never copied).
+
+Still open: the report grants no publication permission and has no confidentiality clause. The page describes internals of a company's product (architecture, the service-key trade-off in the content backend, missing load tests). Mohamed should confirm with the CEO that this level of detail is fine to keep public.

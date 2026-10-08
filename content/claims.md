@@ -43,13 +43,29 @@ Status values: `verified` (checked against a primary record), `self-reported` (M
 |---|---|---|---|---|
 | W1 | Clients | 6 B2B clients in Germany, the UK and the Czech Republic (4 content, 2 GTM intelligence) | report p.10 to 11 | verified (do not name them) |
 | W2 | Platform shape | 4 parts: Portal, Tropicc, Oceanss, Wavess-Core; federated coarse-grained SOA; one Supabase PostgreSQL with a schema per service | report p.52 to 54, p.65 | verified |
-| W3 | Requirements | 46 functional, 11 non-functional, 15 user stories, two-way traceability matrix | report tables 2.5 to 2.9, A.3 | verified (46 is a count of the tables) |
+| W3 | Requirements | 46 functional, 11 non-functional, 15 user stories, two-way traceability matrix | report tables 2.5 to 2.9, A.3 | verified (46 is a count of the tables); authorship confirmed by Mohamed, 8 October 2026 |
 | W4 | LLM router | 6 routes across 4 providers (Groq, Cerebras, Gemini, NVIDIA NIM); a provider is skipped at 95% of its daily cap | report p.67 to 68 | verified |
 | W5 | Free-tier goal | more than 90% of requests served within free tiers | report p.42 (NFR-COST-01) | target, not a result |
 | W6 | GTM engine data model | 39 tables in 13 logical clusters | report p.137 | verified |
 | W7 | Delivery | 6 sprints, February to May 2026 | report p.28 | verified |
-| W8 | Content service rebuild | about 90% refactored or rebuilt | report p.27 | verified (report uses passive voice: confirm your share) |
+| W8 | Content service rebuild | about 90% refactored or rebuilt | report p.27 | verified (the report uses the passive voice; Mohamed confirmed on 8 October 2026 that the rebuild was his work, reviewed by the team) |
 | W9 | Enrichment | Apify and Tavily, run in ARQ background workers on Redis | report p.62 to 63, p.121 to 123 | verified |
+| W10 | Access control | 5 layers on every request: token verification, tenant resolution, organization entitlement, user entitlement, route guard | report Table 3.1, p.67 | verified |
+
+Share of the work: the report is written impersonally and names a team with other developers. On 8 October 2026 Mohamed confirmed that the analysis, the architecture and the implementation of all four parts (Wavess-Core, Portal, the Tropicc rebuild, Oceanss) were his, with code review from the team, and that the architecture decisions were his proposals, reviewed by the CEO. The site states it that way.
+
+Numbers quoted inside the Wavess decisions (`content/decisions.json`, IDs `ADR-WV-01` to `ADR-WV-27`), with their report pages:
+
+| Number | Where | Source |
+|---|---|---|
+| more than 90% of requests within free tiers (a goal) | ADR-WV-11 | W5, report p.42 |
+| a provider is skipped at 95% of its daily cap | ADR-WV-11 | W4, report p.67 |
+| 3 routing paths | ADR-WV-12 | report p.67 |
+| key set cached for one hour | ADR-WV-13 | report p.65 |
+| 3 layers of product access | ADR-WV-14 | report p.66 |
+| scans of up to an hour | ADR-WV-16 | report Table 3.3, p.70 (3600 s timeout) |
+| 6 eligibility checks, one scan per day | ADR-WV-25 | report Table 5.7, p.129 |
+| weights 0.40, 0.25, 0.20, 0.15; criteria rated 1 to 5; high priority from 4.0 | ADR-WV-27 | report p.36 |
 
 ## Other
 

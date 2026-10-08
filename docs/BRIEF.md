@@ -27,7 +27,7 @@ The one memorable element is the **sieve** in the hero: 377 real companies from 
 | `/` | Hero with the sieve, work, how I work, decisions teaser, about, contact | `profile.json`, `projects.json`, `decisions.json` |
 | `/work/personal-gtm-engine` | Case study | `case-studies/personal-gtm-engine.mdx` |
 | `/work/job-radar` | Case study | `case-studies/job-radar.mdx` |
-| `/work/wavess` | Internship case study (publish only after Mohamed fills the TODOs) | `case-studies/wavess.mdx` |
+| `/work/wavess` | Internship case study | `case-studies/wavess.mdx` |
 | `/decisions` | Searchable decision log across projects, deep-linkable by ID | `decisions.json` |
 | `/cv` | One-page HTML CV, print-ready, plus a PDF download | `profile.json`, `experience.json`, `skills.json` |
 | `/404` | "This page did not pass the gates." plus links home and to work | |
@@ -70,8 +70,7 @@ All decisions from `decisions.json`, grouped by project, newest project first. F
 
 ## Open items for Mohamed
 
-- Exact Wavess job title (internship certificate wins over CV and old site).
-- Your personal share of each Wavess item marked `verify` in `content/experience.json`.
+- Check the Wavess job title against the internship certificate (the site uses "Software engineering intern" with its scope in parentheses).
 - Loom link (the repo URLs for both projects are in `content/projects.json`).
 - Optional: a photo for the About section (rendered as a blue and yellow duotone).
 - Your updated CV PDF at `profile.links.cv_pdf` (the hosted PDF still has the phone number and claims that `content/claims.md` marks as unsupported).

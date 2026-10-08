@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { getDecision, getDecisions, getProfile } from "@/lib/content";
+import { countWord } from "@/lib/format";
 
 /** Four principles, each ending with the decision that shows it in practice. */
 export function Principles() {
@@ -26,7 +27,7 @@ export function Principles() {
         })}
       </ul>
       <p className="lead mt-10 mb-0">
-        {decisions.length} decisions from {projects === 2 ? "two" : projects} projects are written down, each with its
+        {decisions.length} decisions from {countWord(projects)} projects are written down, each with its
         context, the choice and what it cost.
       </p>
       <Link href="/decisions" className="cv-link mt-4">

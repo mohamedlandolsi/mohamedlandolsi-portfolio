@@ -2,47 +2,70 @@
 slug: wavess
 title: Wavess GTM platform
 page_title: Wavess GTM platform: internship case study
-summary: A federated B2B SaaS platform that connects market signals to LinkedIn content and GTM actions for small B2B teams. My end-of-studies internship.
-status: draft
-review_required: Mohamed must confirm his personal share of each item marked verify in content/experience.json before publishing. No client names, no product screenshots.
+summary: A multi-tenant SaaS platform that connects market signals to LinkedIn content and GTM actions for small B2B teams. My end-of-studies internship.
+status: published
+published: 2026-10-08
+updated: 2026-10-08
+review_note: Mohamed confirmed his share of the work on 8 October 2026 (analysis, architecture and implementation of all four parts, reviewed by the team). No client names, no product screenshots.
 ---
 
 <ProjectFacts slug="wavess" />
 
-## Context
+## The problem
 
-Wavess is a Berlin B2B SaaS startup that helps small B2B companies (about 5 to 100 people) in DACH, the UK and the Czech Republic turn market signals into LinkedIn content and sales actions. During my six-month internship it served <Metric claim="W1" inline />. The team was small and remote, and the work ran in <Metric claim="W7" inline />.
+Wavess is a Berlin B2B SaaS startup. Its customers are small B2B companies in Germany, the UK and the Czech Republic that want market signals to turn into LinkedIn content and sales actions.
 
-The problem the platform addresses: market intelligence and content execution live in different tools, so signals rarely turn into timely action, and producing LinkedIn content by hand takes hours per profile each week.
+The gap it works on: market intelligence and content execution live in different tools. Teams carry insights from one to the other by hand, so signals rarely become timely action, and LinkedIn content written by hand is slow to produce and inconsistent in voice.
 
-## The platform
+When I joined for my six-month end-of-studies internship there was one product, the content service, and only its basic post creation worked.
+
+## What I built
+
+Three product services on one shared library, one database and one set of background workers. I did the analysis, the architecture and the implementation, under the CEO's supervision and with code review from the team.
 
 <Diagram name="wavess-architecture" alt="Three product services, Portal for identity and workspaces, Tropicc for LinkedIn content, and Oceanss for GTM intelligence, all depend on a shared core library that handles token verification, tenant resolution, access gating and LLM routing. They share one PostgreSQL database with a schema per service, a Redis queue and background workers." />
 
-<Metric claim="W2" />
+The specification came first: <Metric claim="W3" inline />. I modelled the content and GTM flows as use cases and BPMN processes, and scored the priority of every requirement for the CEO to review. Delivery then ran in <Metric claim="W7" inline />, in three phases.
 
-- **Portal**: multi-tenant identity, onboarding and workspace governance.
-- **Tropicc**: LinkedIn content generation with retrieval over each client's own material and an engagement prediction model.
-- **Oceanss**: GTM intelligence that collects hiring and market signals, detects anomalies and scores accounts.
-- **Wavess-Core**: the shared library for authentication, tenant context, access control, background jobs and LLM routing.
+1. **Rebuild the content service (Tropicc).** It was partly working when I joined, and <Metric claim="W8" inline />: the content feed, organization settings, the generation pipeline and the LinkedIn integration. It writes posts in each client's brand voice, grounds product posts in the client's own documents, predicts engagement before publishing and schedules across timezones. A person approves every draft before it is scheduled.
+2. **Extract the shared core and build the Portal.** Authentication, tenant handling and shared utilities had ended up duplicated or scattered. I moved them into one Python library that every service imports, and built the Portal as the one place where people sign up, organizations are created and product access is decided.
+3. **Build the GTM intelligence engine (Oceanss).** It collects hiring, media, feedback and financial signals, flags unusual activity against each company's own baseline, scores accounts by hiring intent and gives each client a dashboard built around the goal they chose.
 
-## What I worked on
+Every request passes <Metric claim="W10" inline /> before it reaches business logic. Every model call goes through one router.
 
-TODO (Mohamed): write 3 to 5 bullets in first person about what you personally designed, built or documented. Draft options, confirm or remove each:
+<Diagram name="wavess-llm-router" alt="One router in the shared library serves all three services and has three paths. General requests start on Groq Scout and fall back to Groq Fast or Gemini Flash-Lite. Short classification tasks start on Cerebras and fall back to Groq Fast. Requests with a long input start on Gemini Flash-Lite and fall back to Groq Scout or Gemini Flash. NVIDIA NIM is the last resort on every path. Daily usage per provider is counted in Redis." />
 
-- Requirements and traceability: <Metric claim="W3" inline />, plus use case and BPMN models for the content and GTM flows.
-- The shared LLM router: <Metric claim="W4" inline />, with a goal of <Metric claim="W5" inline />.
-- Enrichment on <Metric claim="W9" inline />.
-- The content service rebuild: <Metric claim="W8" inline />.
+Only successful calls count against a quota. The design goal was <Metric claim="W5" inline />. That is a target from the requirements, and the report does not measure it.
 
 ## Decisions that mattered
 
-{/* Source: the report's trade-off tables (Table 2.15 and 2.17 to 2.22), not decisions.json. Keep each as decision, alternatives, reason. */}
+I proposed these and the CEO reviewed them. My report records the alternatives and the reasons for each.
 
-- Federated coarse-grained services over a monolith or fine-grained microservices: independent scaling of content and signal workloads without the operational cost of many services for a small team.
-- One database with a schema per service. Tenant isolation through row-level security in the Portal, and mandatory tenant filtering in the content backend (which uses a service key).
-- A multi-provider LLM chain with quota tracking over self-hosted models, to stay within a startup budget.
+<Decision id="ADR-WV-01" />
+<Decision id="ADR-WV-04" />
+<Decision id="ADR-WV-11" />
 
-## What I took from it
+## What broke, and what I changed
 
-This is where the GTM Engine and Job Radar come from: the same pattern of configuration first, rules before models, a provider chain, and a human approving anything that reaches a customer, rebuilt on free tools.
+**Onboarding trusted the model too early.** The Portal fills a new organization's profile from its website with an LLM, and the flow had to be revised once I saw what extracted profiles looked like in real use. The version that shipped stores the extraction as a draft. The user corrects and confirms it, and only then does it become the organization's record. Running the extraction again later shows a difference per field, and the user picks each change.
+
+**User keywords polluted competitor scans.** The hiring scan builds its search queries from keywords. In competitor scans, keywords typed by users tended to pollute the results, so those scans now build their queries from the model's analysis alone. Customer-profile scans still merge the user's keywords in.
+
+**One feature was cut to ship another.** A competitor generation system for the content service was planned for the last phase. It was deferred so the GTM engine could reach production.
+
+## Results
+
+<MetricRow claims="W1,W2,W3,W4" />
+
+Both products were in production use while I worked on them.
+
+What these numbers do not show: the test suites run against mocked providers, load testing was not built during the internship, and the accuracy of the model-based scoring was not measured.
+
+The router, the quota tracking and the approval step before anything reaches a customer are the patterns I rebuilt on free tools in the [Personal GTM Engine](/work/personal-gtm-engine) and [Job Radar](/work/job-radar).
+
+## What I would do next
+
+- Load tests and tests against live APIs, so behavior with many tenants at once is measured, not assumed.
+- Let the two products talk: signals from the GTM engine should suggest topics in the content service. The platform was designed around that link, and it is not built yet.
+
+<Links slug="wavess" />

@@ -45,6 +45,13 @@ export function formatShortDate(iso: string): string {
   return day ? `${day} ${name} ${year}` : `${name} ${year}`;
 }
 
+const SMALL_NUMBERS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
+
+/** 3 becomes "three". Counts under ten are written as words in running text; larger ones stay digits. */
+export function countWord(count: number): string {
+  return SMALL_NUMBERS[count] ?? String(count);
+}
+
 /** "https://github.com/mohamedlandolsi" becomes "github.com/mohamedlandolsi". For links that must read on paper. */
 export function displayUrl(url: string): string {
   return url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");

@@ -71,3 +71,20 @@
   .dg-layers > .dg-row:first-child > .dg-step::after { top: 100%; }
   .dg-layers > .dg-row:last-child > .dg-step::before { bottom: 100%; }
 }
+
+/* Router: one entry point, the paths side by side from 1024px, the shared quota state under them.
+   Each path lists its providers by role in a small two-column list. */
+.dg-paths { display: grid; gap: 14px; }
+@media (min-width: 1024px) { .dg-paths { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; } }
+.dg-chain { display: grid; gap: 5px; margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--color-line); }
+.dg-chain > li { display: grid; grid-template-columns: 7.2em minmax(0, 1fr); gap: 10px; align-items: baseline; font-size: 0.82rem; line-height: 1.4; color: var(--color-text); }
+.dg-role { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--color-faint); }
+/* A model name stays on one line; a list of them wraps between names. */
+.dg-model { display: inline-block; white-space: nowrap; }
+/* The same 1px joins as between the service row and the core: router to paths, paths to the counters. */
+@media (min-width: 1024px) {
+  .dg-paths > .dg-step::before,
+  .dg-paths > .dg-step::after { content: ""; position: absolute; left: 50%; height: var(--dg-gap); border-left: 1px solid var(--color-line-strong); }
+  .dg-paths > .dg-step::before { bottom: 100%; }
+  .dg-paths > .dg-step::after { top: 100%; }
+}
