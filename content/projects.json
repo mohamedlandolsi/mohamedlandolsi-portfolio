@@ -122,6 +122,12 @@
         "caption": "The accounts tab. Every account keeps its score, a priority flag and the reasons it matched. Account IDs and company names are covered."
       },
       {
+        "id": "discord-review-card",
+        "file": "/screenshots/personal-gtm-engine/discord-review-card.png",
+        "alt": "A review card in Discord with one draft: the proof point, a LinkedIn note with its character count, a longer message and three follow-ups. The recipient's name and company are covered.",
+        "caption": "One draft as it reaches me in Discord: LinkedIn note, longer message and follow-ups. I approve, edit or reject it in the sheet. The recipient's name and company are covered."
+      },
+      {
         "id": "ops-log",
         "file": "/screenshots/personal-gtm-engine/ops-log.png",
         "alt": "Rows of the ops tab in Google Sheets. Each row is one run: a timestamp, the workflow version, the sources read and columns of counters.",
