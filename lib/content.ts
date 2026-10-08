@@ -12,11 +12,13 @@ export interface Profile {
   role: string;
   role_short: string;
   positioning: string;
+  /** The tools named in the hero, in order. */
+  tools: string[];
   hero_headline_options: string[];
   hero_headline_default: number;
   location: string;
   timezone: string;
-  availability: { status: string; text: string; relocation: string };
+  availability: { status: string; short: string; text: string; relocation: string };
   links: {
     email: string;
     linkedin: string;
@@ -28,6 +30,8 @@ export interface Profile {
   languages: { name: string; level: string }[];
   education: { school: string; degree: string; start: string; end: string }[];
   about: string[];
+  /** "How I work" on the home page: each ends with a link to the decision that shows it. */
+  principles: { title: string; text: string; decision: string }[];
   never_publish: string[];
 }
 
@@ -61,6 +65,8 @@ export interface ProjectMetric {
 
 export interface SieveBin {
   reason: string;
+  /** Lower-case name used inside a sentence ("timezone 234"). */
+  short: string;
   count: number;
   rule: string;
 }
@@ -69,6 +75,7 @@ export interface Sieve {
   claim: string;
   date: string;
   input: { value: number; label: string };
+  gate_label: string;
   rejected: SieveBin[];
   passed: { value: number; label: string };
   next: string[];

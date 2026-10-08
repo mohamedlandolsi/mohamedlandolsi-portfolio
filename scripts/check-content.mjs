@@ -7,6 +7,7 @@
 //   5. a banned word, an exclamation mark in copy, or an emoji
 //   6. a published case study that still contains TODO
 //   7. a project metric whose value differs from its claim (claims.json is the ledger)
+//   8. a home page principle or superseded decision that points at a missing decision
 
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { extname, join, relative } from "node:path";
@@ -49,6 +50,7 @@ const readJson = (path) => JSON.parse(readFileSync(join(root, path), "utf8"));
 const claims = readJson("content/claims.json");
 const decisions = readJson("content/decisions.json");
 const projects = readJson("content/projects.json");
+const profile = readJson("content/profile.json");
 const claimIds = new Set(claims.map((claim) => claim.id));
 const decisionIds = new Set(decisions.map((decision) => decision.id));
 
@@ -158,6 +160,13 @@ for (const project of projects) {
   }
   for (const bin of rejected) {
     if (!bin.rule) fail("content/projects.json", `${project.slug} sieve bin "${bin.reason}" has no rule`);
+  }
+}
+
+// Home page principles must link to a decision that exists
+for (const principle of profile.principles ?? []) {
+  if (!decisionIds.has(principle.decision)) {
+    fail("content/profile.json", `principle "${principle.title}" links to "${principle.decision}", which is not in content/decisions.json`);
   }
 }
 
