@@ -44,3 +44,8 @@ export function formatShortDate(iso: string): string {
   const name = MONTHS[month - 1].slice(0, 3);
   return day ? `${day} ${name} ${year}` : `${name} ${year}`;
 }
+
+/** "https://github.com/mohamedlandolsi" becomes "github.com/mohamedlandolsi". For links that must read on paper. */
+export function displayUrl(url: string): string {
+  return url.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "");
+}

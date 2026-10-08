@@ -23,6 +23,7 @@ export interface Profile {
     email: string;
     linkedin: string;
     github: string;
+    site: string;
     cv_pdf: string;
     loom_gtm_engine: string;
     site_repo: string;

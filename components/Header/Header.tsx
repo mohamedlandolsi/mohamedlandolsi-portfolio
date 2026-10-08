@@ -4,7 +4,7 @@ import { getProfile } from "@/lib/content";
 import { NavLinks } from "./NavLinks";
 
 export function Header() {
-  const { name, links } = getProfile();
+  const { name } = getProfile();
 
   return (
     <header className="topnav">
@@ -13,7 +13,7 @@ export function Header() {
           {name}
         </Link>
         <div className="nav-right">
-          <NavLinks cv={links.cv_pdf} />
+          <NavLinks />
           <ThemeToggle />
         </div>
       </nav>

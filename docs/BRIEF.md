@@ -74,4 +74,4 @@ All decisions from `decisions.json`, grouped by project, newest project first. F
 - Your personal share of each Wavess item marked `verify` in `content/experience.json`.
 - Repo URLs for both projects, Loom link.
 - Optional: a photo for the About section (rendered as a blue and yellow duotone).
-- Your updated CV PDF in `public/` (the old CV has claims that `content/claims.md` marks as unsupported).
+- Your updated CV PDF at `profile.links.cv_pdf` (the hosted PDF still has the phone number and claims that `content/claims.md` marks as unsupported).

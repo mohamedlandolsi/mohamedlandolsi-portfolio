@@ -69,6 +69,8 @@ Build /cv as a one-page HTML CV from profile.json, experience.json and skills.js
 
 Accept when: printing from the browser gives one clean A4 page; the content matches `content/` exactly.
 
+Built: the PDF link is `profile.links.cv_pdf` (the PDF hosted from the separate CV repo), not a file in `public/`. The page also lists the two personal projects from `projects.json`. Facts still marked `TODO` (the Wavess job title) and highlights still marked `verify` are left out until Mohamed confirms them.
+
 ## Phase 7: metadata, performance, accessibility
 
 ```text

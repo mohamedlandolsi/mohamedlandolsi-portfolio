@@ -3,14 +3,15 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-/** Mono links; the page you are on is filled in cyan. The CV is the hosted PDF until /cv exists. */
-export function NavLinks({ cv }: { cv: string }) {
-  const NAV = [
-    { href: "/#work", label: "Work" },
-    { href: "/decisions", label: "Decisions" },
-    { href: cv, label: "CV" },
-    { href: "/#contact", label: "Contact" },
-  ];
+const NAV = [
+  { href: "/#work", label: "Work" },
+  { href: "/decisions", label: "Decisions" },
+  { href: "/cv", label: "CV" },
+  { href: "/#contact", label: "Contact" },
+];
+
+/** Mono links; the page you are on is filled in cyan. */
+export function NavLinks() {
   const pathname = usePathname();
   return (
     <div className="nav-links">

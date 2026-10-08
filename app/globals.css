@@ -394,7 +394,21 @@
   body::before { display: none; }
 }
 
+/* Paper is always ink on white, whichever palette the screen was in. Custom properties marked
+   !important win over both palette blocks above. */
 @media print {
+  :root {
+    --color-bg: #fff !important;
+    --color-panel: #fff !important;
+    --color-panel-2: #fff !important;
+    --color-text: #111 !important;
+    --color-dim: #333 !important;
+    --color-faint: #555 !important;
+    --color-cyan: #0A5A4D !important;
+    --color-amber: #6E4206 !important;
+    --color-line: #d4d4d4 !important;
+    --color-line-strong: #bbb !important;
+  }
   html, body { background: #fff; color: #111; }
   body::before, .bg-grid, .topnav, .foot-note, .skip-link, [data-print="hide"] { display: none !important; }
 }
