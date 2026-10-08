@@ -10,6 +10,7 @@
 /* Two compositions: vertical below 1024px, horizontal above. */
 .sieve-wide { display: none; }
 .sieve-narrow > div { max-width: 360px; }
+@media (min-width: 640px) { .sieve-narrow > div { max-width: 440px; } }
 @media (min-width: 1024px) {
   .sieve-wide { display: block; }
   .sieve-narrow { display: none; }
@@ -43,9 +44,9 @@
 .sieve-number .type-metric { font-size: clamp(2rem, 3.4vw, 2.6rem); }
 .sieve-narrow .sieve-number { flex-direction: row; align-items: baseline; gap: 0.75rem; }
 
-/* Stage names sit in gaps left in the dotted line (geometry.ts). */
-.sieve-stage-label { white-space: normal; color: var(--color-text); }
-.sieve-wide .sieve-stage-label { translate: -50% -50%; padding: 0 8px; text-align: center; text-wrap: balance; }
+/* Stage names: on one line under the dotted path (wide), in gaps left in the line (narrow). */
+.sieve-stage-label { color: var(--color-text); }
+.sieve-narrow .sieve-stage-label { white-space: normal; }
 
 /* Amber marks the human step: where a person decides. */
 .sieve-mark {

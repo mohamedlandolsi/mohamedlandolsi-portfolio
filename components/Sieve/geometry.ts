@@ -202,7 +202,8 @@ export function wideLayout(sieve: Sieve): SieveLayout {
     bins,
     cluster,
     clusterDots: Array.from({ length: sieve.passed.value }, (_, index) => slot(index)),
-    path: dottedPath(pathFrom, pathTo, 8, (p) => time(p.x), (p) => stages.some((stage) => Math.abs(stage.x - p.x) < 82)),
+    // One continuous line; the stage names sit under it (SieveWide).
+    path: dottedPath(pathFrom, pathTo, 8, (p) => time(p.x)),
     stages,
     mark,
     travelers: () =>

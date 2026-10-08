@@ -192,6 +192,15 @@ export function getClaim(id: string): Claim {
   return claim;
 }
 
+/** The short label a project gives a claim in its metrics, or the claim's own label. */
+export function getMetricLabel(id: string): string {
+  for (const project of projects) {
+    const metric = project.metrics.find((candidate) => candidate.claim === id);
+    if (metric) return metric.label;
+  }
+  return getClaim(id).label;
+}
+
 /** The sieve data of a project. Fails the build if the counts do not add up. */
 export function getSieve(slug: string): Sieve {
   const { sieve } = getProject(slug);

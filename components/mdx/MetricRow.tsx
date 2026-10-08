@@ -1,6 +1,6 @@
 import { useId } from "react";
 import { MetricValue } from "@/components/MetricValue/MetricValue";
-import { getClaim } from "@/lib/content";
+import { getClaim, getMetricLabel } from "@/lib/content";
 import { Source } from "./Source";
 
 function RowMetric({ id }: { id: string }) {
@@ -8,7 +8,7 @@ function RowMetric({ id }: { id: string }) {
   const sourceId = useId();
   return (
     <div className="cell proof-item metric-block flex flex-col-reverse justify-end" tabIndex={0} data-tip-host="" aria-describedby={sourceId}>
-      <dt className="proof-label">{claim.label}</dt>
+      <dt className="proof-label">{getMetricLabel(id)}</dt>
       <dd>
         <MetricValue claim={id} className="proof-num" />
         <Source id={sourceId} claim={claim} />

@@ -174,7 +174,7 @@
     "id": "J5",
     "value": "24 of 24",
     "label": "postings scored on the last route during a provider outage",
-    "inline": "on 15 September Groq returned 401 and one Gemini model returned 404, and the remaining route scored 24 of 24 postings",
+    "inline": "On 15 September Groq returned 401 and one Gemini model returned 404, and the remaining route scored 24 of 24 postings",
     "source": "ops tab 2026-09-15 09:33",
     "date": "2026-09-15",
     "status": "verified"
@@ -183,7 +183,7 @@
     "id": "J6",
     "value": "14 min",
     "label": "from a failed run to a clean re-run after an n8n update",
-    "inline": "on 21 September a run failed with 'access to env vars denied' for every provider, and it was fixed and re-run 14 minutes later with 25 of 25 scored",
+    "inline": "On 21 September a run failed with ‘access to env vars denied’ for every provider, and it was fixed and re-run 14 minutes later with 25 of 25 scored",
     "source": "ops tab 2026-09-21",
     "date": "2026-09-21",
     "status": "verified"

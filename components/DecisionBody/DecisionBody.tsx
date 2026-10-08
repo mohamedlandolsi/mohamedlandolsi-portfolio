@@ -24,7 +24,7 @@ export function DecisionBody({ decision }: { decision: Decision }) {
       <dl className="decision-fields">
         {rows.map(([label, text]) => (
           <div key={label}>
-            <dt className="type-meta">{label}</dt>
+            <dt className="spec-label mb-1">{label}</dt>
             <dd>
               <RichText text={text} />
             </dd>

@@ -34,10 +34,6 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
   return (
     <article className="shell">
       <header className="hero">
-        <p className="eyebrow">
-          <span className="dot" aria-hidden="true" />
-          Case study
-        </p>
         <h1 className="type-h1 max-w-[18em] text-balance">{meta.title}</h1>
         <p className="thesis">{project.one_liner}</p>
         <div className="mt-10">

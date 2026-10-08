@@ -62,7 +62,7 @@ export function Sieve({ slug, animate = true }: { slug: string; animate?: boolea
             </tbody>
           </table>
         </div>
-        <figcaption className="type-meta measure mt-14">
+        <figcaption className="type-meta measure mt-14 text-pretty">
           {sieve.caption}
           {/* On the home page the caption points to the case study; inside it, it does not need to. */}
           {animate && (

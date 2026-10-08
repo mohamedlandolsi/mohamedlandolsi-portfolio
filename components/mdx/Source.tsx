@@ -9,7 +9,7 @@ export function Source({ id, claim }: { id: string; claim: Claim }) {
     claim.status === "target" ? " A goal, not a measured result." : claim.status === "self-reported" ? " Self-reported." : "";
   return (
     <span id={id} role="tooltip" className="tip">
-      Source: {claim.source}. {upperFirst(formatDate(claim.date))}.{status}
+      Source: {claim.source}. <span className="whitespace-nowrap">{upperFirst(formatDate(claim.date))}.</span>{status}
     </span>
   );
 }
