@@ -1,37 +1,41 @@
+import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { getProfile } from "@/lib/content";
-
-const lowerFirst = (text: string) => text.charAt(0).toLowerCase() + text.slice(1);
 
 export function About() {
   const { about, languages, education } = getProfile();
-  // The home page names the highest degree; /cv lists both.
-  const degree = education[0];
 
   return (
     <section id="about" className="shell section" aria-labelledby="about-title">
-      <h2 id="about-title" className="type-h2">
-        About
-      </h2>
-      <div className="mt-12 grid gap-x-6 gap-y-10 lg:grid-cols-12">
-        <div className="measure space-y-5 lg:col-span-7">
-          {about.map((paragraph) => (
-            <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+      <SectionHead id="about-title" title="About" tag="Background" />
+      <div className="lead mb-10 space-y-4">
+        {about.map((paragraph) => (
+          <p key={paragraph.slice(0, 32)}>{paragraph}</p>
+        ))}
+      </div>
+      <div className="cells reveal md:grid-cols-2">
+        <div className="cell bg-panel">
+          <h3 className="bg-kicker">Education</h3>
+          {education.map((entry) => (
+            <div key={entry.school} className="edu-item">
+              <p className="edu-degree">{entry.degree}</p>
+              <p className="edu-school">{entry.school}</p>
+              <p className="edu-period">
+                {entry.start} to {entry.end}
+              </p>
+            </div>
           ))}
         </div>
-        <dl className="space-y-6 lg:col-span-4 lg:col-start-9">
-          <div>
-            <dt className="type-meta">Languages</dt>
-            <dd className="mt-1">
-              {languages.map((language) => `${language.name} (${lowerFirst(language.level)})`).join(", ")}
-            </dd>
-          </div>
-          <div>
-            <dt className="type-meta">Education</dt>
-            <dd className="mt-1">
-              {degree.degree}, {degree.school}, {degree.start} to {degree.end}
-            </dd>
-          </div>
-        </dl>
+        <div className="cell bg-panel">
+          <h3 className="bg-kicker">Languages</h3>
+          <dl>
+            {languages.map((language) => (
+              <div key={language.name} className="lang-row">
+                <dt className="lang-name">{language.name}</dt>
+                <dd className="lang-level">{language.level}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );

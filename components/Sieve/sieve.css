@@ -18,10 +18,10 @@
 .sieve svg { display: block; width: 100%; height: auto; overflow: visible; }
 .sieve-canvas { position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; }
 
-/* Ink. The source field rests in the light ink: the full ink is for the companies that passed. */
+/* The source field rests in the faint tone; the companies that passed are cyan, like all data. */
 .sieve-field circle,
 .sieve pattern circle { fill: var(--color-ink-55); }
-.sieve-cluster { fill: var(--color-ink); }
+.sieve-cluster { fill: var(--color-cyan); }
 .sieve-path { fill: var(--color-ink-55); }
 .sieve-gate { stroke: var(--color-ink-55); stroke-width: 1px; vector-effect: non-scaling-stroke; }
 
@@ -32,21 +32,22 @@
   background-size: 4px 4px;
 }
 
-/* HTML labels over the drawing keep real type sizes at every width. */
+/* HTML labels over the drawing keep real type sizes at every width. Inside the drawing they use
+   the body face: the mono face is too wide for labels that sit side by side. */
 .sieve-label { position: absolute; margin: 0; white-space: nowrap; }
+.sieve .type-meta { font-family: var(--font-sans); font-size: 0.8rem; letter-spacing: 0; }
 .sieve-centered { translate: -50% 0; text-align: center; }
 .sieve-middle { translate: 0 -50%; }
 .sieve-number { display: flex; flex-direction: column; gap: 0.5rem; }
 /* The counts stay below the page headline in rank. */
-.sieve-number .type-metric { font-size: clamp(2.25rem, 3.9vw, 3.5rem); }
+.sieve-number .type-metric { font-size: clamp(2rem, 3.4vw, 2.6rem); }
 .sieve-narrow .sieve-number { flex-direction: row; align-items: baseline; gap: 0.75rem; }
 
-/* Stage names are set into the dotted line: the paper behind them makes the gap. */
-.sieve-stage-label { white-space: normal; background: var(--color-paper); }
+/* Stage names sit in gaps left in the dotted line (geometry.ts). */
+.sieve-stage-label { white-space: normal; color: var(--color-text); }
 .sieve-wide .sieve-stage-label { translate: -50% -50%; padding: 0 8px; text-align: center; text-wrap: balance; }
-.sieve-narrow .sieve-stage-label { padding-right: 8px; }
 
-/* The only sunflower in the hero: where a person decides. */
+/* Amber marks the human step: where a person decides. */
 .sieve-mark {
   position: absolute;
   translate: -50% -50%;
@@ -56,12 +57,14 @@
   height: 56px;
   padding: 0 6px;
   border-radius: 50%;
-  background: var(--color-marker);
-  color: var(--color-overprint);
-  font-variation-settings: "wdth" 80;
-  font-weight: 600;
-  font-size: var(--text-meta);
-  line-height: 1.05;
+  border: 2px solid var(--color-amber);
+  background: var(--color-panel);
+  color: var(--color-amber);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--color-amber) 10%, transparent);
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.7rem;
+  line-height: 1.1;
   text-align: center;
 }
 .sieve-wide .sieve-mark { translate: 0 -50%; }
@@ -80,14 +83,15 @@
 }
 .sieve-bins-wide .sieve-bin-label { justify-self: start; max-width: calc(100% - 16px); }
 .sieve-narrow .sieve-bin-label { position: absolute; display: grid; grid-template-columns: 2rem 1fr; column-gap: 6px; }
-.sieve-count { font-variation-settings: "wdth" 100; font-weight: 700; font-variant-numeric: tabular-nums lining-nums; }
+.sieve-count { font-family: var(--font-mono); font-weight: 500; color: var(--color-cyan); font-variant-numeric: tabular-nums; }
 .sieve-bins-wide .sieve-count { display: block; }
 .sieve-narrow .sieve-count { text-align: right; }
-.sieve-reason { font-variation-settings: "wdth" 80; font-weight: 520; color: var(--color-ink-85); }
+.sieve-reason { font-size: 0.84rem; line-height: 1.4; color: var(--color-dim); }
 .sieve-bins-wide .sieve-reason { display: block; }
 
-.sieve-bin-label:is(:hover, :focus-visible) { background: var(--color-marker); color: var(--color-overprint); }
-.sieve-bin-label:is(:hover, :focus-visible) .sieve-reason { color: var(--color-overprint); }
+.sieve-bin-label { border-radius: var(--radius); transition: background-color 0.15s ease; }
+.sieve-bin-label:is(:hover, :focus-visible) { background: var(--color-panel-2); }
+.sieve-bin-label:is(:hover, :focus-visible) .sieve-reason { color: var(--color-text); }
 
 .sieve-rule {
   display: none;
@@ -97,13 +101,14 @@
   z-index: 10;
   width: max-content;
   max-width: 15rem;
-  padding: 4px 8px;
-  background: var(--color-ink);
-  color: var(--color-paper);
-  font-variation-settings: "wdth" 80;
-  font-weight: 520;
-  font-size: var(--text-meta);
-  line-height: 1.4;
+  padding: 6px 10px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  background: var(--color-panel-2);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.45;
   text-wrap: pretty;
 }
 /* Bridges the gap, so the pointer can move onto the tooltip without losing it. */
@@ -128,19 +133,6 @@
 @keyframes sieve-show { from { opacity: 0; } to { opacity: 1; } }
 
 @keyframes sieve-mark {
-  from {
-    opacity: 0;
-    scale: 0.85;
-    background-color: transparent;
-    box-shadow: inset 0 0 0 1.5px var(--color-ink-55);
-    color: var(--color-ink-85);
-  }
-  40% { opacity: 1; }
-  to {
-    opacity: 1;
-    scale: 1;
-    background-color: var(--color-marker);
-    box-shadow: inset 0 0 0 1.5px transparent;
-    color: var(--color-overprint);
-  }
+  from { opacity: 0; scale: 0.85; }
+  to { opacity: 1; scale: 1; }
 }

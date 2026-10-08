@@ -36,3 +36,11 @@ export function formatMonth(iso: string): string {
   if (!month || !MONTHS[month - 1]) return iso;
   return `${MONTHS[month - 1].slice(0, 3)} ${year}`;
 }
+
+/** "2026-10-08" becomes "8 Oct 2026". For tags and badges. */
+export function formatShortDate(iso: string): string {
+  const { year, month, day } = parts(iso);
+  if (!month || !MONTHS[month - 1]) return iso;
+  const name = MONTHS[month - 1].slice(0, 3);
+  return day ? `${day} ${name} ${year}` : `${name} ${year}`;
+}

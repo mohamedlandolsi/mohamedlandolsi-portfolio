@@ -141,12 +141,13 @@ function clusterSlot(origin: Point, pitch: number) {
   });
 }
 
-/** A dotted line from `from` to `to`, each dot timed to appear as the line draws. */
-function dottedPath(from: Point, to: Point, step: number, timeAt: (p: Point) => number) {
+/** A dotted line from `from` to `to`, each dot timed to appear as the line draws. `gap` leaves room for labels. */
+function dottedPath(from: Point, to: Point, step: number, timeAt: (p: Point) => number, gap: (p: Point) => boolean = () => false) {
   const length = Math.hypot(to.x - from.x, to.y - from.y);
   const dots: (Point & { t: number })[] = [];
   for (let d = 0; d <= length; d += step) {
     const point = { x: from.x + ((to.x - from.x) * d) / length, y: from.y + ((to.y - from.y) * d) / length };
+    if (gap(point)) continue;
     dots.push({ x: round(point.x), y: round(point.y), t: Math.round(timeAt(point)) });
   }
   return dots;
@@ -201,7 +202,7 @@ export function wideLayout(sieve: Sieve): SieveLayout {
     bins,
     cluster,
     clusterDots: Array.from({ length: sieve.passed.value }, (_, index) => slot(index)),
-    path: dottedPath(pathFrom, pathTo, 8, (p) => time(p.x)),
+    path: dottedPath(pathFrom, pathTo, 8, (p) => time(p.x), (p) => stages.some((stage) => Math.abs(stage.x - p.x) < 82)),
     stages,
     mark,
     travelers: () =>
@@ -263,7 +264,7 @@ export function narrowLayout(sieve: Sieve): SieveLayout {
     bins,
     cluster,
     clusterDots: Array.from({ length: sieve.passed.value }, (_, index) => slot(index)),
-    path: dottedPath(pathFrom, { x: 28, y: mark.y - 34 }, 8, (p) => time(p.y)),
+    path: dottedPath(pathFrom, { x: 28, y: mark.y - 34 }, 8, (p) => time(p.y), (p) => stages.some((stage) => Math.abs(stage.y - p.y) < 12)),
     stages,
     mark,
     travelers: () =>

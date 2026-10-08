@@ -10,29 +10,27 @@ export function Contact() {
   ].filter((link) => !isTodo(link.href));
 
   return (
-    <section id="contact" className="shell section" aria-labelledby="contact-title">
-      <h2 id="contact-title" className="type-h2">
+    <section id="contact" className="shell section section-last contact" aria-labelledby="contact-title">
+      <h2 id="contact-title" className="contact-title">
         Contact
       </h2>
-      <p className="type-lead measure mt-12">
+      <p className="contact-note">
         {availability.text} {availability.relocation}
       </p>
-      <p className="mt-10 flex flex-wrap items-center gap-x-5 gap-y-3">
-        <a href={`mailto:${links.email}`} className="text-body font-[650] [overflow-wrap:anywhere] sm:text-h3">
+      <div className="button-row">
+        <a href={`mailto:${links.email}`} className="button button-primary [overflow-wrap:anywhere]">
           {links.email}
         </a>
         <CopyEmail email={links.email} />
-      </p>
-      <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-2">
         {profiles.map((link) => (
-          <li key={link.label}>
-            <a href={link.href}>{link.label}</a>
-          </li>
+          <a key={link.label} href={link.href} className="button">
+            {link.label}
+          </a>
         ))}
-        <li>
-          <Link href="/cv">CV</Link>
-        </li>
-      </ul>
+        <Link href="/cv" className="button">
+          CV
+        </Link>
+      </div>
     </section>
   );
 }
