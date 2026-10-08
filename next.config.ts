@@ -9,7 +9,11 @@ const nextConfig: NextConfig = {
   // The old site served its own copy of the CV at this path, and it is linked from old
   // applications. It now points at the hosted PDF. Temporary, because that address may change.
   async redirects() {
-    return [{ source: "/Mohamed-Landolsi-CV.pdf", destination: profile.links.cv_pdf, permanent: false }];
+    return [
+      { source: "/Mohamed-Landolsi-CV.pdf", destination: profile.links.cv_pdf, permanent: false },
+      // The old site was one index.html; search engines may still hold that address.
+      { source: "/index.html", destination: "/", permanent: true },
+    ];
   },
   partialPrefetching: true,
   turbopack: {

@@ -93,9 +93,41 @@
       "caption": "One run of the YC directory source, 8 October 2026. Counts from the engine's own run log."
     },
     "links": {
-      "repo": "TODO: https://github.com/mohamedlandolsi/personal-gtm-engine (confirm after push)",
+      "repo": "https://github.com/mohamedlandolsi/personal-gtm-engine",
       "loom": "TODO"
     },
+    "screenshots": [
+      {
+        "id": "engine-workflow",
+        "file": "/screenshots/personal-gtm-engine/engine-workflow.png",
+        "alt": "The engine workflow on the n8n canvas: a trigger and a config read on the left, source branches that merge into one stream, then a long chain of code, filter and Google Sheets nodes running to the right.",
+        "caption": "The whole engine workflow in n8n, zoomed out to fit one view. The source branches merge on the left, then filters, scoring, enrichment and drafting follow, each stage writing to the shared sheet."
+      },
+      {
+        "id": "contact-finder-workflow",
+        "file": "/screenshots/personal-gtm-engine/contact-finder-workflow.png",
+        "alt": "The contact finder workflow on the n8n canvas. It reads the config, the contacts queue, earlier results and the accounts, selects the lookups to run and reads founders from YC pages. Rows resolved there go to the results tab; the others pass through a Tavily search and a parser first.",
+        "caption": "The contact finder. Founders found on a YC page skip the search; only the remaining lookups go to Tavily."
+      },
+      {
+        "id": "digest-workflow",
+        "file": "/screenshots/personal-gtm-engine/digest-workflow.png",
+        "alt": "The digest workflow on the n8n canvas after a run, with item counts on each connection: a schedule or manual trigger, reads of the config, the outreach queue, accounts, contacts and the digest log, then a node that builds the digest, a post to Discord, a step that remembers what was posted and a final write of run statistics.",
+        "caption": "The digest after a run. It reads the outreach queue, posts each new draft to Discord, records what it posted so a re-run posts nothing twice, and appends its counters to its own ops tab."
+      },
+      {
+        "id": "accounts-sheet",
+        "file": "/screenshots/personal-gtm-engine/accounts-sheet.png",
+        "alt": "Rows of the accounts tab in Google Sheets. Each row has the run date, the source, the timezone offset, the funding stage, a final score, a priority flag and a text listing why the account matched. The account ID and company name columns are covered.",
+        "caption": "The accounts tab. Every account keeps its score, a priority flag and the reasons it matched. Account IDs and company names are covered."
+      },
+      {
+        "id": "ops-log",
+        "file": "/screenshots/personal-gtm-engine/ops-log.png",
+        "alt": "Rows of the ops tab in Google Sheets. Each row is one run: a timestamp, the workflow version, the sources read and columns of counters.",
+        "caption": "The ops tab: one row per run with its time, the workflow version, the sources it read and its counters."
+      }
+    ],
     "featured": true,
     "order": 1
   },
@@ -140,7 +172,7 @@
       }
     ],
     "links": {
-      "repo": "TODO: Job Radar repo URL",
+      "repo": "https://github.com/mohamedlandolsi/job-radar",
       "loom": "TODO"
     },
     "featured": true,

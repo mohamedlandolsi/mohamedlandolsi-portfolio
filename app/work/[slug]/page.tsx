@@ -1,9 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/JsonLd/JsonLd";
 import { ProjectFacts } from "@/components/mdx/ProjectFacts";
 import { getCaseStudyMeta } from "@/lib/case-studies";
 import { getProject, getProjects } from "@/lib/content";
 import { pageMetadata } from "@/lib/metadata";
+import { caseStudyGraph } from "@/lib/structured-data";
 import "./case-study.css";
 
 // Every case study file is prerendered. Any other slug reaches notFound() below.
@@ -23,6 +25,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
     path: `/work/${slug}`,
     // Drafts build so they can be reviewed, but are never indexed or linked.
     noindex: meta.status === "draft",
+    article: { published: meta.published, updated: meta.updated },
   });
 }
 
@@ -35,6 +38,7 @@ export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {
 
   return (
     <article className="shell">
+      <JsonLd graph={caseStudyGraph(meta, project)} />
       <header className="hero">
         <h1 className="type-h1 max-w-[18em] text-balance">{meta.title}</h1>
         <p className="thesis">{project.one_liner}</p>

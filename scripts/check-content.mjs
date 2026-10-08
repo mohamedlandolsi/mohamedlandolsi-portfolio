@@ -8,6 +8,9 @@
 //   6. a published case study that still contains TODO
 //   7. a project metric whose value differs from its claim (claims.json is the ledger)
 //   8. a home page principle or superseded decision that points at a missing decision
+//   9. a screenshot that is missing from public/screenshots/, has no alt or caption, or is used
+//      in MDX without an entry in content/projects.json
+//  10. a case study date (published, updated) that is not written as 2026-10-08
 
 import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { extname, join, relative } from "node:path";
@@ -131,9 +134,22 @@ for (const path of files) {
     });
   }
 
+  // 9. Screenshots used in MDX must be listed in content/projects.json
+  if (ext === ".mdx") {
+    for (const match of text.matchAll(/<Screenshot\s+project=["']([^"']+)["']\s+id=["']([^"']+)["']/g)) {
+      const listed = projects.find((project) => project.slug === match[1])?.screenshots?.some((shot) => shot.id === match[2]);
+      if (!listed) fail(file, `screenshot "${match[2]}" of "${match[1]}" is not in content/projects.json`);
+    }
+  }
+
   // 6. Published case studies must not contain TODO
   if (file.startsWith("content/case-studies/") && ext === ".mdx") {
     const frontmatter = text.match(/^---\n([\s\S]*?)\n---\n/)?.[1] ?? "";
+    // 10. Dates
+    for (const key of ["published", "updated"]) {
+      const value = frontmatter.match(new RegExp(`^${key}:\\s*(.*)$`, "m"))?.[1]?.trim();
+      if (value && !/^\d{4}-\d{2}-\d{2}$/.test(value)) fail(file, `${key} must be an ISO date like 2026-10-08, found "${value}"`);
+    }
     const status = frontmatter.match(/^status:\s*(\S+)/m)?.[1];
     if (!status) fail(file, "frontmatter has no status (draft or published)");
     if (status === "published" && text.includes("TODO")) fail(file, "is published but still contains TODO");
@@ -147,6 +163,18 @@ for (const project of projects) {
     if (claim && claim.value !== metric.value) {
       fail("content/projects.json", `${project.slug} metric ${metric.claim} shows "${metric.value}" but the claim says "${claim.value}"`);
     }
+  }
+  // 9. Screenshots: redacted PNG files under public/screenshots/, each with alt text and a caption
+  const shotIds = new Set();
+  for (const shot of project.screenshots ?? []) {
+    if (shotIds.has(shot.id)) fail("content/projects.json", `${project.slug} lists screenshot "${shot.id}" twice`);
+    shotIds.add(shot.id);
+    if (!/^\/screenshots\/[\w/-]+\.png$/.test(shot.file ?? "")) {
+      fail("content/projects.json", `${project.slug} screenshot "${shot.id}" must be a PNG under /screenshots/`);
+    } else if (!existsSync(join(root, "public", shot.file))) {
+      fail("content/projects.json", `${project.slug} screenshot "${shot.id}": public${shot.file} does not exist`);
+    }
+    if (!shot.alt?.trim() || !shot.caption?.trim()) fail("content/projects.json", `${project.slug} screenshot "${shot.id}" needs alt text and a caption`);
   }
   if (!project.sieve) continue;
   const { input, rejected, passed, claim } = project.sieve;

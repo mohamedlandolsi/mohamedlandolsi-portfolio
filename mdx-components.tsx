@@ -5,6 +5,7 @@ import { Diagram } from "@/components/mdx/Diagram";
 import { Links } from "@/components/mdx/Links";
 import { Metric } from "@/components/mdx/Metric";
 import { MetricRow } from "@/components/mdx/MetricRow";
+import { Screenshot } from "@/components/mdx/Screenshot";
 import { SieveFigure } from "@/components/mdx/SieveFigure";
 
 /** "What broke, and what I changed" becomes "what-broke-and-what-i-changed", for deep links. */
@@ -30,6 +31,7 @@ const components: MDXComponents = {
   MetricRow,
   // The case study page renders the facts in its margin column (mobile: above the text).
   ProjectFacts: () => null,
+  Screenshot,
   Sieve: SieveFigure,
 };
 

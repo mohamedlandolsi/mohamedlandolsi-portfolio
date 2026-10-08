@@ -2,7 +2,7 @@
    is dim with the claims and lead-ins in full contrast, lists use mono markers. */
 .case-body { padding-bottom: 72px; }
 .case-body > * { max-width: 56ch; }
-.case-body > :is(.diagram, .case-wide, .metric-row, .decision, .case-links) { max-width: none; }
+.case-body > :is(.diagram, .case-wide, .shot, .metric-row, .decision, .case-links) { max-width: none; }
 .case-body > * + * { margin-top: 1.1rem; }
 .case-body > h2 {
   margin-top: 72px;
@@ -19,6 +19,16 @@
 .case-body > p { color: var(--color-dim); }
 .case-body strong { font-weight: 600; color: var(--color-text); }
 .case-body > :is(.diagram, .case-wide) { margin-top: 2.25rem; margin-bottom: 2.25rem; }
+.case-body > h3 { margin-top: 3rem; }
+
+/* Screenshots: the file fills the panel edge to edge, the caption sits under a rule. Wide ones
+   take the column, a tall one (a chat card) stays narrow so it does not fill the screen. */
+.case-body > .shot { overflow: hidden; margin-top: 1.5rem; margin-bottom: 1.5rem; }
+.case-body > .shot-narrow { max-width: 27rem; }
+.shot > a { display: block; }
+.shot img { display: block; width: 100%; height: auto; }
+.shot .diagram-caption { max-width: none; margin: 0; padding: 12px max(16px, calc(100% - 64ch)) 14px 16px; border-top: 1px solid var(--color-line-strong); }
+.shot .diagram-caption a { white-space: nowrap; }
 .case-body > .metric-row { margin-top: 2rem; margin-bottom: 1.5rem; }
 /* Decisions share one panel, split by rules (details still open one by one). */
 .case-body > .decision + .decision { margin-top: 0; border-top: 0; }
@@ -44,6 +54,8 @@
 .case-body > ul:not(.case-links) > li::before { content: "\2192"; position: absolute; left: 0; top: 0; font-family: var(--font-mono); color: var(--color-faint); }
 .case-body > :is(ol, ul) > li + li { margin-top: 0.7rem; }
 .case-body > .case-links { margin-top: 72px; padding-top: 40px; border-top: 1px solid var(--color-line); }
+/* The links sit in one row: the list spacing above would push every button after the first down. */
+.case-body > .case-links > li + li { margin-top: 0; }
 
 /* Facts under the title: role, period and status side by side; stack and links span the row. */
 .project-facts { grid-template-columns: minmax(0, 1fr); margin-top: 0; }

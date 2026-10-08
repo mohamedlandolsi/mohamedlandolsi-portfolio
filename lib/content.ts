@@ -83,6 +83,15 @@ export interface Sieve {
   caption: string;
 }
 
+/** A redacted screenshot in public/screenshots/, shown in the project's case study. */
+export interface Screenshot {
+  id: string;
+  /** Path under public/, starting with "/screenshots/". */
+  file: string;
+  alt: string;
+  caption: string;
+}
+
 export interface Project {
   slug: string;
   title: string;
@@ -93,6 +102,7 @@ export interface Project {
   stack: string[];
   metrics: ProjectMetric[];
   sieve?: Sieve;
+  screenshots?: Screenshot[];
   links: { repo?: string; loom?: string };
   featured: boolean;
   order: number;

@@ -279,13 +279,15 @@
   .spec-cell { padding: 18px 20px; background: var(--color-panel-2); }
   .spec-label { margin-bottom: 8px; font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-faint); }
   .spec-value { font-size: 0.92rem; color: var(--color-text); }
-  .project-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .project-links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; margin-top: 24px; }
   .project-link-btn {
-    display: inline-flex; align-items: center; gap: 7px; padding: 8px 16px; border-radius: 6px;
+    display: inline-flex; align-items: center; gap: 7px; padding: 8px 16px; border-radius: var(--radius);
     border: 1px solid var(--color-cyan); font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-cyan);
     transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
   }
   .project-link-btn:hover { text-decoration: none; background: var(--color-cyan); color: var(--color-bg); transform: translateY(-1px); }
+  /* A second link beside the button: text only, so the button stays the one primary action. */
+  .project-link-text { padding: 8px 0; font-family: var(--font-mono); font-size: 0.82rem; text-decoration: underline; text-decoration-color: color-mix(in srgb, currentColor 45%, transparent); text-underline-offset: 0.2em; }
   /* "466 to 617": the joining word stays small. */
   .metric-word { font-family: var(--font-mono); font-size: 0.5em; font-weight: 400; color: var(--color-faint); }
 

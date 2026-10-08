@@ -104,3 +104,16 @@ Scores (fill in after the preview deploy):
 Run `/ship` and follow it. The domain move happens in the Vercel dashboard.
 
 Shipped on 8 October 2026: production deployment `dpl_2sBoD22sSCFwxoXvadJdyxhvffkA` (commit `e82f9cc`) on the Vercel project `tech-ba-portfolio`, which already held the domains, so nothing moved. Checked on `https://www.mohamedlandolsi.tech`: every route prerendered and returning 200, OG images on the www host, the apex redirecting to www, `/Mohamed-Landolsi-CV.pdf` redirecting to the hosted CV, no `noindex` outside drafts and the 404. The previous production deployment (`dpl_Cj935kgNoPhUaGbaZXtPDYfytoSr`, the old site) is kept as the rollback target. PageSpeed scores in the phase 7 table are still to be filled in from pagespeed.web.dev.
+
+## Phase 9: repositories, screenshots, favicon, search
+
+Built on 8 October 2026, after the first deploy.
+
+- **Repositories:** both project repositories are public and named in `content/projects.json`. They show in the facts grid and the link row of each case study, on the home work cards, and as `codeRepository` in each case study's structured data. The CV page is unchanged (it has to print on one A4 page).
+- **Screenshots (GTM Engine):** five files in `public/screenshots/personal-gtm-engine/`, listed with alt text and captions in `content/projects.json` and placed with `<Screenshot project id>`: the three n8n canvases and the accounts tab under "What I built", the ops tab under "Results". Account IDs and company names are covered with solid blocks, and the browser chrome is cropped away (ADR P-12).
+- **Held back:** the Discord review card. Even with the recipient's name and company covered it is the text of a draft written to a real person, which rule 2 names on its own. It goes in only if Mohamed decides the covered version is allowed.
+- **Better captures wanted:** the engine canvas at 2x or more (its node labels are about 4 px tall in the current file), and the ops tab with its header row visible (the counters are unlabelled in the current file).
+- **Favicon:** the orange M as `app/favicon.ico` (16, 32, 48), `app/icon.png` (192) and `app/apple-icon.png` (180, on the site's navy). It replaces `app/icon.svg`.
+- **Search:** one schema.org graph per page (`lib/structured-data.ts`): WebSite, ProfilePage and Person on the home page; TechArticle and SoftwareSourceCode on each case study. Case studies carry `published` and `updated` dates in their frontmatter, used for `article:` tags, structured data and `lastmod` in the sitemap. The sitemap lists each case study's screenshots. Robots meta allows the large image preview and the full snippet. `/index.html` (the old site's only page) redirects to `/`.
+
+Left for Mohamed, outside the repo: verify the domain in Google Search Console and Bing Webmaster Tools and submit `/sitemap.xml`; give both GitHub repositories a description, the case study address as website and topics; decide whether `www.mohamedlandolsi.dev` should redirect to `.tech` instead of serving a second copy (the canonical tag already points at `.tech`).

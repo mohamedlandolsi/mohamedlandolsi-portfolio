@@ -13,6 +13,9 @@ export interface CaseStudyMeta {
   pageTitle: string;
   summary: string;
   status: CaseStudyStatus;
+  /** ISO dates ("2026-10-08") of the first publication and the last change, when the file states them. */
+  published?: string;
+  updated?: string;
 }
 
 const DIR = join(process.cwd(), "content", "case-studies");
@@ -27,7 +30,15 @@ export function getCaseStudyMeta(slug: string): CaseStudyMeta | null {
     throw new Error(`content/case-studies/${slug}.mdx: status must be draft or published, found "${status}"`);
   }
   const title = field("title");
-  return { slug, title, pageTitle: field("page_title") || title, summary: field("summary"), status };
+  return {
+    slug,
+    title,
+    pageTitle: field("page_title") || title,
+    summary: field("summary"),
+    status,
+    published: field("published") || undefined,
+    updated: field("updated") || undefined,
+  };
 }
 
 export function isPublished(slug: string): boolean {

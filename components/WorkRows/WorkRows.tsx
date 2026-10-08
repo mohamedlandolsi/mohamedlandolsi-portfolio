@@ -2,10 +2,11 @@ import Link from "next/link";
 import { MetricValue } from "@/components/MetricValue/MetricValue";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { isPublished } from "@/lib/case-studies";
-import { getFeaturedProjects, type Project } from "@/lib/content";
+import { getFeaturedProjects, isTodo, type Project } from "@/lib/content";
 
 function ProjectCard({ project }: { project: Project }) {
   const href = isPublished(project.slug) ? `/work/${project.slug}` : null;
+  const repo = isTodo(project.links.repo) ? null : project.links.repo;
   return (
     <article className="panel lift project-card reveal">
       <div className="project-top">
@@ -36,18 +37,25 @@ function ProjectCard({ project }: { project: Project }) {
           <dd className="spec-value">{project.stack.join(", ")}</dd>
         </div>
       </dl>
-      {href && (
+      {(href || repo) && (
         <div className="project-links">
-          <Link href={href} className="project-link-btn">
-            Read the case study
-          </Link>
+          {href && (
+            <Link href={href} className="project-link-btn">
+              Read the case study
+            </Link>
+          )}
+          {repo && (
+            <a href={repo} className="project-link-text">
+              Repository on GitHub
+            </a>
+          )}
         </div>
       )}
     </article>
   );
 }
 
-/** One card per featured project. A card links to its case study once that is published. */
+/** One card per featured project. A card links to its case study once that is published, and to its repository once content/ names it. */
 export function WorkRows() {
   return (
     <section id="work" className="shell section" aria-labelledby="work-title">

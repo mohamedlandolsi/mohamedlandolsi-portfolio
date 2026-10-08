@@ -72,6 +72,6 @@ All decisions from `decisions.json`, grouped by project, newest project first. F
 
 - Exact Wavess job title (internship certificate wins over CV and old site).
 - Your personal share of each Wavess item marked `verify` in `content/experience.json`.
-- Repo URLs for both projects, Loom link.
+- Loom link (the repo URLs for both projects are in `content/projects.json`).
 - Optional: a photo for the About section (rendered as a blue and yellow duotone).
 - Your updated CV PDF at `profile.links.cv_pdf` (the hosted PDF still has the phone number and claims that `content/claims.md` marks as unsupported).

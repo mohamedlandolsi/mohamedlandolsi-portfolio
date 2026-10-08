@@ -27,7 +27,7 @@ Then confirm:
 - [ ] No published page contains `TODO`. Draft case studies are `noindex` and not linked.
 - [ ] `app/sitemap.ts` and `app/robots.ts` exist; the sitemap lists only published routes.
 - [ ] Metadata: every page has its own title and description, OG images render (open `/opengraph-image` locally).
-- [ ] JSON-LD `Person` on the home page: name, jobTitle, url, sameAs (LinkedIn, GitHub). No phone, no address.
+- [ ] JSON-LD on the home page (WebSite, ProfilePage, Person: name, jobTitle, url, sameAs LinkedIn and GitHub) and on each case study (TechArticle, SoftwareSourceCode). No phone, no address.
 
 ## 2. Preview
 

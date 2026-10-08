@@ -29,6 +29,7 @@ Case studies live in `content/case-studies/<slug>.mdx` and render at `/work/<slu
 | `Decision` | `id` | Collapsed: ID and title. Expanded: context, decision, trade-offs, and a link to `/decisions#<id>`. Uses `<details>` so it works without JS; animate height only on user action |
 | `Diagram` | `name`, `alt` | A drawing from `components/diagrams/<name>.tsx` (HTML and CSS, so text stays readable on a phone), wrapped in `<figure>` with the alt as the accessible name and a short visible caption |
 | `Sieve` | `project` | The hero sieve, final state only (no animation inside case studies) |
+| `Screenshot` | `project`, `id` | A redacted screenshot from the project's `screenshots` list in `projects.json` (file under `public/screenshots/`, alt text, caption), in a panel with a link to the full-size file. Place it beside the text it supports. Cover every prospect name with a solid block and crop browser chrome before the file enters `public/` (ADR P-12) |
 | `Links` | `slug` | Repo, Loom, and related decisions. Hide any link whose value starts with `TODO` |
 
 Register them in `mdx-components.tsx` (required by `@next/mdx` in the App Router).
@@ -46,8 +47,10 @@ Style: see the `design-system` skill (`sieve.md`, last section).
 
 ## Publishing
 
+Frontmatter `published` and `updated` are ISO dates (`2026-10-08`). Set `published` when the page first goes live and change `updated` whenever its content changes: the sitemap, the `article:` tags and the structured data read them.
+
 Frontmatter `status: draft` pages build but are excluded from navigation and sitemap and carry `noindex`. Switch to `status: published` only after the `content-guard` checklist passes and Mohamed has confirmed any `verify` notes. The Wavess case study needs his confirmation of his personal contributions before publishing.
 
 ## Metadata
 
-Each case study exports `generateMetadata` with a specific title ("Personal GTM Engine: outbound with rules first") and a description from the one-liner. OG image: generated with `next/og`, title plus the first metric of the project.
+Each case study exports `generateMetadata` with a specific title ("Personal GTM Engine: outbound with rules first") and a description from the one-liner. Its structured data (TechArticle, SoftwareSourceCode with the repository) comes from `lib/structured-data.ts`. OG image: generated with `next/og`, title plus the first metric of the project.
