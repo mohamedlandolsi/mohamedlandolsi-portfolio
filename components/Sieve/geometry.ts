@@ -167,10 +167,10 @@ export function wideLayout(sieve: Sieve): SieveLayout {
   const gateX = 341;
 
   // The largest bin hangs straight off the gate.
-  const floor = 410;
+  const floor = 384;
   const binWidth = 56;
   const binPitch = 180;
-  const bins = binLengths(sieve, 120, 8).map((height, index) => ({
+  const bins = binLengths(sieve, 100, 8).map((height, index) => ({
     x: gateX - binWidth / 2 + index * binPitch,
     y: floor - height,
     width: binWidth,

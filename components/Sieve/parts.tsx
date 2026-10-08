@@ -119,7 +119,7 @@ export function BinLabel({
   style?: CSSProperties;
 }) {
   return (
-    <li tabIndex={0} data-bin="" aria-describedby={id} className={`sieve-bin-label ${className ?? ""}`} style={style}>
+    <li tabIndex={0} data-tip-host="" aria-describedby={id} className={`sieve-bin-label ${className ?? ""}`} style={style}>
       <span className="sieve-count" data-count={bin.count} data-index={index}>
         {bin.count}
       </span>{" "}

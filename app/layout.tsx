@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Archivo } from "next/font/google";
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
+import { TooltipDismiss } from "@/components/TooltipDismiss/TooltipDismiss";
 import { getProfile } from "@/lib/content";
 import "./globals.css";
 
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
+        <TooltipDismiss />
       </body>
     </html>
   );

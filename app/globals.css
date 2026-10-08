@@ -61,6 +61,10 @@
   a:focus-visible { background: var(--color-marker); color: var(--color-overprint); text-decoration-color: transparent; }
 
   [id] { scroll-margin-top: 24px; }
+  /* Config keys and field names: Archivo on a light ink fill, never monospace. */
+  code { font-family: inherit; font-size: 0.95em; padding: 0 0.25em; background: var(--color-ink-12); }
+  /* Escape dismisses tooltips (components/TooltipDismiss). */
+  html[data-tip="off"] [role="tooltip"] { display: none !important; }
   main:focus { outline: none; }
 }
 
@@ -68,16 +72,78 @@
   /* Width-axis type roles. Archivo wdth range on Google Fonts is 62 to 125. */
   .type-display { font-variation-settings: "wdth" 118; font-weight: 780; font-size: clamp(2.75rem, 7.2vw, 6rem); line-height: 0.95; letter-spacing: -0.025em; }
   .type-h1      { font-variation-settings: "wdth" 112; font-weight: 720; font-size: clamp(2.25rem, 5vw, var(--text-h1)); line-height: 1.0; letter-spacing: -0.02em; }
-  .type-h2      { font-variation-settings: "wdth" 108; font-weight: 680; font-size: clamp(1.75rem, 3vw, var(--text-h2)); line-height: 1.1; letter-spacing: -0.01em; }
-  .type-h3      { font-variation-settings: "wdth" 100; font-weight: 650; font-size: var(--text-h3); line-height: 1.25; }
+  .type-h2      { font-variation-settings: "wdth" 118; font-weight: 680; font-size: clamp(1.75rem, 3vw, var(--text-h2)); line-height: 1.1; letter-spacing: -0.01em; }
+  .type-h3      { font-variation-settings: "wdth" 100; font-weight: 650; font-size: var(--text-h3); line-height: 1.25; text-wrap: balance; }
   .type-lead    { font-size: var(--text-lead); line-height: 1.5; font-weight: 420; }
   .type-meta    { font-variation-settings: "wdth" 80; font-weight: 520; font-size: var(--text-meta); line-height: 1.4; color: var(--color-ink-85); }
   .type-metric  { font-variation-settings: "wdth" 125; font-weight: 820; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 0.9; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.02em; }
-  .measure      { max-width: 66ch; }
+  /* 54ch of Archivo (its zero is wide) holds about 66 characters of running text. */
+  .measure      { max-width: 54ch; }
 
   /* Page frame: 1240px grid, margins 20 / 40 / 72 */
   .shell   { width: 100%; max-width: calc(1240px + 2 * var(--page-margin)); margin-inline: auto; padding-inline: var(--page-margin); }
   .section { padding-top: var(--section-gap); }
+
+  /* Hero headline: the display face, sized so the sieve still starts above the fold. */
+  .type-hero { font-size: clamp(2.5rem, 4.6vw, 4rem); line-height: 1; }
+
+  /* Metrics in work rows: smaller than the hero numbers, still the expanded heavy face. */
+  .work-metric { font-size: clamp(1.75rem, 2.6vw, 2.5rem); white-space: nowrap; }
+  /* Four across from 1280px: sized so the widest value ("466 to 617") keeps its column. */
+  @media (min-width: 1280px) { .work-metric { font-size: 2rem; } }
+  /* "to" and "of" inside a metric ("466 to 617") stay at text size. */
+  .metric-word { font-size: max(0.4em, 0.875rem); font-weight: 560; letter-spacing: 0; font-variation-settings: "wdth" 100; }
+
+  /* A work row is one link: the title's link covers the row, so its accessible name stays the title. */
+  .work-row-link::after { content: ""; position: absolute; inset: 0; }
+  .work-row:has(.work-row-link:focus-visible) { outline: 2px solid var(--color-ink); outline-offset: 12px; }
+  .work-row-link:focus-visible { outline: none; }
+
+  /* Buttons: an ink outline says "this does something here"; hover is the reader's marker. */
+  .button {
+    display: inline-flex; align-items: center; padding: 4px 12px; border: 1px solid var(--color-ink);
+    font-size: var(--text-meta); line-height: 1.4; font-weight: 600; font-variation-settings: "wdth" 85;
+    color: var(--color-ink); background: transparent; cursor: pointer;
+  }
+  .button:hover, .button:focus-visible { background: var(--color-marker); color: var(--color-overprint); border-color: var(--color-overprint); }
+
+  /* Tooltips: CSS only, shown while their host ([data-tip-host]) has hover or focus. */
+  [data-tip-host] { position: relative; }
+  .tip {
+    display: none; position: absolute; left: 0; top: calc(100% + 6px); z-index: 20;
+    width: max-content; max-width: min(20rem, calc(100vw - 2 * var(--page-margin)));
+    padding: 4px 8px; background: var(--color-ink); color: var(--color-paper);
+    font-size: var(--text-meta); line-height: 1.4; font-weight: 520; font-variation-settings: "wdth" 80;
+    text-align: left; text-wrap: pretty; text-decoration: none; letter-spacing: 0;
+  }
+  /* Bridges the gap, so the pointer can move onto the tooltip without losing it. */
+  .tip::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 8px; }
+  [data-tip-host]:is(:hover, :focus-visible) .tip { display: block; }
+
+  /* A number with a source: dotted like a reference, marked when the reader is on it. */
+  .metric-inline { text-decoration: underline dotted; text-decoration-thickness: 1px; text-underline-offset: 0.25em; }
+  .metric-inline:is(:hover, :focus-visible) { background: var(--color-marker); color: var(--color-overprint); }
+  .metric-block { outline-offset: 6px; }
+
+  /* Decisions: closed shows ID and title; open is marked in sunflower, a reader's choice. */
+  .decision { border-top: 1px solid var(--color-ink-25); interpolate-size: allow-keywords; }
+  .decision:last-of-type { border-bottom: 1px solid var(--color-ink-25); }
+  .decision > summary { display: flex; gap: 0.875rem; align-items: baseline; padding: 14px 0; cursor: pointer; list-style: none; }
+  .decision > summary::-webkit-details-marker { display: none; }
+  .decision > summary::before {
+    content: ""; flex: none; width: 10px; height: 10px; border: 1.5px solid var(--color-ink); translate: 0 1px;
+  }
+  .decision[open] > summary::before { background: var(--color-marker); border-color: var(--color-marker); }
+  .decision > summary:hover .decision-title { background: var(--color-marker); color: var(--color-overprint); }
+  .decision-id { flex: none; min-width: 6.5em; font-size: var(--text-meta); font-weight: 600; font-variation-settings: "wdth" 85; font-variant-numeric: tabular-nums; color: var(--color-ink-85); }
+  .decision-title { font-weight: 600; }
+  .decision-content { padding: 0 0 24px calc(10px + 0.875rem); }
+  /* Height animates only when the reader opens or closes it (browsers without support just toggle). */
+  .decision::details-content { block-size: 0; overflow: hidden; transition: block-size 220ms cubic-bezier(0.2, 0.7, 0.2, 1), content-visibility 220ms allow-discrete; }
+  .decision[open]::details-content { block-size: auto; }
+  .decision-fields > div + div { margin-top: 12px; }
+  .decision-fields dd { max-width: 54ch; }
+  .decision-superseded { margin-bottom: 12px; font-size: var(--text-meta); }
 
   /* Halftone for diagram fills only */
   .halftone { background-image: radial-gradient(var(--color-ink-55) 1px, transparent 1.3px); background-size: 6px 6px; }

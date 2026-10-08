@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect } from "react";
+import { useLayoutEffect } from "react";
 import type { Sieve } from "@/lib/content";
 import { play } from "./play";
 
@@ -42,37 +42,6 @@ export function SieveAnimator({ id, sieve }: { id: string; sieve: Sieve }) {
       figure.dataset.sieve = "final";
     };
   }, [id, sieve]);
-
-  // Escape hides an open rule tooltip without moving focus or the pointer (WCAG 1.4.13).
-  useEffect(() => {
-    const figure = document.getElementById(id);
-    if (!figure) return;
-    let dismissed: Element | null = null;
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key !== "Escape") return;
-      dismissed = document.activeElement?.closest("[data-bin]") ?? figure.querySelector("[data-bin]:hover");
-      if (dismissed) figure.dataset.tip = "off";
-    };
-    const onEnter = (event: Event) => {
-      const bin = (event.target as Element).closest("[data-bin]");
-      if (bin && bin !== dismissed) {
-        dismissed = null;
-        delete figure.dataset.tip;
-      }
-    };
-    const onFocus = () => {
-      dismissed = null;
-      delete figure.dataset.tip;
-    };
-    document.addEventListener("keydown", onKey);
-    figure.addEventListener("pointerover", onEnter);
-    figure.addEventListener("focusin", onFocus);
-    return () => {
-      document.removeEventListener("keydown", onKey);
-      figure.removeEventListener("pointerover", onEnter);
-      figure.removeEventListener("focusin", onFocus);
-    };
-  }, [id]);
 
   // On the server this renders as a running script; on the client it is inert text, so React
   // neither warns nor runs it twice.

@@ -65,12 +65,12 @@ a:focus-visible { background: var(--color-marker); color: var(--color-overprint)
 /* Width-axis type roles. Archivo wdth range on Google Fonts is 62 to 125; verify and clamp if it differs. */
 .type-display { font-variation-settings: "wdth" 118; font-weight: 780; font-size: clamp(2.75rem, 7.2vw, 6rem); line-height: 0.95; letter-spacing: -0.025em; }
 .type-h1      { font-variation-settings: "wdth" 112; font-weight: 720; font-size: clamp(2.25rem, 5vw, var(--text-h1)); line-height: 1.0; letter-spacing: -0.02em; }
-.type-h2      { font-variation-settings: "wdth" 108; font-weight: 680; font-size: clamp(1.75rem, 3vw, var(--text-h2)); line-height: 1.1; letter-spacing: -0.01em; }
+.type-h2      { font-variation-settings: "wdth" 118; font-weight: 680; font-size: clamp(1.75rem, 3vw, var(--text-h2)); line-height: 1.1; letter-spacing: -0.01em; }
 .type-h3      { font-variation-settings: "wdth" 100; font-weight: 650; font-size: var(--text-h3); line-height: 1.25; }
 .type-lead    { font-size: var(--text-lead); line-height: 1.5; font-weight: 420; }
 .type-meta    { font-variation-settings: "wdth" 80; font-weight: 520; font-size: var(--text-meta); line-height: 1.4; color: var(--color-ink-85); }
 .type-metric  { font-variation-settings: "wdth" 125; font-weight: 820; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 0.9; font-variant-numeric: tabular-nums lining-nums; letter-spacing: -0.02em; }
-.measure      { max-width: 66ch; }
+.measure      { max-width: 54ch; } /* Archivo's zero is wide: 54ch holds about 66 characters */
 
 /* Halftone for diagram fills only */
 .halftone { background-image: radial-gradient(var(--color-ink-55) 1px, transparent 1.3px); background-size: 6px 6px; }
@@ -116,7 +116,7 @@ const archivo = Archivo({
 | Page margins | 20px under 640px, 40px under 1024px, 72px above |
 | Section spacing | 128px desktop, 80px mobile |
 | Work row spacing | 56px |
-| Reading width | `.measure` (66ch) for all running text |
+| Reading width | `.measure` (54ch, about 66 characters of Archivo) for all running text |
 | Case study | Facts in columns 1 to 3 (sticky on desktop), text in columns 4 to 10, diagrams span 1 to 12 |
 | Border radius | 0 everywhere, except the circular approval mark |
 

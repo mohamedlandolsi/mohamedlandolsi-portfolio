@@ -21,10 +21,11 @@ function describe(sieve: SieveData): string {
 
 /**
  * The hero visual: one real run of the GTM Engine falling through its rule gates.
- * Server-rendered in its final state; SieveAnimator plays the load animation once on top.
+ * Server-rendered in its final state; SieveAnimator plays the load animation once on top
+ * (home page only: `animate={false}` keeps the final state, as in case studies).
  * getSieve fails the build if the counts do not add up.
  */
-export function Sieve({ slug }: { slug: string }) {
+export function Sieve({ slug, animate = true }: { slug: string; animate?: boolean }) {
   const sieve = getSieve(slug);
   const label = describe(sieve);
 
@@ -62,10 +63,17 @@ export function Sieve({ slug }: { slug: string }) {
           </table>
         </div>
         <figcaption className="type-meta measure mt-14">
-          {sieve.caption} <Link href={`/work/${slug}`}>How the gates work</Link>
+          {sieve.caption}
+          {/* On the home page the caption points to the case study; inside it, it does not need to. */}
+          {animate && (
+            <>
+              {" "}
+              <Link href={`/work/${slug}`}>How the gates work</Link>
+            </>
+          )}
         </figcaption>
       </figure>
-      <SieveAnimator id={ID} sieve={sieve} />
+      {animate && <SieveAnimator id={ID} sieve={sieve} />}
     </>
   );
 }

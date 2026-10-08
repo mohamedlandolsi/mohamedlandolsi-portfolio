@@ -37,6 +37,8 @@
 .sieve-centered { translate: -50% 0; text-align: center; }
 .sieve-middle { translate: 0 -50%; }
 .sieve-number { display: flex; flex-direction: column; gap: 0.5rem; }
+/* The counts stay below the page headline in rank. */
+.sieve-number .type-metric { font-size: clamp(2.25rem, 3.9vw, 3.5rem); }
 .sieve-narrow .sieve-number { flex-direction: row; align-items: baseline; gap: 0.75rem; }
 
 /* Stage names are set into the dotted line: the paper behind them makes the gap. */
@@ -108,7 +110,6 @@
 .sieve-rule::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 8px; }
 .sieve-narrow .sieve-rule { max-width: 100%; }
 .sieve-bin-label:is(:hover, :focus-visible) .sieve-rule { display: block; }
-.sieve[data-tip="off"] .sieve-rule { display: none; }
 
 /* Start state: the whole batch in the field, nothing sorted yet. */
 .sieve[data-sieve="armed"] :is(.sieve-field circle, pattern circle) { fill: var(--color-ink); }
