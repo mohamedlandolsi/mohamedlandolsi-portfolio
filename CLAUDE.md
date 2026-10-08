@@ -23,7 +23,7 @@ The site has one job: a hiring manager or a founder lands, understands in 10 sec
 - Tailwind CSS v4 (CSS-first config: tokens live in `app/globals.css` under `@theme`)
 - `motion` (import from `motion/react`) only for the hero sieve and for user-triggered expand/collapse
 - MDX for case studies via `@next/mdx`
-- Fonts via `next/font/google`: Archivo variable with the `wdth` axis. No other font family.
+- Fonts via `next/font/google`: Space Grotesk (headings, numbers), IBM Plex Sans (text), IBM Plex Mono (labels, navigation, buttons). No other families (ADR P-10).
 - OG images via `next/og`
 - npm. No other package manager.
 
@@ -52,7 +52,7 @@ npm run check:content   # validates content/*.json and scans for banned characte
 3. Images from the PFE report in `docs/reference/` are references for redrawing. Never copy them into `public/`.
 4. Accessibility floor: semantic landmarks, one `h1` per page, visible keyboard focus, color contrast AA (4.5:1 body, 3:1 large text), every interactive element reachable by keyboard, `prefers-reduced-motion` fully respected, text alternatives for every diagram.
 5. Performance budget per route: LCP under 2.0 s on a mid-range phone, CLS under 0.05, total JS under 120 KB gzip on content pages. The hero sieve is the only heavy client component and must not block LCP (render the static final state on the server, animate after hydration).
-6. Copy is sentence case. No ALL-CAPS labels, no text eyebrows above headings, no "→" appended to links, no emoji.
+6. Copy is sentence case in the source; mono tags and kickers may be uppercased by CSS only. No "→" appended to links, no emoji.
 7. Keep components small and server-first. A component is a client component only if it needs state or motion.
 
 ## Project layout (target)

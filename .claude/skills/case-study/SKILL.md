@@ -10,7 +10,7 @@ Case studies live in `content/case-studies/<slug>.mdx` and render at `/work/<slu
 ## Page structure
 
 1. Title (`.type-h1`) and the one-liner from `projects.json` (`.type-lead`).
-2. `<ProjectFacts slug>`: role, period, status, stack, links. Desktop: sticky in the margin column. Mobile: a compact block above the text.
+2. `<ProjectFacts slug>`: role, period, status, stack, links, as a spec grid under the title (the 920px console layout has no margin column). The page renders it; the tag in the MDX marks its place.
 3. **The problem**: one or two short paragraphs.
 4. **What I built**: one redrawn diagram, then a short numbered list (only if the steps are a real sequence, which they are for pipelines).
 5. **Decisions that mattered**: two or three `<Decision id>` blocks.
@@ -27,7 +27,7 @@ Case studies live in `content/case-studies/<slug>.mdx` and render at `/work/<slu
 | `Metric` | `claim`, `inline?` | Block: `.type-metric` value with its label. Inline: the claim's `inline` phrase as text in the sentence, with a tooltip or footnote showing source and date |
 | `MetricRow` | `claims` (comma-separated IDs) | 2 to 5 metrics in a row; 2 by 2 on mobile |
 | `Decision` | `id` | Collapsed: ID and title. Expanded: context, decision, trade-offs, and a link to `/decisions#<id>`. Uses `<details>` so it works without JS; animate height only on user action |
-| `Diagram` | `name`, `alt` | Inline SVG from `components/diagrams/<name>.tsx`, wrapped in `<figure>` with the alt as `aria-label` and a short visible caption |
+| `Diagram` | `name`, `alt` | A drawing from `components/diagrams/<name>.tsx` (HTML and CSS, so text stays readable on a phone), wrapped in `<figure>` with the alt as the accessible name and a short visible caption |
 | `Sieve` | `project` | The hero sieve, final state only (no animation inside case studies) |
 | `Links` | `slug` | Repo, Loom, and related decisions. Hide any link whose value starts with `TODO` |
 

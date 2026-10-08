@@ -16,6 +16,9 @@ const nextConfig: NextConfig = {
   },
 };
 
-const withMDX = createMDX({});
+// Frontmatter is parsed so it stays out of the page (ADR P-09). Plugins are named as strings for Turbopack.
+const withMDX = createMDX({
+  options: { remarkPlugins: ["remark-frontmatter"] },
+});
 
 export default withMDX(nextConfig);

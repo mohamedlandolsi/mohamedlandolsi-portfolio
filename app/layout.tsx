@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { Archivo } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { TooltipDismiss } from "@/components/TooltipDismiss/TooltipDismiss";
 import { getProfile } from "@/lib/content";
 import "./globals.css";
 
-// Variable weight is included by default; the width axis must be requested.
-const archivo = Archivo({
-  subsets: ["latin"],
-  axes: ["wdth"],
-  variable: "--font-archivo",
-  display: "swap",
-});
+const display = Space_Grotesk({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-space-grotesk", display: "swap" });
+const body = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex-sans", display: "swap" });
+const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono", display: "swap" });
 
 // Every route must come out of the build fully static.
 export const ensureStatic = "navigation";
@@ -26,15 +22,15 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={archivo.variable}>
+    // The theme toggle sets data-theme on <html>; React must not undo it.
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`} suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col">
-        <div className="shell relative">
-          <a href="#main" className="skip-link">
-            Skip to content
-          </a>
-        </div>
+        <div className="bg-grid" aria-hidden="true" />
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
         <Header />
-        <main id="main" tabIndex={-1} className="grow">
+        <main id="main" tabIndex={-1} className="relative z-[1] grow">
           {children}
         </main>
         <Footer />

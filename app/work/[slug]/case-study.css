@@ -1,0 +1,53 @@
+/* Running text of a case study, in the console style: each h2 opens a section with a rule, text
+   is dim with the claims and lead-ins in full contrast, lists use mono markers. */
+.case-body { padding-bottom: 72px; }
+.case-body > * { max-width: 56ch; }
+.case-body > :is(.diagram, .case-wide, .metric-row, .decision, .case-links) { max-width: none; }
+.case-body > * + * { margin-top: 1.1rem; }
+.case-body > h2 {
+  margin-top: 72px;
+  padding-top: 72px;
+  border-top: 1px solid var(--color-line);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: var(--text-h2);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+.case-body > h2:first-child { margin-top: 0; }
+.case-body > h2 + * { margin-top: 1.75rem; }
+.case-body > p { color: var(--color-dim); }
+.case-body strong { font-weight: 600; color: var(--color-text); }
+.case-body > :is(.diagram, .case-wide) { margin-top: 2.25rem; margin-bottom: 2.25rem; }
+.case-body > .metric-row { margin-top: 2rem; margin-bottom: 1.5rem; }
+/* Decisions share one panel, split by rules (details still open one by one). */
+.case-body > .decision + .decision { margin-top: 0; border-top: 0; }
+.case-body > .decision { border-radius: 0; }
+.case-body > .decision:first-of-type { border-radius: var(--radius) var(--radius) 0 0; }
+.case-body > .decision:last-of-type { border-radius: 0 0 var(--radius) var(--radius); }
+.case-body > .decision + .decision > summary { border-top: 1px solid var(--color-line-strong); }
+
+/* The sieve gets the full column on phones (its labels need the width), a panel from 640px. */
+@media (min-width: 640px) {
+  .case-sieve { padding: 28px; border: 1px solid var(--color-line-strong); border-radius: var(--radius); background: var(--color-panel); }
+}
+
+/* Steps of a pipeline: faint mono numbers. Other lists: the reference's arrow bullets. One indent. */
+.case-body > ol { counter-reset: step; }
+.case-body > ol > li { position: relative; padding-left: 2rem; color: var(--color-dim); counter-increment: step; }
+.case-body > ol > li::before {
+  content: counter(step, decimal-leading-zero);
+  position: absolute; left: 0; top: 0.2em;
+  font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; color: var(--color-faint);
+}
+.case-body > ul:not(.case-links) > li { position: relative; padding-left: 2rem; color: var(--color-dim); }
+.case-body > ul:not(.case-links) > li::before { content: "\2192"; position: absolute; left: 0; top: 0; font-family: var(--font-mono); color: var(--color-faint); }
+.case-body > :is(ol, ul) > li + li { margin-top: 0.7rem; }
+.case-body > .case-links { margin-top: 72px; padding-top: 40px; border-top: 1px solid var(--color-line); }
+
+/* Facts under the title: role, period and status side by side; stack and links span the row. */
+.project-facts { grid-template-columns: minmax(0, 1fr); margin-top: 0; }
+@media (min-width: 640px) {
+  .project-facts { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .project-facts .spec-cell:nth-child(n + 4) { grid-column: 1 / -1; }
+}

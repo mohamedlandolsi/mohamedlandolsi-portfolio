@@ -1,52 +1,62 @@
 import Link from "next/link";
 import { MetricValue } from "@/components/MetricValue/MetricValue";
+import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { isPublished } from "@/lib/case-studies";
 import { getFeaturedProjects, type Project } from "@/lib/content";
 
-function WorkRow({ project }: { project: Project }) {
-  const linked = isPublished(project.slug);
+function ProjectCard({ project }: { project: Project }) {
+  const href = isPublished(project.slug) ? `/work/${project.slug}` : null;
   return (
-    <li className="work-row relative grid gap-x-6 gap-y-8 lg:grid-cols-12">
-      <div className="lg:col-span-5 xl:col-span-4">
-        <h3 className="type-h3">
-          {linked ? (
-            // The link covers the whole row (see .work-row in globals.css); its name stays the title.
-            <Link href={`/work/${project.slug}`} className="work-row-link">
-              {project.title}
-            </Link>
-          ) : (
-            project.title
-          )}
-        </h3>
-        <p className="measure mt-3">{project.one_liner}</p>
-        <p className="type-meta mt-4">{project.stack.join(", ")}</p>
+    <article className="panel lift project-card reveal">
+      <div className="project-top">
+        <div>
+          <h3 className="project-name">{href ? <Link href={href}>{project.title}</Link> : project.title}</h3>
+          <p className="project-sub">{project.role}</p>
+        </div>
+        <span className="status-badge">{project.period}</span>
       </div>
-      <dl className="grid grid-cols-2 content-start gap-x-6 gap-y-7 md:grid-cols-4 lg:col-span-7 lg:grid-cols-2 lg:gap-x-8 xl:col-span-8 xl:grid-cols-4">
+      <p className="project-desc">{project.one_liner}</p>
+      <dl className="cells proof-strip">
         {project.metrics.map((metric) => (
-          <div key={metric.claim} className="flex flex-col-reverse justify-end gap-2">
-            <dt className="type-meta text-balance">{metric.label}</dt>
+          <div key={metric.claim} className="cell proof-item flex flex-col-reverse justify-end">
+            <dt className="proof-label">{metric.label}</dt>
             <dd>
-              <MetricValue claim={metric.claim} className="type-metric work-metric" />
+              <MetricValue claim={metric.claim} className="proof-num" />
             </dd>
           </div>
         ))}
       </dl>
-    </li>
+      <dl className="cells spec-grid">
+        <div className="spec-cell">
+          <dt className="spec-label">Status</dt>
+          <dd className="spec-value">{project.status}</dd>
+        </div>
+        <div className="spec-cell">
+          <dt className="spec-label">Stack</dt>
+          <dd className="spec-value">{project.stack.join(", ")}</dd>
+        </div>
+      </dl>
+      {href && (
+        <div className="project-links">
+          <Link href={href} className="project-link-btn">
+            Read the case study
+          </Link>
+        </div>
+      )}
+    </article>
   );
 }
 
-/** Three full-width rows, not cards. A row links to its case study once that is published. */
+/** One card per featured project. A card links to its case study once that is published. */
 export function WorkRows() {
   return (
     <section id="work" className="shell section" aria-labelledby="work-title">
-      <h2 id="work-title" className="type-h2">
-        Work
-      </h2>
-      <ul className="mt-12 space-y-14">
+      <SectionHead id="work-title" title="Work" tag="Projects" />
+      <div className="grid gap-6">
         {getFeaturedProjects().map((project) => (
-          <WorkRow key={project.slug} project={project} />
+          <ProjectCard key={project.slug} project={project} />
         ))}
-      </ul>
+      </div>
     </section>
   );
 }

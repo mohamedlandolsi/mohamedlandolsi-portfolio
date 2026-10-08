@@ -1,0 +1,73 @@
+/* Case study diagrams in the console style: panels with Space Grotesk titles and mono cyan notes,
+   thin faint arrows between steps, shared state in a dashed cyan box, amber only on the step where a
+   person decides. HTML and CSS, so the text stays readable on a phone. */
+
+.diagram { padding: 18px; border: 1px solid var(--color-line-strong); border-radius: var(--radius); background: var(--color-panel); }
+@media (min-width: 720px) { .diagram { padding: 22px; } }
+.diagram-caption { margin-top: 14px; font-size: 0.78rem; line-height: 1.5; color: var(--color-faint); }
+
+.dg { --dg-gap: 22px; --dg-arrow: var(--color-faint); }
+.dg ol, .dg ul { list-style: none; margin: 0; padding: 0; }
+
+.dg-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius);
+  background: var(--color-panel-2);
+}
+.dg-title { font-family: var(--font-display); font-weight: 600; font-size: 0.95rem; line-height: 1.3; color: var(--color-text); text-wrap: balance; }
+.dg-body { font-size: 0.82rem; line-height: 1.45; color: var(--color-dim); }
+.dg-writes { margin-top: auto; padding-top: 4px; font-family: var(--font-mono); font-size: 0.72rem; line-height: 1.4; color: var(--color-cyan); overflow-wrap: anywhere; }
+
+/* The human step: an amber border and title, no glow (the sieve's mark keeps that). */
+.dg-human { border: 2px solid var(--color-amber); }
+.dg-human .dg-title { color: var(--color-amber); }
+
+/* Pipeline: top to bottom, left to right from 1024px. Faint arrows in the gaps. */
+.dg-flow { display: grid; gap: var(--dg-gap); }
+.dg-flow > .dg-step + .dg-step::before {
+  content: ""; position: absolute; left: 24px; top: calc(-1 * var(--dg-gap)); height: calc(var(--dg-gap) - 4px);
+  border-left: 1px solid var(--dg-arrow);
+}
+.dg-flow > .dg-step + .dg-step::after {
+  content: ""; position: absolute; left: 20.5px; top: -8px; border: 4px solid transparent; border-bottom: 0; border-top: 5px solid var(--dg-arrow);
+}
+@media (min-width: 1024px) {
+  .dg-flow { grid-template-columns: repeat(var(--dg-steps), minmax(0, 1fr)); gap: 18px; --dg-gap: 18px; }
+  .dg-flow > .dg-step + .dg-step::before { left: calc(-1 * var(--dg-gap)); top: 50%; width: calc(var(--dg-gap) - 4px); height: 0; border-left: 0; border-top: 1px solid var(--dg-arrow); }
+  .dg-flow > .dg-step + .dg-step::after { left: -8px; top: calc(50% - 3.5px); border: 4px solid transparent; border-right: 0; border-left: 5px solid var(--dg-arrow); }
+}
+
+/* Shared state: the reference's dashed cyan box. On a phone it sits apart from the steps; from
+   1024px it spans the steps that read it. */
+.dg-base-row { margin-top: calc(var(--dg-gap) * 2); }
+.dg-base {
+  display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; margin: 0; padding: 12px 14px;
+  border: 1.2px dashed color-mix(in srgb, var(--color-cyan) 70%, transparent); border-radius: var(--radius);
+}
+.dg-base .dg-title { font-family: var(--font-mono); font-size: 0.78rem; font-weight: 500; color: var(--color-cyan); }
+@media (min-width: 1024px) {
+  .dg-base-row { display: grid; grid-template-columns: repeat(var(--dg-steps), minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
+  .dg-base { grid-column: var(--dg-from) / var(--dg-to); }
+}
+
+/* Layers: services on top of a shared core, on top of shared infrastructure. */
+.dg-layers { display: grid; gap: var(--dg-gap); }
+.dg-row { display: grid; gap: 14px; }
+.dg-core { border-color: var(--color-cyan); }
+.dg-core .dg-title { color: var(--color-cyan); }
+.dg-infra { background: transparent; border-style: dashed; }
+@media (min-width: 1024px) {
+  .dg-row { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+  .dg-layers > .dg-row:first-child > .dg-step::after,
+  .dg-layers > .dg-row:last-child > .dg-step::before {
+    content: ""; position: absolute; left: 50%; height: var(--dg-gap); border-left: 1px solid var(--color-line-strong);
+  }
+  .dg-layers > .dg-row:first-child > .dg-step::after { top: 100%; }
+  .dg-layers > .dg-row:last-child > .dg-step::before { bottom: 100%; }
+}

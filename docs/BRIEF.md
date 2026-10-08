@@ -16,7 +16,7 @@ The differentiator is not the tools (everyone lists n8n and Clay). It is the dis
 
 ## Concept: small batch
 
-The site is designed like a two-ink risograph print: one blue ink for everything, one sunflower-yellow ink reserved for human judgment (approval, review, the reader's current focus). Riso is a small-batch print process, which is the point: Mohamed's systems screen hundreds of companies so that a few carefully reviewed messages go out, the opposite of mass outreach.
+Mohamed's systems screen hundreds of companies so that a few carefully reviewed messages go out, the opposite of mass outreach. The site looks like a quiet engineering console (see the design-system skill and ADR P-10): a dark navy page with a faint grid, bordered panels, mono labels, cyan for data and links, and amber reserved for status and human judgment (the review step).
 
 The one memorable element is the **sieve** in the hero: 377 real companies from one real run fall through real rule gates, and 23 move on, ending at a yellow "my review" mark. Everything else on the site is quiet.
 
@@ -47,11 +47,11 @@ No blog at launch. No `/about` page (about lives on the home page). No contact f
 5. **Decisions teaser**: one sentence with the count from `decisions.json` and a link to the log.
 6. **About**: the three paragraphs from `profile.about`, languages, education in one line each, optional duotone photo.
 7. **Contact**: availability text, e-mail (copy button plus `mailto:`), LinkedIn, GitHub, CV.
-8. **Footer**: name, year, "Built with Next.js, set in Archivo." Source link to the site repo.
+8. **Footer**: name, year, "Built with Next.js." Source link to the site repo.
 
 ## Case study page
 
-Summary facts (role, period, status, stack, links) in a margin column on desktop, above the text on mobile. Then: the problem, what I built (with a redrawn two-ink diagram), decisions that mattered (embedded, expandable, linked to `/decisions`), what broke and what changed, results (metric row), what I would do next, links.
+Summary facts (role, period, status, stack, links) in a spec grid above the text. Then: the problem, what I built (with a redrawn diagram in the console style), decisions that mattered (embedded, expandable, linked to `/decisions`), what broke and what changed, results (metric row), what I would do next, links.
 
 ## Decision log
 

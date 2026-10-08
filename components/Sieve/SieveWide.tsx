@@ -46,8 +46,8 @@ export function SieveWide({ sieve, label }: { sieve: Sieve; label: string }) {
           {layout.stages.map((stage, index) => (
             <span
               key={stage.x}
-              className="sieve-label sieve-stage-label type-meta"
-              style={{ ...at(layout, stage.x, stage.y), maxWidth: `${(150 / layout.width) * 100}%`, ...vars({ "--t": `${stage.t}ms` }) }}
+              className="sieve-label sieve-centered sieve-stage-label type-meta"
+              style={{ ...at(layout, stage.x, stage.y + 14), ...vars({ "--t": `${stage.t}ms` }) }}
             >
               {sieve.next[index]}
             </span>

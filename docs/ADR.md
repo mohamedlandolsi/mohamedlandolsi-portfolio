@@ -46,3 +46,15 @@ Add a new entry before adding a dependency, a third-party script or a new kind o
 - **Decision:** `vercel.json` sets `git.deploymentEnabled` to `false`, so no push creates a deployment.
 - **Why:** The old site and `/Mohamed-Landolsi-CV.pdf` stay live through the build phases, and the repo can still be pushed after each phase.
 - **Trade-off:** No preview deployments from pushes. Before `/ship`: delete `vercel.json` (or set the flag to `true`) and make sure the Vercel project that receives the repo uses the Next.js preset. The current project was created for a static site.
+
+## P-09: remark-frontmatter for case study files
+- **Context:** Case studies in `content/case-studies/*.mdx` open with a YAML frontmatter block (slug, title, summary, status). `@next/mdx` does not understand frontmatter, so the block would render as text on the page.
+- **Options:** Move the metadata into an `export const meta` in each MDX file (changes the content format and `check:content`); strip the block with a custom loader; the `remark-frontmatter` plugin.
+- **Decision:** `remark-frontmatter` (part of the unified ecosystem MDX already runs on), passed to `@next/mdx` by name so Turbopack can use it. It only parses the block so it is left out of the output. The page reads status and title from the same block with a small parser in `lib/case-studies.ts`.
+- **Why:** The content files stay as they are, and one small, stable plugin does one job at build time. Nothing ships to the browser.
+- **Trade-off:** One more build dependency.
+## P-10: Visual style from the reference page (supersedes P-04 and P-05 for the UI)
+- **Context:** Mohamed found the two-ink risograph look unappealing and supplied a reference page whose design he wants the site to follow exactly (UI only, not its content).
+- **Decision:** Dark navy by default with a light palette (system preference, plus a toggle for the visit), grid texture and soft ambient light, Space Grotesk for headings, IBM Plex Sans for text, IBM Plex Mono for labels and navigation, cyan for links and data, amber for status and the human review step, bordered panels with 1px cell grids, a sticky blurred nav, mono uppercase section tags.
+- **Kept from the old rules:** content rules (claims, sentence case in the source, no emoji, no arrows in copy), AA contrast (the reference's faint grey and its light-mode amber and cyan are adjusted to pass 4.5:1), reduced motion, no-JS rendering, the sieve and its data.
+- **Trade-off:** Three font families instead of one (still self-hosted through next/font). The design-system skill, its tokens and anti-pattern list, and CLAUDE.md still describe the old system and need updating before more UI work.

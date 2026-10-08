@@ -64,6 +64,8 @@ export function play(figure: HTMLElement, sieve: Sieve, onDone: () => void): () 
   const ink = rgb(style.getPropertyValue("--color-ink"));
   const light = rgb(style.getPropertyValue("--color-ink-55"));
   const inkFill = `rgb(${ink})`;
+  // Companies that pass the gate turn cyan, the colour of the cluster they settle in.
+  const passFill = `rgb(${rgb(style.getPropertyValue("--color-cyan"))})`;
   const lightFill = `rgb(${light})`;
   const dot = (x: number, y: number) => {
     context.beginPath();
@@ -100,7 +102,7 @@ export function play(figure: HTMLElement, sieve: Sieve, onDone: () => void): () 
           : [t.x + t.gx, t.y + t.gy, t.x, t.y, (progress - gate) / (1 - gate)];
       const eased = EASE(local);
       context.globalAlpha = 1;
-      context.fillStyle = inkFill;
+      context.fillStyle = passed && progress >= gate ? passFill : inkFill;
       if (!passed && progress >= gate) {
         // Fades to the light ink on the way down, then dissolves into the halftone.
         context.fillStyle = `rgb(${ink.map((channel, index) => Math.round(lerp(channel, light[index], clamp(local * 2))))})`;
