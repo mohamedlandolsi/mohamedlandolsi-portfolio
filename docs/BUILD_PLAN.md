@@ -126,9 +126,11 @@ Built on 8 October 2026 from the end-of-studies report and the defense deck, rea
 
 - **Share of the work:** the report is impersonal and mentions other developers. Mohamed confirmed that the analysis, the architecture and the implementation of all four parts were his, reviewed by the team, and that the architecture decisions were his proposals, reviewed by the CEO. `content/claims.md` records it; the `verify` notes in `content/experience.json` are gone.
 - **Case study:** `/work/wavess` is published in the standard structure: the problem, what I built (the architecture diagram, the three phases, a new redrawn diagram of the LLM router's three paths), three decisions, what broke, results, next steps. One new claim, W10 (the access layers of a request).
-- **Decisions:** 27 entries, `ADR-WV-01` to `ADR-WV-27`, each with the report section and page in `source_internal`. The log now has three project groups. A group's slug is its anchor, so "All N decisions for this project" lands on the group (it used to land on the top of the page, for every project).
+- **Decisions:** 26 entries, `ADR-WV-01` to `ADR-WV-26`, each with the report section and page in `source_internal`. The log now has three project groups. A group's slug is its anchor, so "All N decisions for this project" lands on the group (it used to land on the top of the page, for every project).
 - **Job title:** "Software engineering intern (GTM platform and LLM integration)": the real title with its scope, not a title the certificate does not carry.
 - **CV:** the Wavess entry has a one-line summary and four one-line highlights so the page still prints on one A4 page (19 px to spare in Chromium).
 - **Not used:** the six client names and the CEO's name, which both documents state openly; product screenshots; the report's own figures (redrawn, never copied).
 
-Still open: the report grants no publication permission and has no confidentiality clause. The page describes internals of a company's product (architecture, the service-key trade-off in the content backend, missing load tests). Mohamed should confirm with the CEO that this level of detail is fine to keep public.
+Trimmed after publishing, at Mohamed's request: anything that describes the security posture or the unfinished parts of the company's live product is out of the page, the log and `docs/reference/wavess-facts.md`. What stays is architecture, stack choices and the reasons for them. Rule for later edits: write about design and trade-offs, not about where the product is weak.
+
+Still open: the report grants no publication permission and has no confidentiality clause. Mohamed should confirm with the CEO that the remaining level of detail is fine to keep public.

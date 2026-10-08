@@ -898,7 +898,7 @@
     "superseded_by": null,
     "context": "Every record belongs to an organization, and three services need the same identity data without reaching into each other's tables.",
     "decision": "One Supabase PostgreSQL instance. The public schema holds organizations and memberships; Tropicc and Oceanss each have their own schema. The organization is the tenant anchor for every user, configuration, generated artifact and report.",
-    "tradeoffs": "The services still share one database instance. Tropicc tables link to the shared configuration by a text key, not by a foreign key.",
+    "tradeoffs": "The services still share one database instance.",
     "source_internal": "report section 2.7.4 (p.51 to 52), Table 4.9 (p.115)"
   },
   {
@@ -997,7 +997,7 @@
     "superseded_by": null,
     "context": "An organization can be provisioned for one product and not the other, a subscription can lapse, and an admin may want to give a product to some team members only.",
     "decision": "Product access is checked in three layers: the organization is provisioned for the product, its subscription is active or in trial, and the user has been granted the product. Roles (owner, admin, member) apply on top, and a separate platform-admin flag gives internal staff cross-organization visibility for support.",
-    "tradeoffs": "The organization-level check runs with a service-role client that bypasses row-level security, so that code path has to be correct on its own.",
+    "tradeoffs": "More to keep right: access has to be granted at the organization level and at the user level before anyone gets in.",
     "source_internal": "report section 3.2.1, Table 3.1 (p.66 to 67)"
   },
   {
@@ -1051,23 +1051,12 @@
     "status": "accepted",
     "superseded_by": null,
     "context": "Portal, Tropicc and Oceanss live on separate subdomains and have to share one session.",
-    "decision": "The Portal sets the access token in an HTTP-only cookie scoped to the parent domain, and the other services verify the same token through the shared middleware. Cookies use SameSite Lax in place of anti-CSRF tokens in forms. Redirect targets are checked against an allowlist.",
+    "decision": "The Portal sets the session in a cookie scoped to the parent domain, and the other services verify the same token through the shared middleware. Redirect targets are checked against an allowlist.",
     "tradeoffs": "Staging and local hosts get host-scoped cookies, so single sign-on across products exists only in production.",
     "source_internal": "report section 3.3.1 (p.71), section 3.4 (p.84 to 85)"
   },
   {
     "id": "ADR-WV-20",
-    "project": "wavess",
-    "title": "Service key in the content backend, a filter on every query",
-    "status": "accepted",
-    "superseded_by": null,
-    "context": "The content backend reaches the database with a service role key, and that key bypasses row-level security.",
-    "decision": "Tenant isolation in Tropicc relies on a mandatory client-key filter on every query. Row-level security policies are still defined on all its tables, to document the boundaries and to allow direct frontend access later.",
-    "tradeoffs": "In that service, isolation depends on application code, not on the database.",
-    "source_internal": "report section 4.7, Table 4.9 (p.114 to 115)"
-  },
-  {
-    "id": "ADR-WV-21",
     "project": "wavess",
     "title": "Retrieval only where facts matter",
     "status": "accepted",
@@ -1078,29 +1067,29 @@
     "source_internal": "report section 2.7.2 (p.49), section 2.10.5 (p.63)"
   },
   {
-    "id": "ADR-WV-22",
+    "id": "ADR-WV-21",
     "project": "wavess",
     "title": "Refactor parity before coverage",
     "status": "accepted",
     "superseded_by": null,
     "context": "Most of the content service was rewritten during the first phase, while it was the only product.",
     "decision": "The test suite for the rebuild asserts that each refactored function behaves exactly like its legacy counterpart, so the decomposition could not drift. External services are mocked.",
-    "tradeoffs": "No coverage target, and no load tests or tests against live APIs yet.",
+    "tradeoffs": "The suite proves that the rewrite matches the old behavior. It does not say how much of the code it covers.",
     "source_internal": "report section 4.9.1 (p.116), section 3.6.2 (p.88)"
   },
   {
-    "id": "ADR-WV-23",
+    "id": "ADR-WV-22",
     "project": "wavess",
     "title": "Collect only the signals the client's goal needs",
     "status": "accepted",
     "superseded_by": null,
     "context": "Each signal source costs API calls, and each organization picks one business goal.",
     "decision": "A goal-to-signal map restricts collection to the signal types that support the organization's selected goal. The dashboard follows the same rule: it queries and renders only the sections of the active goal.",
-    "tradeoffs": "An organization sees nothing outside its goal, and some dashboard sections are still placeholders.",
+    "tradeoffs": "An organization sees nothing outside its goal.",
     "source_internal": "report section 5.2.2, Table 5.2 (p.120), section 5.5.1, Table 5.10 (p.133 to 135)"
   },
   {
-    "id": "ADR-WV-24",
+    "id": "ADR-WV-23",
     "project": "wavess",
     "title": "Alerts measured against each company's own baseline",
     "status": "accepted",
@@ -1111,7 +1100,7 @@
     "source_internal": "report section 5.2.3 (p.120)"
   },
   {
-    "id": "ADR-WV-25",
+    "id": "ADR-WV-24",
     "project": "wavess",
     "title": "Six checks before an automated scan",
     "status": "accepted",
@@ -1122,7 +1111,7 @@
     "source_internal": "report section 5.4, Table 5.7 (p.128 to 129), Table 5.9 (p.131)"
   },
   {
-    "id": "ADR-WV-26",
+    "id": "ADR-WV-25",
     "project": "wavess",
     "title": "Dashboard queries are not cached",
     "status": "accepted",
@@ -1133,7 +1122,7 @@
     "source_internal": "report section 5.5.1 to 5.5.2 (p.135 to 136)"
   },
   {
-    "id": "ADR-WV-27",
+    "id": "ADR-WV-26",
     "project": "wavess",
     "title": "A weighted score for priorities",
     "status": "accepted",

@@ -25,7 +25,7 @@ Source: PFE_Report_Mohamed_Landolsi_compressed.pdf (180 PDF pages). "p.N" = prin
 - Oceanss: "predictive go-to-market intelligence engine" (PDF 5). Seven signal types, four connectors + three proxy signals (p.118); EWMA/CUSUM anomaly detection (p.120); seven-stage hiring intent scan (p.121); Tavily + LLM ICP and competitor discovery (p.123); Automation Lab; activity tiers; goal-driven dashboard with four goals (p.120, 133).
 - Wavess-Core: shared Python library, "Git-sourced dependency, pinned to a specific commit" (p.65). JWT (ES256) vs Supabase JWKS, tenant resolution, three-layer entitlement gating, RBAC owner/admin/member, LLM router, ARQ/Redis (p.65-70).
 - Connection: Portal sets an "HTTPOnly access token cookie on the parent domain"; sibling products verify it through Wavess-Core middleware (p.71).
-- Data: one Supabase PostgreSQL instance; public, tropicc and oceanss schemas (p.52, 115, 154). Portal: "Six application tables" (p.83). Oceanss: "thirty-nine tables organized into thirteen logical clusters" (p.137). Caveat: Tropicc backend uses the service role key "that bypasses RLS"; isolation "relies on mandatory client-key filtering" (p.115).
+- Data: one Supabase PostgreSQL instance; public, tropicc and oceanss schemas (p.52, 115, 154). Portal: "Six application tables" (p.83). Oceanss: "thirty-nine tables organized into thirteen logical clusters" (p.137).
 
 ## 4. Tech stack (as stated)
 Python 3.12, FastAPI, Pydantic, Uvicorn, Jinja2, HTMX, Bootstrap, Plotly, Chart.js (p.59-61, 155); Supabase (PostgreSQL 15+, Auth, RLS), pgvector, Cloudinary (p.60, 107, 155); ARQ + Upstash Redis (p.62); LLMs: Groq, Cerebras, Gemini (2.5 Flash, Flash-Lite), NVIDIA NIM (p.63, 68, 75); Sentence Transformers all-MiniLM-L6-v2 (p.110); Apify, Tavily, NewsAPI, Alpha Vantage (p.63, 119); BeautifulSoup, httpx (p.75); Brevo, Office 365 SMTP, Resend (p.111, 120); Docker, Fly.io (Oceanss in Amsterdam region), GitHub Actions, Infisical, GoDaddy (p.64, 116, 138); pytest (p.86); Jira, GitHub, Slack, Google Meet (p.26).
@@ -44,7 +44,7 @@ Python 3.12, FastAPI, Pydantic, Uvicorn, Jinja2, HTMX, Bootstrap, Plotly, Chart.
 - Worker timeouts 3600 s / 900 s / 600 s (p.70). Memory stated inconsistently: "1 GB RAM ceiling" (p.6), "512 MB per machine" (p.62), Appendix D: Portal 512 MB, Tropicc 2 GB, Oceanss 1 GB (p.155).
 - Tropicc: audience report scores up to 50 profiles, shows top 10 (p.98); RelevanceEngine 0-10 scale (p.102); RAG 220-token chunks, 384-dimensional embeddings, K 20 (p.110); 7 email types (p.110).
 - Oceanss: fundraising proxy > $20 million or Series C+ (p.119); 7 scan stages, intent score 0-100, queries capped at 20 (p.121); 8 weighted ICP components (p.125); 6 eligibility checks, 1 scan/day (p.129); 8 Automation Lab sections (p.129); 4 activity tiers (p.131).
-- Tests: 7 core scenarios (p.87); Tropicc 12 scenarios: 8 covered, 3 not covered, 1 partial (p.157); Oceanss 13 rows: 9 automated CI, 3 not covered, 1 manual staging (p.158-159). No coverage percentage: suite "prioritizes refactor parity over coverage metrics" (p.116). Timeouts "represent configured constraints rather than measured performance baselines" (p.87). Load testing "not yet implemented" (p.88).
+- Tests: pytest suites with mocked external dependencies and functional verification matrices per service (p.86 to 88, p.116, p.139, p.157 to 159).
 - Screenshots: "12 companies scored" (Fig 5.3 p.122); "23 Hiring Signals - 23 Accounts Prioritized" (Fig 5.12 p.133).
 
 ## 7. Methodology

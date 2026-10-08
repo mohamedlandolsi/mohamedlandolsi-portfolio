@@ -54,7 +54,7 @@ Status values: `verified` (checked against a primary record), `self-reported` (M
 
 Share of the work: the report is written impersonally and names a team with other developers. On 8 October 2026 Mohamed confirmed that the analysis, the architecture and the implementation of all four parts (Wavess-Core, Portal, the Tropicc rebuild, Oceanss) were his, with code review from the team, and that the architecture decisions were his proposals, reviewed by the CEO. The site states it that way.
 
-Numbers quoted inside the Wavess decisions (`content/decisions.json`, IDs `ADR-WV-01` to `ADR-WV-27`), with their report pages:
+Numbers quoted inside the Wavess decisions (`content/decisions.json`, IDs `ADR-WV-01` to `ADR-WV-26`), with their report pages:
 
 | Number | Where | Source |
 |---|---|---|
@@ -64,8 +64,8 @@ Numbers quoted inside the Wavess decisions (`content/decisions.json`, IDs `ADR-W
 | key set cached for one hour | ADR-WV-13 | report p.65 |
 | 3 layers of product access | ADR-WV-14 | report p.66 |
 | scans of up to an hour | ADR-WV-16 | report Table 3.3, p.70 (3600 s timeout) |
-| 6 eligibility checks, one scan per day | ADR-WV-25 | report Table 5.7, p.129 |
-| weights 0.40, 0.25, 0.20, 0.15; criteria rated 1 to 5; high priority from 4.0 | ADR-WV-27 | report p.36 |
+| 6 eligibility checks, one scan per day | ADR-WV-24 | report Table 5.7, p.129 |
+| weights 0.40, 0.25, 0.20, 0.15; criteria rated 1 to 5; high priority from 4.0 | ADR-WV-26 | report p.36 |
 
 ## Other
 
