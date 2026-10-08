@@ -102,3 +102,5 @@ Scores (fill in after the preview deploy):
 ## Phase 8: ship
 
 Run `/ship` and follow it. The domain move happens in the Vercel dashboard.
+
+Shipped on 8 October 2026: production deployment `dpl_2sBoD22sSCFwxoXvadJdyxhvffkA` (commit `e82f9cc`) on the Vercel project `tech-ba-portfolio`, which already held the domains, so nothing moved. Checked on `https://www.mohamedlandolsi.tech`: every route prerendered and returning 200, OG images on the www host, the apex redirecting to www, `/Mohamed-Landolsi-CV.pdf` redirecting to the hosted CV, no `noindex` outside drafts and the 404. The previous production deployment (`dpl_Cj935kgNoPhUaGbaZXtPDYfytoSr`, the old site) is kept as the rollback target. PageSpeed scores in the phase 7 table are still to be filled in from pagespeed.web.dev.
