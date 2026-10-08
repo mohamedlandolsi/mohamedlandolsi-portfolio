@@ -6,17 +6,20 @@
   display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 24px;
   font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-dim);
 }
+.cv-contact li:first-child { flex-basis: 100%; }
 .cv-availability { max-width: 64ch; margin-top: 14px; font-size: 0.92rem; color: var(--color-dim); }
 .cv-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 28px; }
 
 .cv-section { display: grid; gap: 18px 40px; padding-block: 44px; border-bottom: 1px solid var(--color-line); }
 .cv-section:last-child { border-bottom: 0; padding-bottom: 72px; }
 @media (min-width: 768px) { .cv-section { grid-template-columns: 150px minmax(0, 1fr); } }
-.cv-section > h2 { font-family: var(--font-display); font-size: 1.12rem; font-weight: 600; line-height: 1.4; color: var(--color-text); }
+/* Section names are labels, like the spec grid's, so the entry titles carry the hierarchy. */
+.cv-section > h2 { padding-top: 0.2em; font-family: var(--font-mono); font-size: 0.74rem; font-weight: 400; letter-spacing: 0.08em; line-height: 1.5; text-transform: uppercase; color: var(--color-faint); }
 
 .cv-entry + .cv-entry { margin-top: 26px; padding-top: 26px; border-top: 1px solid var(--color-line); }
 .cv-entry-tight + .cv-entry-tight { margin-top: 18px; padding-top: 18px; }
-.cv-entry-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 20px; }
+.cv-entry-head { display: grid; gap: 2px; }
+@media (min-width: 640px) { .cv-entry-head { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: 20px; } }
 .cv-entry-title { font-family: var(--font-display); font-size: 1.06rem; font-weight: 600; line-height: 1.4; color: var(--color-text); text-wrap: balance; }
 .cv-org { color: var(--color-dim); }
 .cv-period { font-family: var(--font-mono); font-size: 0.76rem; color: var(--color-faint); white-space: nowrap; }
@@ -26,8 +29,8 @@
 .cv-points li { position: relative; padding-left: 18px; text-wrap: pretty; }
 .cv-points li + li { margin-top: 6px; }
 .cv-points li::before { content: ""; position: absolute; left: 2px; top: 0.78em; width: 7px; height: 1px; background: var(--color-faint); }
-.cv-stack { max-width: 66ch; margin-top: 10px; font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.6; color: var(--color-faint); }
-.cv-print-url { display: none; }
+.cv-stack { margin-top: 10px; font-family: var(--font-mono); font-size: 0.76rem; line-height: 1.6; color: var(--color-faint); }
+.cv-print-only { display: none; }
 
 .cv-rows { display: grid; gap: 14px; }
 .cv-row { display: grid; gap: 2px 24px; }
@@ -52,7 +55,7 @@
 
   .cv-section { grid-template-columns: 21mm minmax(0, 1fr); gap: 0 5mm; padding-block: 6pt; break-inside: avoid; }
   .cv-section:last-child { padding-bottom: 0; }
-  .cv-section > h2 { font-size: 9.5pt; line-height: 1.3; }
+  .cv-section > h2 { padding-top: 1.5pt; font-size: 6.8pt; line-height: 1.3; }
   .cv-entry { break-inside: avoid; }
   .cv-entry + .cv-entry { margin-top: 4pt; padding-top: 4pt; }
   .cv-entry-tight + .cv-entry-tight { margin-top: 3pt; padding-top: 3pt; }
@@ -60,9 +63,11 @@
   .cv-meta { margin-top: 0; }
   .cv-text, .cv-points, .cv-stack { max-width: none; margin-top: 2pt; }
   .cv-points li + li { margin-top: 1pt; }
-  .cv-stack { line-height: 1.4; }
-  .cv-print-url { display: block; margin-top: 1pt; font-family: var(--font-mono); font-size: 0.76rem; color: var(--color-dim); }
-  .cv-rows { gap: 2pt; }
+  .cv-stack { font-size: 0.85rem; line-height: 1.4; }
+  .cv-print-only { display: revert; }
+  .cv-print-url { display: block; margin-top: 1pt; font-family: var(--font-mono); font-size: 0.85rem; color: var(--color-dim); }
+  .cv-entry-head { grid-template-columns: minmax(0, 1fr) auto; align-items: baseline; column-gap: 12pt; }
+  .cv-rows { gap: 4pt; }
   .cv-row { grid-template-columns: 34mm minmax(0, 1fr); }
   /* Languages fit on one line on paper. */
   .cv-rows-inline { display: flex; flex-wrap: wrap; gap: 2pt 16pt; }

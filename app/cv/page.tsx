@@ -24,7 +24,8 @@ export default function Cv() {
     { href: `mailto:${links.email}`, label: links.email },
     { href: links.linkedin, label: displayUrl(links.linkedin) },
     { href: links.github, label: displayUrl(links.github) },
-    { href: links.site, label: displayUrl(links.site) },
+    // The site's own address only matters on paper.
+    { href: links.site, label: displayUrl(links.site), printOnly: true },
   ];
 
   return (
@@ -38,7 +39,7 @@ export default function Cv() {
             {location} ({timezone})
           </li>
           {contact.map((item) => (
-            <li key={item.href}>
+            <li key={item.href} className={item.printOnly ? "cv-print-only" : undefined}>
               <a href={item.href}>{item.label}</a>
             </li>
           ))}
@@ -109,7 +110,7 @@ export default function Cv() {
                 <p className="cv-text">{project.one_liner}</p>
                 <p className="cv-stack">{project.stack.join(", ")}</p>
                 {/* On paper the title is not a link, so the address is printed under it. */}
-                {href && <p className="cv-print-url">{displayUrl(`${links.site}${href}`)}</p>}
+                {href && <p className="cv-print-only cv-print-url">{displayUrl(`${links.site}${href}`)}</p>}
               </div>
             );
           })}
