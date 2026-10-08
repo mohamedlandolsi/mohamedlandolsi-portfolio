@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ProjectFacts } from "@/components/mdx/ProjectFacts";
 import { getCaseStudyMeta } from "@/lib/case-studies";
 import { getProject, getProjects } from "@/lib/content";
+import { pageMetadata } from "@/lib/metadata";
 import "./case-study.css";
 
 // Every case study file is prerendered. Any other slug reaches notFound() below.
@@ -16,12 +17,13 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
   const { slug } = await params;
   const meta = getCaseStudyMeta(slug);
   if (!meta) return {};
-  return {
+  return pageMetadata({
     title: meta.pageTitle,
     description: getProject(slug).one_liner,
+    path: `/work/${slug}`,
     // Drafts build so they can be reviewed, but are never indexed or linked.
-    robots: meta.status === "draft" ? { index: false, follow: false } : undefined,
-  };
+    noindex: meta.status === "draft",
+  });
 }
 
 export default async function CaseStudy({ params }: PageProps<"/work/[slug]">) {

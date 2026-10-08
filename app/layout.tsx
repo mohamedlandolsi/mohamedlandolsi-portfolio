@@ -1,24 +1,21 @@
-import type { Metadata } from "next";
 import { IBM_Plex_Mono, IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/Footer/Footer";
 import { Header } from "@/components/Header/Header";
 import { TooltipDismiss } from "@/components/TooltipDismiss/TooltipDismiss";
-import { getProfile } from "@/lib/content";
+import { rootMetadata } from "@/lib/metadata";
 import "./globals.css";
 
-const display = Space_Grotesk({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-space-grotesk", display: "swap" });
-const body = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex-sans", display: "swap" });
-const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono", display: "swap" });
+// No font is preloaded: on a slow phone network the preloads competed with the stylesheets and
+// pushed the first paint (and LCP) past 2 s. Text paints in the size-adjusted fallback and swaps
+// without layout shift. Measurements in docs/ADR.md (P-11).
+const display = Space_Grotesk({ subsets: ["latin"], weight: ["500", "600", "700"], variable: "--font-space-grotesk", display: "swap", preload: false });
+const body = IBM_Plex_Sans({ subsets: ["latin"], weight: ["400", "500", "600"], variable: "--font-plex-sans", display: "swap", preload: false });
+const mono = IBM_Plex_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-plex-mono", display: "swap", preload: false });
 
 // Every route must come out of the build fully static.
 export const ensureStatic = "navigation";
 
-const profile = getProfile();
-
-export const metadata: Metadata = {
-  title: `${profile.name}, ${profile.role}`,
-  description: profile.positioning,
-};
+export const metadata = rootMetadata;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (

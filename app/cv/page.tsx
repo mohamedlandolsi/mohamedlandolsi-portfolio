@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { isPublished } from "@/lib/case-studies";
 import { getExperience, getProfile, getProjects, getSkills, isTodo } from "@/lib/content";
 import { displayUrl, formatMonth } from "@/lib/format";
+import { pageMetadata } from "@/lib/metadata";
 import "./cv.css";
 
 const profile = getProfile();
@@ -13,10 +13,11 @@ const projects = getProjects().filter(
   (project) => project.featured && !experience.some((entry) => entry.case_study === project.slug),
 );
 
-export const metadata: Metadata = {
-  title: `CV: ${profile.name}, ${profile.role}`,
+export const metadata = pageMetadata({
+  title: "CV",
   description: `${profile.name}'s CV on one page: experience, projects, skills, education and languages. It prints to one A4 page, and a PDF version is linked.`,
-};
+  path: "/cv",
+});
 
 export default function Cv() {
   const { name, role, positioning, location, timezone, availability, links, education, languages } = profile;

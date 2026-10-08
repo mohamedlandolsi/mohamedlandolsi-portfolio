@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
 import { DecisionLog, type DecisionGroup } from "@/components/DecisionLog/DecisionLog";
 import { InlineScript } from "@/components/InlineScript/InlineScript";
 import { isPublished } from "@/lib/case-studies";
 import { getDecision, getDecisions, getProjects } from "@/lib/content";
+import { pageMetadata } from "@/lib/metadata";
 
 /** Decisions grouped by project, in the order of content/projects.json (the newest project is first there). */
 function getGroups(): DecisionGroup[] {
@@ -39,10 +39,11 @@ const groups = getGroups();
 const total = groups.reduce((sum, group) => sum + group.decisions.length, 0);
 const projectNames = new Intl.ListFormat("en", { type: "conjunction" }).format(groups.map((group) => group.title));
 
-export const metadata: Metadata = {
-  title: `Decision log: ${projectNames}`,
+export const metadata = pageMetadata({
+  title: "Decision log",
   description: `${total} written decisions behind ${projectNames}: the context, the choice and the trade-offs of each one, searchable and linkable by ID.`,
-};
+  path: "/decisions",
+});
 
 // On a full page load, open the decision named in the URL hash before the first paint, so nothing
 // shifts when the page hydrates. DecisionLog does the same for later hash changes.

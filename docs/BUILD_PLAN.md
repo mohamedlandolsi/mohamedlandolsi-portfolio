@@ -77,6 +77,20 @@ Built: the PDF link is `profile.links.cv_pdf` (the PDF hosted from the separate 
 Add metadataBase, per-page titles and descriptions, OG images with next/og in the console style, app/sitemap.ts, app/robots.ts, and JSON-LD Person on the home page. Then do a performance and accessibility pass on every route and fix what you find. Record PageSpeed scores here after the first preview deploy.
 ```
 
+Built: `metadataBase` and a title template (`lib/metadata.ts`), canonical URLs, Open Graph and X tags on every page, OG cards from `lib/og.tsx` for home, case studies, decisions and CV (static, rendered at build time from `assets/fonts/`), `app/icon.svg`, `app/sitemap.ts` (drafts left out), `app/robots.ts`, JSON-LD Person on the home page. Performance and accessibility findings and choices: ADR P-11.
+
+Local checks on the production build (Lighthouse 13, mobile):
+
+| Route | LCP, applied slow-4G throttling | CLS | Performance (simulated) | Accessibility | Best Practices | SEO |
+|---|---|---|---|---|---|---|
+| `/` | 1.6 s | 0 | 94 | 100 | 100 | 100 |
+| `/work/personal-gtm-engine` | 1.5 s | 0 | 93 | 100 | 100 | 100 |
+| `/work/job-radar` | 1.5 s | 0 | 95 | 100 | 100 | 100 |
+| `/decisions` | 1.5 s | 0.001 | 95 | 100 | 100 | 100 |
+| `/cv` | 1.5 s | 0.001 | 96 | 100 | 100 | 100 |
+
+axe-core 4.10 (WCAG 2.2 AA and best practices): no violations on all routes, both palettes, at 360 and 1280 px.
+
 Scores (fill in after the preview deploy):
 
 | Route | Performance | Accessibility | Best Practices | SEO |

@@ -11,13 +11,13 @@ The source of truth is `app/globals.css` (Tailwind v4, CSS-first `@theme`). This
 | `--color-panel-2` | `#1B2438` | `#D9DBD3` | Hover fill, spec cells, tooltips, nested surfaces |
 | `--color-text` | `#E8E6DE` | `#171A22` | Headings and primary text |
 | `--color-dim` | `#8D96AA` | `#4C5364` | Running text, descriptions, mono nav |
-| `--color-faint` | `#7C869B` | `#585F6E` | Tags, labels under numbers, footnote, the sieve's source field |
+| `--color-faint` | `#838DA1` | `#585F6E` | Tags, labels under numbers, footnote, the sieve's source field |
 | `--color-cyan` | `#6FE3C9` | `#0A6A5B` | Links, numbers, data, passed companies |
 | `--color-amber` | `#FFB300` | `#865108` | Status, kickers, period badges, the human review step, focus outline |
 | `--color-line` | text at 10% | text at 10% | Section rules, rows inside panels, the background grid |
 | `--color-line-strong` | text at 18% | text at 18% | Panel borders, cell separators |
 
-Contrast notes: the reference page used `#5E6779` / `#767E8F` for faint text and `#B8730A` / `#0E7C6B` for light-mode amber and cyan. Those fail 4.5:1 for small text, so the values above are the same hues moved just far enough to pass on `bg`, `panel` and `panel-2`. Check any new pairing before using it.
+Contrast notes: the reference page used `#5E6779` / `#767E8F` for faint text and `#B8730A` / `#0E7C6B` for light-mode amber and cyan. Those fail 4.5:1 for small text, so the values above are the same hues moved just far enough to pass on `bg`, `panel` and `panel-2` (dark faint was `#7C869B` until phase 7, when an axe sweep found it at 4.23:1 on `panel-2` under the spec labels). Check any new pairing before using it.
 
 Older token names (`--color-paper`, `--color-ink`, `--color-ink-85`, `--color-ink-55`, `--color-ink-25`, `--color-ink-12`, `--color-marker`, `--color-overprint`) are aliases onto this palette, kept for the sieve. New code uses the names above.
 
@@ -65,7 +65,7 @@ Body text is 1rem with line-height 1.55. Paragraph width: `.measure` (64ch) or t
 | Background | `.bg-grid` (fixed 64px grid, masked to fade down) and `body::before` (ambient light) |
 | Nav | `.topnav`, `.nav-inner`, `.nav-mark`, `.nav-links` (current page filled cyan), `.theme-toggle` |
 | Hero | `.hero`, `.eyebrow` + `.dot`, `.hero-faint`, `.role-line`, `.thesis`, `.hero-meta`, `.chip`, `.chip-status`, `.cv-link` |
-| Section head | `components/SectionHead` (`.sec-head`, `.sec-title`, `.sec-tag`) |
+| Section head | `components/SectionHead` (`.sec-head`, `.sec-title`, `.sec-tag`); under 480px the tag always sits on its own line below the title, so a font swap cannot move it |
 | Panels | `.panel` (+ `.lift` for the 2px hover lift) |
 | Cell grids | `.cells` + `.cell`, with `.proof-strip` / `.proof-item` / `.proof-num` / `.proof-label`, `.spec-grid` / `.spec-cell` / `.spec-label` / `.spec-value`, `.matrix` / `.matrix-col` / `.matrix-head` / `.matrix-text` / `.evidence-link` |
 | Project card | `.project-card`, `.project-top`, `.project-name`, `.project-sub`, `.status-badge`, `.project-desc`, `.project-links`, `.project-link-btn` |

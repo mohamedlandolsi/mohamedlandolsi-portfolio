@@ -41,6 +41,8 @@
 /* A project and its rows */
 .decision-group { padding-top: 56px; }
 .decision-group .sec-head { margin-bottom: 14px; }
+/* On phones the tag sits under the title (globals.css); keep it with the title, not the link. */
+@media (max-width: 479px) { .decision-group .sec-head { margin-bottom: 22px; } }
 .decision-group-link { font-family: var(--font-mono); font-size: var(--text-meta); }
 .decision-list { grid-template-columns: minmax(0, 1fr); margin-top: 22px; }
 
