@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { SectionHead } from "@/components/SectionHead/SectionHead";
 import { Sieve } from "@/components/Sieve/Sieve";
 import { getProfile, getProjects } from "@/lib/content";
@@ -30,9 +29,9 @@ export function Hero() {
           </span>
           <span className="chip chip-status">{profile.availability.short}</span>
         </div>
-        <Link href="/cv" className="cv-link">
-          View CV
-        </Link>
+        <a href={profile.links.cv_pdf} className="cv-link">
+          Download CV (PDF)
+        </a>
       </section>
       {sieveProject?.sieve && (
         <section className="shell section" aria-labelledby="run-title">

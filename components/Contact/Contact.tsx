@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { getProfile, isTodo } from "@/lib/content";
 import { CopyEmail } from "./CopyEmail";
 
@@ -27,9 +26,9 @@ export function Contact() {
             {link.label}
           </a>
         ))}
-        <Link href="/cv" className="button">
-          CV
-        </Link>
+        <a href={links.cv_pdf} className="button">
+          CV (PDF)
+        </a>
       </div>
     </section>
   );
