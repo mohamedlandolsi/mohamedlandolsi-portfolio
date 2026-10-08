@@ -39,3 +39,9 @@ Add a new entry before adding a dependency, a third-party script or a new kind o
 - **Decision:** `mailto:`, a copy-email button and LinkedIn. No analytics script at launch.
 - **Why:** A form needs a backend and spam protection; recruiters use e-mail and LinkedIn anyway. No script means no cookie banner.
 - **Trade-off:** No visit data. Revisit with Vercel Web Analytics if needed (new ADR).
+
+## P-08: Git auto-deploy paused until launch
+- **Context:** The site lives in the same GitHub repo the old site was deployed from. On Vercel, that repo's `main` branch deploys straight to the production domains. Pushing the half-built site would replace the live one and break the CV link.
+- **Decision:** `vercel.json` sets `git.deploymentEnabled` to `false`, so no push creates a deployment.
+- **Why:** The old site and `/Mohamed-Landolsi-CV.pdf` stay live through the build phases, and the repo can still be pushed after each phase.
+- **Trade-off:** No preview deployments from pushes. Before `/ship`: delete `vercel.json` (or set the flag to `true`) and make sure the Vercel project that receives the repo uses the Next.js preset. The current project was created for a static site.
