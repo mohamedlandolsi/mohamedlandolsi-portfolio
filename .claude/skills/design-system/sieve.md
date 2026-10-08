@@ -1,6 +1,6 @@
 # The sieve (hero visual)
 
-A data visual of one real run: 377 YC companies enter, rule gates reject 354 into five labeled bins, 23 move on, and a dotted path leads through the next stages to a yellow "My review" mark. It is the only thing on the site that moves without being asked to.
+A data visual of one real run: 377 YC companies enter, rule gates reject 354 into five labeled bins, 23 move on, and a dotted path leads through the next stages to an amber "My review" mark. It is the only thing on the site that moves without being asked to.
 
 ## Data
 
@@ -11,17 +11,17 @@ Read everything from `content/projects.json` → `projects[slug=personal-gtm-eng
 ```text
  source field            gate            passed       next stages                    review
  :::::::::::::::     |  ||  |          ::            . . . . . . . . . . . . . .     ( My review )
- :::::::::::::::  >  |  ||  |   >      ::     website   founders   drafts & checks     sunflower
+ :::::::::::::::  >  |  ||  |   >      ::     website   founders   drafts & checks     amber
  :::::::::::::::     |  ||  |          23                                            circle
         377          bins below the gate: halftone columns, height = count, label + count
                      timezone 234 | inactive 86 | size 27 | duplicate 5 | no website 2
 ```
 
-- **Source field**: 377 dots (3px radius) in a 29 by 13 grid, with the number 377 above it in `.type-metric`. At rest the field is in `--color-ink-55`, so the 23 that passed are the only full-ink dots; in the start state it is full ink and drains to the light ink as each company leaves (design-critic review, phase 2).
-- **Gate**: two vertical lines in `--color-ink-55`, 1px. Label above: "Rules, no AI" in `.type-meta`.
-- **Bins**: five columns below the gate, the largest hanging straight off it, filled with halftone (CSS dots on whole pixels, so the screen stays crisp at every scale), height proportional to count (square-root scale so the 2 and 5 bins stay visible, minimum 8px). Each bin label: the count in tabular figures at text size (not a display numeral: 377 and 23 are the only display numbers) and the reason in sentence case.
-- **Passed**: 23 dots in full ink, clustered, with "23" in `.type-metric` and the label "moved on to scoring".
-- **Next stages**: a dotted line in `--color-ink-55` with the stage labels from `sieve.next` set into gaps in the line (no node dots: one dot means one company), ending in a 56px circle filled with `--color-marker`, text "My review" in `--color-overprint` at 14px. This circle is the only sunflower in the hero.
+- **Source field**: 377 dots (3px radius) in a 29 by 13 grid, with the number 377 above it in `.type-metric` (Space Grotesk, cyan). At rest the field is in `--color-faint`, so the 23 that passed (cyan) stand out; in the start state it is `--color-text` and drains to the faint tone as each company leaves.
+- **Gate**: two vertical lines in `--color-faint`, 1px. Label above: "Rules, no AI". Labels inside the drawing use IBM Plex Sans at 0.8rem (the mono face is too wide for labels that sit side by side).
+- **Bins**: five columns below the gate, the largest hanging straight off it, filled with a halftone of `--color-faint` dots (CSS dots on whole pixels, so the screen stays crisp at every scale), height proportional to count (square-root scale so the 2 and 5 bins stay visible, minimum 8px). Each bin label: the count in mono cyan at text size (377 and 23 are the only large numbers) and the reason in sentence case. Hover or focus fills the label with `--color-panel-2` and shows the gate rule in a tooltip.
+- **Passed**: 23 dots in `--color-cyan`, clustered, with "23" in `.type-metric` and the label "moved on to scoring". During the animation a company turns cyan as it passes the gate.
+- **Next stages**: a dotted line in `--color-faint` with the stage labels from `sieve.next` set into gaps left in the line (no node dots: one dot means one company), ending in a 56px circle: `--color-panel` fill, 2px `--color-amber` ring with a soft amber glow, "My review" in amber mono. This is the only amber in the drawing.
 - **Caption** below: `sieve.caption`, `.type-meta`, plus a link "How the gates work" to the case study.
 
 Below 1024px: rotate the flow to vertical. Source field on top (the same 29 by 13 grid, 2px radius), gate as horizontal lines, bins as horizontal bars listed under the gate with labels on the right (counts in a right-aligned column, reasons on one left edge), then passed, then the stages as a vertical list ending in the review mark.
@@ -32,9 +32,9 @@ Below 1024px: rotate the flow to vertical. Source field on top (the same 29 by 1
 |---|---|
 | 0 ms | Server-rendered final state is visible. On hydration, if motion is allowed and the sieve is in the viewport, reset dots to the source field without a visible jump (they are already there in the final state for 354 + 23 dots, only positions change). |
 | 300 to 1500 ms | Dots move right toward the gate in 6 waves, each wave delayed 120 ms, easing `cubic-bezier(.2,.7,.2,1)`. |
-| 900 to 2000 ms | At the gate, rejected dots drop into their bins (color fades to `--color-ink-55`, then they dissolve into the halftone). Each bin's halftone and count grow only as its dots land (first landing about 1300 ms), so the counter is the data, not a count-up. |
+| 900 to 2000 ms | At the gate, rejected dots drop into their bins (color fades to `--color-faint`, then they dissolve into the halftone). Each bin's halftone and count grow only as its dots land (first landing about 1300 ms), so the counter is the data, not a count-up. |
 | 1500 to 2100 ms | The 23 passed dots continue and settle. The dotted path draws left to right (`stroke-dashoffset`). |
-| 2100 to 2400 ms | The review mark appears, scales from 0.85 to 1 and fills sunflower (it is not shown before the path reaches it). Done. Total at most 2.4 s. |
+| 2100 to 2400 ms | The review mark appears and scales from 0.85 to 1 (it is not shown before the path reaches it). Done. Total at most 2.4 s. |
 
 Implementation:
 
@@ -52,4 +52,4 @@ Implementation:
 
 ## Other diagrams on the site
 
-Case study diagrams are redrawn as inline SVG in the same language: ink lines (1.5px), ink-25 halftone fills for boxes, Archivo labels in `.type-meta`, square corners, and sunflower only on the step where a human decides. Never paste screenshots of draw.io or report figures. References to redraw from are in `docs/reference/`.
+Case study diagrams are redrawn in the console language, in HTML and CSS so their text stays readable on a phone: boxes are panels (`--color-panel`, 1px `--color-line-strong`, 3px radius) with Space Grotesk titles, dim body text and mono cyan notes; connectors are thin amber arrows; shared state sits in a dashed cyan box; amber marks only the step where a human decides. Never paste screenshots of draw.io or report figures. References to redraw from are in `docs/reference/`.

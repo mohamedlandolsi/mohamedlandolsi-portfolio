@@ -48,7 +48,7 @@ Accept when: every number on the page comes from a claim ID; a stranger can tell
 ## Phase 4: case studies
 
 ```text
-Use the case-study skill. Build app/work/[slug]/page.tsx with generateStaticParams from projects.json, the MDX components listed in the skill, and the three diagrams (gtm-engine-overview, job-radar-overview, wavess-architecture) redrawn as inline SVG in the two-ink style. Draft case studies are noindex and not linked from the home page. Run visual-qa on /work/personal-gtm-engine and /work/job-radar, then design-critic.
+Use the case-study skill. Build app/work/[slug]/page.tsx with generateStaticParams from projects.json, the MDX components listed in the skill, and the three diagrams (gtm-engine-overview, job-radar-overview, wavess-architecture) redrawn in the console style of the design-system skill. Draft case studies are noindex and not linked from the home page. Run visual-qa on /work/personal-gtm-engine and /work/job-radar, then design-critic.
 ```
 
 Accept when: the GTM Engine and Job Radar pages read well on a phone; every `<Metric>` shows its source on hover or focus; `<Decision>` works without JavaScript; Wavess stays draft until you fill its TODOs.
@@ -72,7 +72,7 @@ Accept when: printing from the browser gives one clean A4 page; the content matc
 ## Phase 7: metadata, performance, accessibility
 
 ```text
-Add metadataBase, per-page titles and descriptions, OG images with next/og in the two-ink style, app/sitemap.ts, app/robots.ts, and JSON-LD Person on the home page. Then do a performance and accessibility pass on every route and fix what you find. Record PageSpeed scores here after the first preview deploy.
+Add metadataBase, per-page titles and descriptions, OG images with next/og in the console style, app/sitemap.ts, app/robots.ts, and JSON-LD Person on the home page. Then do a performance and accessibility pass on every route and fix what you find. Record PageSpeed scores here after the first preview deploy.
 ```
 
 Scores (fill in after the preview deploy):

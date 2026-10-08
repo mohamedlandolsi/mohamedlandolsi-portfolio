@@ -7,7 +7,7 @@ Everything Claude Code needs to build the new portfolio: instructions, skills, a
 | Path | What it is |
 |---|---|
 | `CLAUDE.md` | Project instructions Claude Code loads every session: stack, hard rules, when to use which skill |
-| `.claude/skills/design-system/` | The visual system: two-ink risograph concept, tokens, the hero sieve spec, anti-patterns |
+| `.claude/skills/design-system/` | The visual system: dark console style, tokens, the hero sieve spec, anti-patterns |
 | `.claude/skills/content-guard/` | Facts, privacy and voice rules, and the spec for the `check:content` script |
 | `.claude/skills/case-study/` | Case study page structure, MDX components, diagrams to redraw |
 | `.claude/skills/visual-qa/` | Screenshot, responsive, keyboard and accessibility checks with Playwright |

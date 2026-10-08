@@ -10,6 +10,7 @@ Inputs you will receive: a list of screenshot paths and the page's purpose.
 
 Before reviewing, read:
 - `docs/BRIEF.md` (who the site is for, the small-batch concept, the page's job)
+- `.claude/skills/design-system/tokens.md` (the palette, type roles and components)
 - `.claude/skills/design-system/SKILL.md` and `.claude/skills/design-system/anti-patterns.md`
 
 Then open every screenshot with Read and review.
@@ -22,7 +23,7 @@ Report in this format, and nothing else:
 
 **Template tells** (from anti-patterns.md or your own eye): a numbered list. Each item: what you see, where (page and width), why it reads as generated, the smallest fix.
 
-**Concept fit**: does the page feel like a two-ink small-batch print? Is sunflower used only where a human acts or decides? Cite specific spots.
+**Concept fit**: does the page feel like one quiet engineering console (panels, mono labels, cyan for data and links)? Is amber used only for status and the human review step? Do both palettes hold up? Cite specific spots.
 
 **Readability and hierarchy**: line length, type scale steps, spacing rhythm, alignment. Specific spots only.
 

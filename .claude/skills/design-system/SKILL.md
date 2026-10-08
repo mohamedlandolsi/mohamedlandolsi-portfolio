@@ -1,37 +1,37 @@
 ---
 name: design-system
-description: The visual system for mohamedlandolsi.tech (two-ink risograph concept, Archivo type, tokens, layout, motion, the hero sieve). Use before any UI, layout, styling, typography, color or motion work, and before creating or editing any component or page.
+description: The visual system for mohamedlandolsi.tech (dark console style, Space Grotesk / IBM Plex Sans / IBM Plex Mono, cyan and amber, panels, the hero sieve). Use before any UI, layout, styling, typography, color or motion work, and before creating or editing any component or page.
 ---
 
-# Design system: small batch
+# Design system: engineering console
 
-The site looks like a two-ink risograph print. One blue ink carries everything. One sunflower ink is reserved for human judgment: approval, review, and where the reader is (focus, hover, selection). The memorable element is the hero sieve. Everything else stays quiet.
+The site looks like a quiet engineering console: a dark navy page with a faint grid and soft ambient light, bordered panels, mono labels, and two accents with fixed jobs. Cyan is data and links. Amber is status and human judgment (availability, the "My review" step). A light palette exists for readers whose system asks for it, and a toggle switches it for the visit. The memorable element is still the hero sieve: one real run of the GTM Engine.
+
+This style comes from a reference page Mohamed supplied (ADR P-10 in `docs/ADR.md`). It replaced the earlier two-ink risograph system.
 
 Read the reference that matches the task:
 
 | Task | Read |
 |---|---|
-| Setting up `globals.css`, colors, type, spacing | `tokens.md` |
+| Colors, type, spacing, components, `globals.css` | `tokens.md` |
 | Building the hero sieve or any data diagram | `sieve.md` |
 | Before finishing any page | `anti-patterns.md` |
 
 ## The rules that matter most
 
-1. **Two inks only.** Blue ink (`--color-ink`) and its tints, sunflower (`--color-marker`), paper. No black, no grey that is not a blue tint, no third hue, no gradients.
-2. **Sunflower means a human.** Use it for: the approval mark at the end of the sieve, hover and focus highlight on links, text selection, the "open" state of an expanded decision. Never as decoration, never for a heading.
-3. **Overprint, do not layer.** When sunflower sits behind blue text, the text uses `--color-overprint` (the color blue ink makes when printed over yellow). Do not put plain ink text on marker below 24px.
-4. **One family.** Archivo variable, using its width axis to create contrast: expanded and heavy for display and numbers, normal for body, condensed for metadata. Never add a second family. Never use monospace.
-5. **Rows, not cards.** Content sits on the paper. Group with space and alignment. A border is allowed only when it encodes something (a gate line in a diagram, the edge of a table).
-6. **Left aligned.** Text never centers except inside a diagram label. Reading width 60 to 70 characters.
-7. **One motion moment.** The sieve plays once on load. Everything else moves only in response to the reader (expand, collapse, copy confirmation). No scroll-triggered fade-ins.
-8. **Print texture, lightly.** One grain overlay on the page (opacity at most 0.05) and halftone dots inside diagrams. The wordmark has a 2px yellow plate offset (misregistration). Nowhere else.
-9. **Numbers are the design.** Metrics use Archivo expanded, heavy, tabular figures, large. Labels under them are short, condensed, sentence case.
-10. **Quality floor.** Responsive from 360px, visible focus, reduced motion respected, AA contrast, dark mode supported (see `tokens.md`).
+1. **Two accents with jobs.** Cyan (`--color-cyan`): links, numbers, data, anything that passed a check. Amber (`--color-amber`): status (availability chip, period badges, section kickers in panels) and the human step (the "My review" mark, the review step in diagrams, focus outlines). No third accent, no gradients on text or buttons. The only gradients are the ambient light behind the page and the halftone dots of the sieve.
+2. **Three families, three jobs.** Space Grotesk for headings and numbers. IBM Plex Sans for running text. IBM Plex Mono for labels, tags, navigation, chips, buttons and metadata. Never mono for paragraphs.
+3. **Panels, not floating cards.** Content groups sit in panels: `--color-panel` fill, 1px `--color-line-strong` border, 3px radius. Related cells share one panel separated by 1px lines (`.cells`: number strips, spec grids, matrices). No shadows except the soft amber glow on status elements.
+4. **Section scaffold.** Each home section: `.section` (72px block padding, 1px bottom line), a `.sec-head` with the title (Space Grotesk 600) left and a mono uppercase tag right. Width: `.shell`, 920px max with 28px gutters.
+5. **Sentence case in the source.** Mono tags, kickers and the hero eyebrow are uppercased by CSS (`text-transform`), never typed in capitals. Headings, buttons and copy stay sentence case.
+6. **Motion is small and optional.** The sieve plays once on load. The pulsing status dot, the soft glow on the availability chip and period badges, 1 to 2px lifts on hover, and a CSS-only scroll reveal (`.reveal`, scroll-driven animation, visible without JS) are the only other motion. Everything stops under `prefers-reduced-motion`.
+7. **Numbers are data.** Metrics use Space Grotesk 700 in cyan with a mono label under them, inside a number strip. Every number still comes from a claim ID (content-guard).
+8. **Quality floor.** Responsive from 360px, visible amber focus outline, AA contrast in both palettes (the faint grey and the light-mode accents are tuned for 4.5:1, see `tokens.md`), links inside running text underlined, no-JS readable.
 
 ## Before you write code for a page
 
-State in a few lines: the sections, the components, the content files used, where (if anywhere) sunflower appears, and whether anything moves. If sunflower appears for a reason that is not "a human acts or decides here", remove it.
+State in a few lines: the sections, the components, the content files used, where amber appears and why (status or a human step), and whether anything moves.
 
 ## After you build
 
-Run the `visual-qa` skill. Compare screenshots to `anti-patterns.md`. Remove one decorative element before calling a page done.
+Run the `visual-qa` skill in both palettes (emulate `prefers-color-scheme` dark and light). Compare screenshots to `anti-patterns.md`.
