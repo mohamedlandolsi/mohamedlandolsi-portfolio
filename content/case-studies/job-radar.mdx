@@ -1,0 +1,48 @@
+---
+slug: job-radar
+title: Job Radar
+summary: A daily job-intelligence pipeline that merges hundreds of remote postings, filters them with config-driven rules and scores the survivors against my profile with an explainable formula.
+status: draft
+---
+
+<ProjectFacts slug="job-radar" />
+
+## The problem
+
+Remote junior roles in automation and GTM engineering are scattered across a dozen boards, most postings are a poor fit (wrong seniority, wrong region, a language I do not speak), and reading them by hand every morning does not scale. I wanted a ranked shortlist with reasons, built at no cost, that I could tune without touching code.
+
+## What I built
+
+One n8n workflow, deployed on a free cloud VM, runs every morning.
+
+<Diagram name="job-radar-overview" alt="Job sources feed per-source mappers, which merge into one stream. Deduplication and hard filters remove most postings. A capped batch goes to an LLM router for structured extraction, a scoring step applies a weighted formula, and results go to a sheet, a telemetry tab and a Discord digest." />
+
+1. **Ingest.** <Metric claim="J1" inline />: public APIs, RSS feeds and community job boards. Each source has its own mapper and its own filters, because each has its own noise.
+2. **Filter before the LLM.** Deduplication by URL, a posting-age window, remote-only, a senior-title veto and banned phrases. Only a capped batch moves on: <Metric claim="J3" inline />.
+3. **Extract and score.** An LLM returns strict JSON (seniority, work policy, languages, visa mention, contract-friendliness). A weighted formula combines it with rule-based fit and recency: <Metric claim="J4" inline />.
+4. **Deliver.** Matches go to a sheet with the reason and red flags for each, telemetry goes to an ops tab, and a Discord digest lists the best ones.
+
+All thresholds, keyword lists and weights live in a config tab. Tuning is a sheet edit with a revision number, never a code change.
+
+## Decisions that mattered
+
+<Decision id="ADR-JR-08" />
+<Decision id="ADR-JR-17" />
+<Decision id="ADR-JR-16" />
+
+## What broke, and what I changed
+
+**A provider outage.** <Metric claim="J5" inline />. The run finished on the last route in the chain, which is why the chain exists.
+
+**An n8n update blocked environment variables.** <Metric claim="J6" inline />. The ops row showed the exact error for every provider, so the fix took one setting, not a debugging session.
+
+## Results
+
+<MetricRow claims="J1,J2,J3,J7" />
+
+## What I would do next
+
+- Finish calibration: one week of reviewed matches, then set the score threshold at the elbow of the distribution.
+- Reuse the router and config pattern in other workflows (the Personal GTM Engine already does).
+
+<Links slug="job-radar" />

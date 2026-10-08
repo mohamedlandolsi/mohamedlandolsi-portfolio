@@ -1,0 +1,51 @@
+{
+  "groups": [
+    {
+      "name": "GTM automation",
+      "items": [
+        "n8n",
+        "Clay",
+        "Apollo",
+        "HubSpot",
+        "webhooks",
+        "lead enrichment",
+        "Apify",
+        "Tavily",
+        "Discord and Slack alerts"
+      ]
+    },
+    {
+      "name": "AI workflows",
+      "items": [
+        "LLM routing and fallback chains",
+        "prompting for strict JSON",
+        "output validation",
+        "RAG pipelines",
+        "pgvector"
+      ]
+    },
+    {
+      "name": "Engineering",
+      "items": [
+        "Python",
+        "FastAPI",
+        "JavaScript",
+        "REST APIs",
+        "PostgreSQL",
+        "Supabase",
+        "Docker",
+        "Git"
+      ]
+    },
+    {
+      "name": "Analysis and documentation",
+      "items": [
+        "requirements and traceability",
+        "BPMN 2.0",
+        "data modeling",
+        "architecture decision records",
+        "Jira"
+      ]
+    }
+  ]
+}

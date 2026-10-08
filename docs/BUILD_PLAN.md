@@ -1,0 +1,88 @@
+# Build plan
+
+Eight phases. Paste each phase's prompt into Claude Code, let it finish, check the acceptance list yourself, then commit. Do not start a phase before the previous one passes. Expect 2 to 4 sessions per phase for the hero and the decision log; the others are shorter.
+
+Tip: start each session with `/clear` and the phase prompt. The kit's `CLAUDE.md` and skills give Claude Code all the context it needs.
+
+## Phase 0: scaffold
+
+```text
+Scaffold the project in this folder without overwriting the existing files (CLAUDE.md, .claude/, .mcp.json, .gitignore, content/, docs/).
+Create a Next.js 16 app with TypeScript, the App Router, Tailwind CSS v4, ESLint and npm, using create-next-app in a temporary folder outside this repo, then copy the generated files in. Keep our .gitignore.
+Then install @next/mdx, @mdx-js/loader, @mdx-js/react and @types/mdx and configure MDX for the App Router (next.config.ts and mdx-components.tsx). Install motion.
+Remove all demo content and default styles. Run npm run build. Initialise git and commit "Scaffold".
+```
+
+Accept when: `npm run build` passes, the home page is blank, no Geist font, no create-next-app SVGs left in `public/`.
+
+## Phase 1: foundation
+
+```text
+Use the design-system skill. Implement the tokens from tokens.md in app/globals.css, load Archivo with the wdth axis through next/font in app/layout.tsx, and build the layout shell: skip link, header (wordmark with the yellow plate offset, links Work, Decisions, CV, Contact), main, footer.
+Create lib/content.ts with typed loaders for every file in content/ (profile, experience, projects, skills, decisions, claims) and a type for each.
+Create scripts/check-content.mjs exactly as specified in the content-guard skill, and add "check:content" to package.json.
+Create app/not-found.tsx using the 404 copy from the content-guard skill.
+Then run visual-qa on the empty shell and the 404 page.
+```
+
+Accept when: `npm run check:content` passes; tabbing shows the skip link first; light and dark mode both render; the wordmark shows the offset yellow plate; no layout shift when the font loads.
+
+## Phase 2: the sieve
+
+```text
+Use the design-system skill and read sieve.md fully. Build components/Sieve: a server component that renders the complete final state as SVG from content/projects.json, plus a small client SieveAnimator that plays the load animation once, exactly per the timing table. Desktop horizontal and mobile vertical layouts. Bins are focusable and show their rule. Include the aria-label sentence and the visually hidden table. Fail the build if the counts do not add up.
+Put it on a temporary /sieve-test page. Run visual-qa at all three widths, with reduced motion, and with JavaScript disabled. Then ask design-critic for a review and fix what it finds.
+```
+
+Accept when: the animation is under 2.4 s and plays once; reduced motion and no-JS show the full final state; at 360px nothing overflows; the only sunflower is the review mark and focus states; Lighthouse performance on `/sieve-test` does not drop compared to the empty page.
+
+## Phase 3: home page
+
+```text
+Build the home page per docs/BRIEF.md (Home page, in order) using the design-system and content-guard skills. Hero headline from profile.hero_headline_options at hero_headline_default. Work rows from projects.json (featured, ordered), linking to /work/[slug]. How I work: the four principles with their decision links. Decisions teaser with the live count from decisions.json. About, contact (with a copy-email button that confirms "Copied"), footer.
+Remove /sieve-test. Run visual-qa, then design-critic, and fix.
+```
+
+Accept when: every number on the page comes from a claim ID; a stranger can tell you what Mohamed does after 10 seconds; nothing on the page is a card.
+
+## Phase 4: case studies
+
+```text
+Use the case-study skill. Build app/work/[slug]/page.tsx with generateStaticParams from projects.json, the MDX components listed in the skill, and the three diagrams (gtm-engine-overview, job-radar-overview, wavess-architecture) redrawn as inline SVG in the two-ink style. Draft case studies are noindex and not linked from the home page. Run visual-qa on /work/personal-gtm-engine and /work/job-radar, then design-critic.
+```
+
+Accept when: the GTM Engine and Job Radar pages read well on a phone; every `<Metric>` shows its source on hover or focus; `<Decision>` works without JavaScript; Wavess stays draft until you fill its TODOs.
+
+## Phase 5: decision log
+
+```text
+Build /decisions from content/decisions.json per docs/BRIEF.md: grouped by project, filter by project and status, free-text search, rows that expand on click (details/summary, height animation only on user action), deep links by hash that open and scroll to a decision, superseded entries linking to their replacement. Keep it fast with 77 entries: render server-side, filter client-side. Run visual-qa and design-critic.
+```
+
+Accept when: `/decisions#ADR-076` opens that decision; search for "fallback" finds the router decisions; the page is fully usable by keyboard.
+
+## Phase 6: CV
+
+```text
+Build /cv as a one-page HTML CV from profile.json, experience.json and skills.json, with print styles that fit one A4 page, and a "Download CV (PDF)" link to /Mohamed-Landolsi-CV.pdf. No phone number. Run visual-qa including the print check.
+```
+
+Accept when: printing from the browser gives one clean A4 page; the content matches `content/` exactly.
+
+## Phase 7: metadata, performance, accessibility
+
+```text
+Add metadataBase, per-page titles and descriptions, OG images with next/og in the two-ink style, app/sitemap.ts, app/robots.ts, and JSON-LD Person on the home page. Then do a performance and accessibility pass on every route and fix what you find. Record PageSpeed scores here after the first preview deploy.
+```
+
+Scores (fill in after the preview deploy):
+
+| Route | Performance | Accessibility | Best Practices | SEO |
+|---|---|---|---|---|
+| `/` | | | | |
+| `/work/personal-gtm-engine` | | | | |
+| `/decisions` | | | | |
+
+## Phase 8: ship
+
+Run `/ship` and follow it. The domain move happens in the Vercel dashboard.

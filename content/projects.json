@@ -1,0 +1,193 @@
+[
+  {
+    "slug": "personal-gtm-engine",
+    "title": "Personal GTM Engine",
+    "one_liner": "An outbound engine that finds B2B startups likely to need GTM automation, verifies their founders, drafts a grounded first message and waits for my approval.",
+    "role": "Solo: design, build, operation",
+    "period": "September to October 2026",
+    "status": "Running on demand on my laptop (n8n in Docker)",
+    "stack": [
+      "n8n",
+      "Google Sheets",
+      "n8n Data Tables",
+      "Clay",
+      "Tavily",
+      "Groq",
+      "Gemini",
+      "Discord",
+      "YC directory",
+      "Hacker News API"
+    ],
+    "metrics": [
+      {
+        "claim": "G1",
+        "value": "377",
+        "label": "YC companies screened in one run"
+      },
+      {
+        "claim": "G2",
+        "value": "23",
+        "label": "passed the source gates and moved on to scoring"
+      },
+      {
+        "claim": "G6",
+        "value": "19",
+        "label": "founders verified from YC pages, 0 search credits"
+      },
+      {
+        "claim": "G9",
+        "value": "0",
+        "label": "messages sent without my approval"
+      }
+    ],
+    "sieve": {
+      "claim": "G3",
+      "date": "2026-10-08",
+      "input": {
+        "value": 377,
+        "label": "YC companies in the run"
+      },
+      "rejected": [
+        {
+          "reason": "Timezone outside UTC+0 to UTC+4",
+          "count": 234,
+          "rule": "Allowed UTC offsets: 0 to 4"
+        },
+        {
+          "reason": "Company no longer active",
+          "count": 86,
+          "rule": "The YC directory must list the company as active"
+        },
+        {
+          "reason": "Team size outside 2 to 150",
+          "count": 27,
+          "rule": "Team size between 2 and 150 people"
+        },
+        {
+          "reason": "Listed twice across directory tags",
+          "count": 5,
+          "rule": "Each company is counted once per run"
+        },
+        {
+          "reason": "No website listed",
+          "count": 2,
+          "rule": "A website is required: accounts are keyed by their domain"
+        }
+      ],
+      "passed": {
+        "value": 23,
+        "label": "moved on to scoring"
+      },
+      "next": [
+        "Website enrichment",
+        "Founder lookup",
+        "Drafting and checks",
+        "My review"
+      ],
+      "caption": "One run of the YC directory source, 8 October 2026. Counts from the engine run log (ops tab)."
+    },
+    "links": {
+      "repo": "TODO: https://github.com/mohamedlandolsi/personal-gtm-engine (confirm after push)",
+      "loom": "TODO"
+    },
+    "featured": true,
+    "order": 1
+  },
+  {
+    "slug": "job-radar",
+    "title": "Job Radar",
+    "one_liner": "A daily job-intelligence pipeline that merges hundreds of remote postings, filters them with config-driven rules and scores the survivors against my profile with an explainable formula.",
+    "role": "Solo: design, build, deployment",
+    "period": "2026",
+    "status": "Deployed on a GCP Always Free VM, scheduled daily at 07:00 Tunis time",
+    "stack": [
+      "n8n",
+      "Docker",
+      "GCP e2-micro",
+      "Google Sheets",
+      "Groq",
+      "Gemini",
+      "Discord",
+      "REST APIs",
+      "RSS"
+    ],
+    "metrics": [
+      {
+        "claim": "J1",
+        "value": "11",
+        "label": "active job sources (12 wired)"
+      },
+      {
+        "claim": "J2",
+        "value": "466 to 617",
+        "label": "postings merged per full run"
+      },
+      {
+        "claim": "J3",
+        "value": "15",
+        "label": "at most this many reach the LLM per run"
+      },
+      {
+        "claim": "J7",
+        "value": "$0",
+        "label": "infrastructure cost"
+      }
+    ],
+    "links": {
+      "repo": "TODO: Job Radar repo URL",
+      "loom": "TODO"
+    },
+    "featured": true,
+    "order": 2
+  },
+  {
+    "slug": "wavess",
+    "title": "Wavess GTM platform (internship)",
+    "one_liner": "A federated B2B SaaS platform that connects market signals to LinkedIn content and GTM actions for small B2B teams.",
+    "role": "Software engineering intern on a small remote team",
+    "period": "December 2025 to May 2026",
+    "status": "Delivered; end-of-studies report defended",
+    "stack": [
+      "Python",
+      "FastAPI",
+      "Supabase",
+      "pgvector",
+      "ARQ",
+      "Redis",
+      "HTMX",
+      "Groq",
+      "Gemini",
+      "Cerebras",
+      "NVIDIA NIM",
+      "Apify",
+      "Tavily",
+      "Fly.io"
+    ],
+    "metrics": [
+      {
+        "claim": "W1",
+        "value": "6",
+        "label": "B2B clients in Germany, the UK and the Czech Republic"
+      },
+      {
+        "claim": "W2",
+        "value": "4",
+        "label": "platform parts sharing one core library"
+      },
+      {
+        "claim": "W3",
+        "value": "57",
+        "label": "requirements traced to user stories (46 functional, 11 non-functional)"
+      },
+      {
+        "claim": "W4",
+        "value": "6",
+        "label": "LLM routes across 4 providers"
+      }
+    ],
+    "links": {},
+    "featured": true,
+    "order": 3,
+    "notes": "No client names, no product screenshots with third-party data. Diagrams must be redrawn, not copied from the report."
+  }
+]

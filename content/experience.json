@@ -1,0 +1,108 @@
+[
+  {
+    "id": "wavess",
+    "company": "Wavess",
+    "company_context": "Berlin B2B SaaS startup (founded 2023, bootstrapped) building GTM intelligence and LinkedIn content tools for small B2B firms in DACH, the UK and the Czech Republic.",
+    "title": "TODO: use the exact title on the internship certificate (CV says 'GTM Systems Engineer', old site says 'Business Analyst & Software Engineer Intern')",
+    "type": "End-of-studies internship (six months)",
+    "location": "Remote (Berlin, Germany)",
+    "start": "2025-12",
+    "end": "2026-05",
+    "summary": "Worked across a four-part platform: an identity and workspace portal, a LinkedIn content service, a GTM intelligence engine and a shared Python core, serving six B2B clients in Germany, the UK and the Czech Republic.",
+    "highlights": [
+      {
+        "text": "Worked on all three product services (Portal, Tropicc, Oceanss) and the shared core library, in a federated service-oriented architecture on one multi-tenant Supabase PostgreSQL database with a schema per service.",
+        "claims": [
+          "W2"
+        ]
+      },
+      {
+        "text": "Documented 46 functional and 11 non-functional requirements, 15 user stories and a two-way traceability matrix, plus use case and BPMN models for the content and GTM flows.",
+        "claims": [
+          "W3"
+        ],
+        "verify": "Confirm you authored these (the report is yours, so this should hold)."
+      },
+      {
+        "text": "Worked on the shared LLM router: 6 model routes across 4 providers (Groq, Cerebras, Gemini, NVIDIA NIM), switching away from a provider at 95% of its daily free quota.",
+        "claims": [
+          "W4"
+        ],
+        "verify": "Confirm your personal share of the router work."
+      },
+      {
+        "text": "Built enrichment on Apify and Tavily running in ARQ background workers on Redis, feeding LLM-based ICP scoring.",
+        "claims": [
+          "W9"
+        ],
+        "verify": "Confirm which parts you built."
+      }
+    ],
+    "stack": [
+      "Python 3.12",
+      "FastAPI",
+      "Supabase (PostgreSQL, Auth, RLS, pgvector)",
+      "ARQ",
+      "Upstash Redis",
+      "HTMX",
+      "Groq",
+      "Gemini",
+      "Cerebras",
+      "NVIDIA NIM",
+      "Apify",
+      "Tavily",
+      "Docker",
+      "Fly.io",
+      "GitHub Actions",
+      "Jira"
+    ],
+    "case_study": "wavess"
+  },
+  {
+    "id": "aycorp",
+    "company": "AYCORP Technologies",
+    "title": "AI engineer intern",
+    "type": "Internship",
+    "location": "Tunis, Tunisia",
+    "start": "2025-06",
+    "end": "2025-08",
+    "summary": "Prototyped a voice interview pipeline for InterQ, an AI interview platform, integrating VAPI with Gemini 2.5 Flash, and defined its API contracts.",
+    "highlights": [],
+    "stack": [
+      "VAPI",
+      "Gemini 2.5 Flash"
+    ]
+  },
+  {
+    "id": "rugby",
+    "company": "Stade Nabeulien Rugby Club",
+    "title": "Full-stack developer (volunteer)",
+    "type": "Volunteer",
+    "location": "Nabeul, Tunisia",
+    "start": "2025-06",
+    "end": "2025-09",
+    "summary": "Replaced manual scheduling and attendance tracking with a web workflow for training requests, availability checks, attendance and CSV exports.",
+    "highlights": [
+      {
+        "text": "Saved staff about 3 hours of admin work per week.",
+        "claims": [
+          "O1"
+        ]
+      }
+    ],
+    "stack": []
+  },
+  {
+    "id": "millesima",
+    "company": "Millesima Technologies",
+    "title": "Web developer intern",
+    "type": "Internship (bachelor's final project, co-authored)",
+    "location": "Tunis, Tunisia",
+    "start": "2023-02",
+    "end": "2023-05",
+    "summary": "Documented requirements and REST API contracts for MyVioo, a white-label video-on-demand platform, and wrote its functional test cases.",
+    "highlights": [],
+    "stack": [],
+    "show_on_home": false
+  }
+]

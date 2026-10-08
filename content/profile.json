@@ -1,0 +1,66 @@
+{
+  "name": "Mohamed Landolsi",
+  "role": "GTM automation and integration engineer",
+  "role_short": "GTM automation engineer",
+  "positioning": "I build outbound and research systems for B2B teams in n8n, Clay and custom APIs. Plain rules screen the data first, an LLM writes only from verified facts, and a person approves anything that leaves.",
+  "hero_headline_options": [
+    "I build outbound systems that filter hard, write carefully and wait for a human.",
+    "Automation for go-to-market teams: the system does the screening, a person does the sending.",
+    "Most of a GTM workflow is saying no. I make the machine do that part."
+  ],
+  "hero_headline_default": 0,
+  "location": "Nabeul, Tunisia",
+  "timezone": "UTC+1",
+  "availability": {
+    "status": "open",
+    "text": "Open to remote B2B contract work and junior GTM engineering roles. My working day overlaps fully with EU business hours.",
+    "relocation": "Open to relocation."
+  },
+  "links": {
+    "email": "mohamedlandolsi300@gmail.com",
+    "linkedin": "https://www.linkedin.com/in/mohamedlandolsi",
+    "github": "https://github.com/mohamedlandolsi",
+    "cv_pdf": "/Mohamed-Landolsi-CV.pdf",
+    "loom_gtm_engine": "TODO: Loom link after recording (Sprint 8)"
+  },
+  "languages": [
+    {
+      "name": "Arabic",
+      "level": "Native"
+    },
+    {
+      "name": "English",
+      "level": "Professional working proficiency"
+    },
+    {
+      "name": "French",
+      "level": "Reading and listening"
+    }
+  ],
+  "education": [
+    {
+      "school": "IT Business School (ITBS), Nabeul",
+      "degree": "National Engineering Degree in Software Engineering (Master's equivalent)",
+      "start": "2023",
+      "end": "2026"
+    },
+    {
+      "school": "ISET Nabeul (Higher Institute of Technological Studies)",
+      "degree": "Bachelor's degree in Information Technology",
+      "start": "2020",
+      "end": "2023"
+    }
+  ],
+  "about": [
+    "I studied software engineering in Nabeul and spent my final six months at Wavess, a Berlin B2B SaaS startup, working on a platform that turns market signals into GTM actions for small B2B teams.",
+    "That internship taught me the part of GTM work nobody demos: most of the job is throwing away the wrong accounts, the wrong people and the wrong sentences before anything reaches a customer. Since then I have built two systems around that idea, both on free tiers, both running on my own data.",
+    "I write the decision down before I build the workflow. Every project here has its decision log, its telemetry and the bugs that changed it."
+  ],
+  "never_publish": [
+    "phone number",
+    "home address",
+    "Wavess client names",
+    "prospect founder names or LinkedIn URLs",
+    "outreach drafts addressed to real people"
+  ]
+}

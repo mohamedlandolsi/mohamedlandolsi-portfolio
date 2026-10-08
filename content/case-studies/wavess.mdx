@@ -1,0 +1,47 @@
+---
+slug: wavess
+title: Wavess GTM platform
+summary: A federated B2B SaaS platform that connects market signals to LinkedIn content and GTM actions for small B2B teams. My end-of-studies internship.
+status: draft
+review_required: Mohamed must confirm his personal share of each item marked verify in content/experience.json before publishing. No client names, no product screenshots.
+---
+
+<ProjectFacts slug="wavess" />
+
+## Context
+
+Wavess is a Berlin B2B SaaS startup that helps small B2B companies (about 5 to 100 people) in DACH, the UK and the Czech Republic turn market signals into LinkedIn content and sales actions. During my six-month internship it served <Metric claim="W1" inline />. The team was small and remote, and the work ran in <Metric claim="W7" inline />.
+
+The problem the platform addresses: market intelligence and content execution live in different tools, so signals rarely turn into timely action, and producing LinkedIn content by hand takes hours per profile each week.
+
+## The platform
+
+<Diagram name="wavess-architecture" alt="Three product services, Portal for identity and workspaces, Tropicc for LinkedIn content, and Oceanss for GTM intelligence, all depend on a shared core library that handles token verification, tenant resolution, access gating and LLM routing. They share one PostgreSQL database with a schema per service, a Redis queue and background workers." />
+
+<Metric claim="W2" />
+
+- **Portal**: multi-tenant identity, onboarding and workspace governance.
+- **Tropicc**: LinkedIn content generation with retrieval over each client's own material and an engagement prediction model.
+- **Oceanss**: GTM intelligence that collects hiring and market signals, detects anomalies and scores accounts.
+- **Wavess-Core**: the shared library for authentication, tenant context, access control, background jobs and LLM routing.
+
+## What I worked on
+
+TODO (Mohamed): write 3 to 5 bullets in first person about what you personally designed, built or documented. Draft options, confirm or remove each:
+
+- Requirements and traceability: <Metric claim="W3" inline />, plus use case and BPMN models for the content and GTM flows.
+- The shared LLM router: <Metric claim="W4" inline />, with a goal of <Metric claim="W5" inline />.
+- Enrichment on <Metric claim="W9" inline />.
+- The content service rebuild: <Metric claim="W8" inline />.
+
+## Decisions that mattered
+
+{/* Source: the report's trade-off tables (Table 2.15 and 2.17 to 2.22), not decisions.json. Keep each as decision, alternatives, reason. */}
+
+- Federated coarse-grained services over a monolith or fine-grained microservices: independent scaling of content and signal workloads without the operational cost of many services for a small team.
+- One database with a schema per service. Tenant isolation through row-level security in the Portal, and mandatory tenant filtering in the content backend (which uses a service key).
+- A multi-provider LLM chain with quota tracking over self-hosted models, to stay within a startup budget.
+
+## What I took from it
+
+This is where the GTM Engine and Job Radar come from: the same pattern of configuration first, rules before models, a provider chain, and a human approving anything that reaches a customer, rebuilt on free tools.

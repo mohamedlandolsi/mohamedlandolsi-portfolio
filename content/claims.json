@@ -1,0 +1,299 @@
+[
+  {
+    "id": "G1",
+    "value": "377",
+    "label": "YC companies screened in one run",
+    "inline": "377 YC companies",
+    "source": "ops tab, yc stats rows=377",
+    "date": "2026-10-08",
+    "status": "verified"
+  },
+  {
+    "id": "G2",
+    "value": "23",
+    "label": "passed the source gates and moved on to scoring",
+    "inline": "23 companies",
+    "source": "ops tab, yc stats returned=23",
+    "date": "2026-10-08",
+    "status": "verified"
+  },
+  {
+    "id": "G3",
+    "value": "354",
+    "label": "rejected by rules before any AI call (timezone 234, inactive 86, size 27, duplicate 5, no website 2)",
+    "inline": "354 of 377 companies rejected by rules",
+    "source": "ops tab, yc stats",
+    "date": "2026-10-08",
+    "status": "verified"
+  },
+  {
+    "id": "G4",
+    "value": "495",
+    "label": "Hacker News hiring posts screened per run (14 kept)",
+    "inline": "495 Hacker News hiring posts",
+    "source": "ops tab, hn stats",
+    "date": "2026-10-08",
+    "status": "verified"
+  },
+  {
+    "id": "G5",
+    "value": "48",
+    "label": "accounts scored, each with its breakdown",
+    "inline": "48 scored accounts",
+    "source": "accounts tab",
+    "date": "2026-10-08",
+    "status": "verified"
+  },
+  {
+    "id": "G6",
+    "value": "19",
+    "label": "founders verified from YC pages at 10 companies, 0 search credits",
+    "inline": "19 founders at 10 companies",
+    "source": "contact_results, provider=yc_directory",
+    "date": "2026-10-07",
+    "status": "verified"
+  },
+  {
+    "id": "G7",
+    "value": "8 of 8",
+    "label": "drafts passed the validator in the latest run, no template fallback",
+    "inline": "8 of 8 drafts passed, with no template fallback",
+    "source": "outreach_queue rows 38 to 45",
+    "date": "2026-10-08",
+    "status": "verified"
+  },
+  {
+    "id": "G8",
+    "value": "27",
+    "label": "LLM calls in the latest run, 19 of them retries",
+    "inline": "27 LLM calls, 19 of them retries",
+    "source": "ops tab llm_calls / llm_failures",
+    "date": "2026-10-08",
+    "status": "verified"
+  },
+  {
+    "id": "G9",
+    "value": "0",
+    "label": "messages sent without my approval",
+    "inline": "0 messages sent without approval",
+    "source": "design: no send path; send_status column",
+    "date": "ongoing",
+    "status": "verified"
+  },
+  {
+    "id": "G10",
+    "value": "3",
+    "label": "workflows (59, 13 and 14 nodes)",
+    "inline": "3 workflows",
+    "source": "workflow exports",
+    "date": "2026-10-08",
+    "status": "verified"
+  },
+  {
+    "id": "G11",
+    "value": "66",
+    "label": "architecture decisions written down",
+    "inline": "66 written decisions",
+    "source": "repo docs/ADR.md",
+    "date": "2026-10-08",
+    "status": "verified"
+  },
+  {
+    "id": "G12",
+    "value": "$0",
+    "label": "monthly running cost",
+    "inline": "$0 a month",
+    "source": "free tiers only",
+    "date": "2026-10",
+    "status": "verified"
+  },
+  {
+    "id": "G13",
+    "value": "28 of 35",
+    "label": "LLM calls rejected by the first validator in one run",
+    "inline": "28 of 35 LLM calls were rejected",
+    "source": "ops tab llm_calls=35 llm_failures=28",
+    "date": "2026-10-07",
+    "status": "verified"
+  },
+  {
+    "id": "G14",
+    "value": "10 of 10",
+    "label": "founder lookups resolved from YC pages after the fix",
+    "inline": "10 of 10",
+    "source": "YC Founders node stats",
+    "date": "2026-10-07",
+    "status": "verified"
+  },
+  {
+    "id": "G15",
+    "value": "5",
+    "label": "companies where name search attached the wrong people",
+    "inline": "5 companies with common-word names",
+    "source": "manual review of contacts",
+    "date": "2026-10-07",
+    "status": "verified"
+  },
+  {
+    "id": "J1",
+    "value": "11",
+    "label": "active job sources (12 wired)",
+    "inline": "12 sources are wired and 11 enabled",
+    "source": "workflow export and config tab",
+    "date": "2026-10",
+    "status": "verified"
+  },
+  {
+    "id": "J2",
+    "value": "466 to 617",
+    "label": "postings merged per full run",
+    "inline": "466 to 617 postings per full run",
+    "source": "ops tab, full runs",
+    "date": "2026-09",
+    "status": "verified"
+  },
+  {
+    "id": "J3",
+    "value": "15",
+    "label": "postings at most reach the LLM per run",
+    "inline": "at most 15 postings per run",
+    "source": "config tab slice_cap (v4)",
+    "date": "2026-10",
+    "status": "verified"
+  },
+  {
+    "id": "J4",
+    "value": "65",
+    "label": "pass mark on a weighted 0 to 100 score",
+    "inline": "0.40 match, 0.25 filter fit, 0.20 feasibility and 0.15 recency, with a pass mark of 65",
+    "source": "SPEC v3.2 section 8",
+    "date": "2026-09",
+    "status": "verified"
+  },
+  {
+    "id": "J5",
+    "value": "24 of 24",
+    "label": "postings scored on the last route during a provider outage",
+    "inline": "on 15 September Groq returned 401 and one Gemini model returned 404, and the remaining route scored 24 of 24 postings",
+    "source": "ops tab 2026-09-15 09:33",
+    "date": "2026-09-15",
+    "status": "verified"
+  },
+  {
+    "id": "J6",
+    "value": "14 min",
+    "label": "from a failed run to a clean re-run after an n8n update",
+    "inline": "on 21 September a run failed with 'access to env vars denied' for every provider, and it was fixed and re-run 14 minutes later with 25 of 25 scored",
+    "source": "ops tab 2026-09-21",
+    "date": "2026-09-21",
+    "status": "verified"
+  },
+  {
+    "id": "J7",
+    "value": "$0",
+    "label": "infrastructure: Docker on a GCP Always Free VM, daily at 07:00",
+    "inline": "$0 on a GCP Always Free VM",
+    "source": "SPEC v3.2",
+    "date": "2026-09",
+    "status": "verified"
+  },
+  {
+    "id": "J8",
+    "value": "41",
+    "label": "workflow nodes",
+    "inline": "41 nodes",
+    "source": "workflow export",
+    "date": "2026-10",
+    "status": "verified"
+  },
+  {
+    "id": "W1",
+    "value": "6",
+    "label": "B2B clients in Germany, the UK and the Czech Republic",
+    "inline": "six B2B clients in Germany, the UK and the Czech Republic",
+    "source": "report p.10 to 11",
+    "date": "2026",
+    "status": "verified"
+  },
+  {
+    "id": "W2",
+    "value": "4",
+    "label": "platform parts sharing one core library and one database",
+    "inline": "4 parts sharing one core library and one database",
+    "source": "report p.52 to 54, p.65",
+    "date": "2026",
+    "status": "verified"
+  },
+  {
+    "id": "W3",
+    "value": "57",
+    "label": "requirements traced to user stories (46 functional, 11 non-functional)",
+    "inline": "46 functional and 11 non-functional requirements and 15 user stories, linked in a two-way traceability matrix",
+    "source": "report tables 2.5 to 2.9, A.3",
+    "date": "2026",
+    "status": "verified"
+  },
+  {
+    "id": "W4",
+    "value": "6",
+    "label": "LLM routes across 4 providers",
+    "inline": "6 model routes across 4 providers, skipping a provider at 95% of its daily quota",
+    "source": "report p.67 to 68",
+    "date": "2026",
+    "status": "verified"
+  },
+  {
+    "id": "W5",
+    "value": ">90%",
+    "label": "of requests within free tiers (design goal)",
+    "inline": "serving more than 90% of requests within free tiers",
+    "source": "report p.42 NFR-COST-01",
+    "date": "2026",
+    "status": "target"
+  },
+  {
+    "id": "W6",
+    "value": "39",
+    "label": "tables in 13 clusters in the GTM engine data model",
+    "inline": "39 tables in 13 clusters",
+    "source": "report p.137",
+    "date": "2026",
+    "status": "verified"
+  },
+  {
+    "id": "W7",
+    "value": "6",
+    "label": "sprints, February to May 2026",
+    "inline": "6 sprints from February to May 2026",
+    "source": "report p.28",
+    "date": "2026",
+    "status": "verified"
+  },
+  {
+    "id": "W8",
+    "value": "~90%",
+    "label": "of the content service refactored or rebuilt",
+    "inline": "about 90% of the service was refactored or rebuilt",
+    "source": "report p.27",
+    "date": "2026",
+    "status": "verified"
+  },
+  {
+    "id": "W9",
+    "value": "2",
+    "label": "enrichment providers (Apify, Tavily) in background workers",
+    "inline": "Apify and Tavily, running in ARQ background workers on Redis",
+    "source": "report p.62 to 63, p.121 to 123",
+    "date": "2026",
+    "status": "verified"
+  },
+  {
+    "id": "O1",
+    "value": "3 h",
+    "label": "of admin work saved per week",
+    "inline": "about 3 hours of admin work a week",
+    "source": "CV",
+    "date": "2025",
+    "status": "self-reported"
+  }
+]

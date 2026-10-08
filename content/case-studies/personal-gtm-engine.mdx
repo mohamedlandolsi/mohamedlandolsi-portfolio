@@ -1,0 +1,52 @@
+---
+slug: personal-gtm-engine
+title: Personal GTM Engine
+summary: An outbound engine that finds B2B startups likely to need GTM automation, verifies their founders, drafts a grounded first message and waits for my approval.
+status: draft
+---
+
+<ProjectFacts slug="personal-gtm-engine" />
+
+## The problem
+
+I needed clients for remote GTM automation work, and I wanted the search itself to prove I can do the work. Most outbound tools solve volume. My problem was the opposite: with free tiers only and a reputation to protect, every account, every contact and every sentence had to be right before it reached a person.
+
+## What I built
+
+Three n8n workflows share one Google Sheet. Each one reads what the previous one wrote, so I can inspect and correct anything between steps.
+
+<Diagram name="gtm-engine-overview" alt="Three workflows in sequence. The engine discovers, filters, scores and enriches accounts, then queues them for contact lookup. The contact finder reads founders from YC company pages, with a gated search as fallback. The engine drafts messages, a validator checks them, and the digest posts each draft to Discord for review in the sheet." />
+
+1. **Discover and filter.** Companies come from Y Combinator's public directory, Hacker News hiring threads and a seed list. Plain rules run before any AI call: domain, team size, industry, keywords, timezone and seen-before.
+2. **Score and enrich.** Every account gets an explainable 0 to 100 score with its breakdown. A single website fetch detects the CRM and tooling the company actually uses.
+3. **Find the right person.** Founders are read from the company's YC page and accepted only if that page lists the same website. Companies outside YC go to a search with company and location gates.
+4. **Draft, check, review.** A fallback chain of three Groq models and Gemini writes a LinkedIn note, a longer message and three follow-ups from facts only. A rule-based validator rejects bad drafts and asks for one repair. Each draft arrives in Discord as a review card. Nothing is sent by the system.
+
+<Sieve project="personal-gtm-engine" />
+
+## Decisions that mattered
+
+<Decision id="ADR-004" />
+<Decision id="ADR-076" />
+<Decision id="ADR-024" />
+
+## What broke, and what I changed
+
+**The search found strangers.** A people search for a company called Twenty returned people who worked somewhere else, because a company name alone is ambiguous. It happened at <Metric claim="G15" inline />. I replaced name matching with a lookup that is verified by website domain. On the next run, <Metric claim="G14" inline /> lookups resolved from YC pages, at no search cost.
+
+**The validator was too strict.** In one run, <Metric claim="G13" inline />. Most rejections were word counts a few words short, not bad content. I relaxed the length rules, kept the factual checks, and added plain-language repair hints. In the latest run, <Metric claim="G7" inline />.
+
+**The model pitched companies their own product.** With only a homepage description to go on, it treated what a company sells as a problem the company has. I added a deterministic product-term check that runs before and after the model: words the company repeats about itself may appear only in the opening observation.
+
+## Results
+
+<MetricRow claims="G1,G2,G6,G7,G9" />
+
+Numbers come from the engine's own run log. Every run appends counters and error samples to an ops tab, and debugging starts there.
+
+## What I would do next
+
+- Measure reply rate on approved, hand-sent messages and feed it back into scoring.
+- Move the HTTP calls that live inside Code nodes into native nodes with retries, once the logic stops changing.
+
+<Links slug="personal-gtm-engine" />
