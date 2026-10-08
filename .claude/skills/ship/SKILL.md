@@ -9,7 +9,7 @@ disable-model-invocation: true
 ## Where it runs
 
 - Vercel team `mohamedlandolsi's projects`, project `tech-ba-portfolio` (Next.js preset), linked to this GitHub repo. A push to `main` deploys to production; a push to any other branch makes a preview.
-- Domains on that project: `www.mohamedlandolsi.tech` (primary), `mohamedlandolsi.tech` (308 to www), `www.mohamedlandolsi.dev` and `mohamedlandolsi.dev` (308 to www.dev). `profile.links.site` is the primary address and feeds `metadataBase`, canonicals, the sitemap and robots.txt.
+- Domains on that project: `www.mohamedlandolsi.tech` (primary), `mohamedlandolsi.tech` (308 to www), `www.mohamedlandolsi.dev` and `mohamedlandolsi.dev` (308 to www.dev). Both `.dev` hosts redirect every path to the primary address (`next.config.ts`), so the site has one copy. `profile.links.site` is the primary address and feeds `metadataBase`, canonicals, the sitemap and robots.txt.
 - `cv.mohamedlandolsi.tech` is not on this project: it serves the CV PDF from the separate CV repo. `/Mohamed-Landolsi-CV.pdf` on this site redirects there (`next.config.ts`, from `profile.links.cv_pdf`) so old links keep working.
 - Preview URLs are behind Vercel Authentication; custom domains are public.
 

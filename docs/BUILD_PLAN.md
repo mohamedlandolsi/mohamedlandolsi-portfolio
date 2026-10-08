@@ -116,4 +116,6 @@ Built on 8 October 2026, after the first deploy.
 - **Favicon:** the orange M as `app/favicon.ico` (16, 32, 48), `app/icon.png` (192) and `app/apple-icon.png` (180, on the site's navy). It replaces `app/icon.svg`.
 - **Search:** one schema.org graph per page (`lib/structured-data.ts`): WebSite, ProfilePage and Person on the home page; TechArticle and SoftwareSourceCode on each case study. Case studies carry `published` and `updated` dates in their frontmatter, used for `article:` tags, structured data and `lastmod` in the sitemap. The sitemap lists each case study's screenshots. Robots meta allows the large image preview and the full snippet. `/index.html` (the old site's only page) redirects to `/`.
 
-Left for Mohamed, outside the repo: verify the domain in Google Search Console and Bing Webmaster Tools and submit `/sitemap.xml`; give both GitHub repositories a description, the case study address as website and topics; decide whether `www.mohamedlandolsi.dev` should redirect to `.tech` instead of serving a second copy (the canonical tag already points at `.tech`).
+Left for Mohamed, outside the repo: verify the domain in Google Search Console and Bing Webmaster Tools and submit `/sitemap.xml`; give both GitHub repositories a description, the case study address as website and topics.
+
+Added after review: both `.dev` hosts now redirect every path to `www.mohamedlandolsi.tech` (`next.config.ts`), so the site is served from one address.
