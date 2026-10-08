@@ -34,6 +34,7 @@ Add a new entry before adding a dependency, a third-party script or a new kind o
 - **Decision:** Server-rendered SVG final state, CSS transforms driven by custom properties, one small client component to start it.
 - **Why:** Works without JavaScript, is accessible as an image with a text alternative, costs almost no JavaScript, and does not block LCP.
 - **Trade-off:** Less physical motion than a canvas simulation. Not needed.
+- **Update (phase 2, measured):** CSS transforms on 377 SVG circles made Chrome restyle and repaint the whole SVG every frame: Lighthouse mobile TBT went from 50 ms to 510 ms on `/sieve-test`. The moving dots are now drawn on a temporary `<canvas>` over the drawing for the 2.4 s of play (same timing and easing), then removed. Everything else holds: the final state is server-rendered SVG, the path, labels and review mark animate with CSS, the bin fills and counts follow the dots that have landed, and no-JS and reduced motion see the final state. TBT after the change: 50 ms, the same as an empty page.
 
 ## P-07: No contact form, no analytics at launch
 - **Decision:** `mailto:`, a copy-email button and LinkedIn. No analytics script at launch.

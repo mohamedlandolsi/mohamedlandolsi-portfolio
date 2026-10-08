@@ -1,0 +1,146 @@
+/* The hero sieve. The final state is the default. [data-sieve="armed"] is the start state, set
+   before the first paint; [data-sieve="play"] runs the timing table from sieve.md once. The
+   moving dots, the draining field and the bin fills are drawn by play.ts; the path, labels and
+   mark use the delays below, which match components/Sieve/timing.ts. */
+
+.sieve {
+  --sieve-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Two compositions: vertical below 1024px, horizontal above. */
+.sieve-wide { display: none; }
+.sieve-narrow > div { max-width: 360px; }
+@media (min-width: 1024px) {
+  .sieve-wide { display: block; }
+  .sieve-narrow { display: none; }
+}
+
+.sieve svg { display: block; width: 100%; height: auto; overflow: visible; }
+.sieve-canvas { position: absolute; top: 0; left: 0; width: 100%; height: auto; pointer-events: none; }
+
+/* Ink. The source field rests in the light ink: the full ink is for the companies that passed. */
+.sieve-field circle,
+.sieve pattern circle { fill: var(--color-ink-55); }
+.sieve-cluster { fill: var(--color-ink); }
+.sieve-path { fill: var(--color-ink-55); }
+.sieve-gate { stroke: var(--color-ink-55); stroke-width: 1px; vector-effect: non-scaling-stroke; }
+
+/* Bins: a halftone screen on whole pixels. play.ts reveals them as dots land. */
+.sieve-bin {
+  position: absolute;
+  background-image: radial-gradient(circle, var(--color-ink-55) 1px, transparent 1.4px);
+  background-size: 4px 4px;
+}
+
+/* HTML labels over the drawing keep real type sizes at every width. */
+.sieve-label { position: absolute; margin: 0; white-space: nowrap; }
+.sieve-centered { translate: -50% 0; text-align: center; }
+.sieve-middle { translate: 0 -50%; }
+.sieve-number { display: flex; flex-direction: column; gap: 0.5rem; }
+/* The counts stay below the page headline in rank. */
+.sieve-number .type-metric { font-size: clamp(2.25rem, 3.9vw, 3.5rem); }
+.sieve-narrow .sieve-number { flex-direction: row; align-items: baseline; gap: 0.75rem; }
+
+/* Stage names are set into the dotted line: the paper behind them makes the gap. */
+.sieve-stage-label { white-space: normal; background: var(--color-paper); }
+.sieve-wide .sieve-stage-label { translate: -50% -50%; padding: 0 8px; text-align: center; text-wrap: balance; }
+.sieve-narrow .sieve-stage-label { padding-right: 8px; }
+
+/* The only sunflower in the hero: where a person decides. */
+.sieve-mark {
+  position: absolute;
+  translate: -50% -50%;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  padding: 0 6px;
+  border-radius: 50%;
+  background: var(--color-marker);
+  color: var(--color-overprint);
+  font-variation-settings: "wdth" 80;
+  font-weight: 600;
+  font-size: var(--text-meta);
+  line-height: 1.05;
+  text-align: center;
+}
+.sieve-wide .sieve-mark { translate: 0 -50%; }
+
+/* Bin labels: count and reason, focusable, the gate rule on hover or focus. */
+.sieve ul { margin: 0; padding: 0; list-style: none; }
+.sieve-bins-wide { display: grid; margin-top: 0.75rem !important; }
+.sieve-bin-label {
+  position: relative;
+  margin-left: -4px;
+  padding: 2px 4px;
+  font-size: var(--text-meta);
+  line-height: 1.4;
+  text-wrap: balance;
+  cursor: default;
+}
+.sieve-bins-wide .sieve-bin-label { justify-self: start; max-width: calc(100% - 16px); }
+.sieve-narrow .sieve-bin-label { position: absolute; display: grid; grid-template-columns: 2rem 1fr; column-gap: 6px; }
+.sieve-count { font-variation-settings: "wdth" 100; font-weight: 700; font-variant-numeric: tabular-nums lining-nums; }
+.sieve-bins-wide .sieve-count { display: block; }
+.sieve-narrow .sieve-count { text-align: right; }
+.sieve-reason { font-variation-settings: "wdth" 80; font-weight: 520; color: var(--color-ink-85); }
+.sieve-bins-wide .sieve-reason { display: block; }
+
+.sieve-bin-label:is(:hover, :focus-visible) { background: var(--color-marker); color: var(--color-overprint); }
+.sieve-bin-label:is(:hover, :focus-visible) .sieve-reason { color: var(--color-overprint); }
+
+.sieve-rule {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: calc(100% + 6px);
+  z-index: 10;
+  width: max-content;
+  max-width: 15rem;
+  padding: 4px 8px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  font-variation-settings: "wdth" 80;
+  font-weight: 520;
+  font-size: var(--text-meta);
+  line-height: 1.4;
+  text-wrap: pretty;
+}
+/* Bridges the gap, so the pointer can move onto the tooltip without losing it. */
+.sieve-rule::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 8px; }
+.sieve-narrow .sieve-rule { max-width: 100%; }
+.sieve-bin-label:is(:hover, :focus-visible) .sieve-rule { display: block; }
+
+/* Start state: the whole batch in the field, nothing sorted yet. */
+.sieve[data-sieve="armed"] :is(.sieve-field circle, pattern circle) { fill: var(--color-ink); }
+.sieve:is([data-sieve="armed"], [data-sieve="play"]) .sieve-cluster { opacity: 0; }
+.sieve:is([data-sieve="armed"], [data-sieve="play"]) .sieve-bin-y { clip-path: inset(100% 0 0 0); }
+.sieve:is([data-sieve="armed"], [data-sieve="play"]) .sieve-bin-x { clip-path: inset(0 100% 0 0); }
+.sieve[data-sieve="armed"] :is(.sieve-path circle, .sieve-stage-label, .sieve-late, .sieve-count, .sieve-mark) { opacity: 0; }
+
+/* The one play */
+.sieve[data-sieve="play"] .sieve-field { opacity: 0; }
+.sieve[data-sieve="play"] .sieve-count { animation: sieve-show 1ms linear 300ms both; }
+.sieve[data-sieve="play"] :is(.sieve-path circle, .sieve-stage-label) { animation: sieve-show 150ms linear var(--t) both; }
+.sieve[data-sieve="play"] .sieve-late { animation: sieve-show 600ms ease-out 1500ms both; }
+.sieve[data-sieve="play"] .sieve-mark { animation: sieve-mark 300ms var(--sieve-ease) 2100ms both; }
+
+@keyframes sieve-show { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes sieve-mark {
+  from {
+    opacity: 0;
+    scale: 0.85;
+    background-color: transparent;
+    box-shadow: inset 0 0 0 1.5px var(--color-ink-55);
+    color: var(--color-ink-85);
+  }
+  40% { opacity: 1; }
+  to {
+    opacity: 1;
+    scale: 1;
+    background-color: var(--color-marker);
+    box-shadow: inset 0 0 0 1.5px transparent;
+    color: var(--color-overprint);
+  }
+}

@@ -3,6 +3,12 @@
   "role": "GTM automation and integration engineer",
   "role_short": "GTM automation engineer",
   "positioning": "I build outbound and research systems for B2B teams in n8n, Clay and custom APIs. Plain rules screen the data first, an LLM writes only from verified facts, and a person approves anything that leaves.",
+  "tools": [
+    "n8n",
+    "Clay",
+    "APIs",
+    "LLM routing"
+  ],
   "hero_headline_options": [
     "I build outbound systems that filter hard, write carefully and wait for a human.",
     "Automation for go-to-market teams: the system does the screening, a person does the sending.",
@@ -13,6 +19,7 @@
   "timezone": "UTC+1",
   "availability": {
     "status": "open",
+    "short": "Open to remote B2B contract work and junior GTM engineering roles.",
     "text": "Open to remote B2B contract work and junior GTM engineering roles. My working day overlaps fully with EU business hours.",
     "relocation": "Open to relocation."
   },
@@ -56,6 +63,28 @@
     "I studied software engineering in Nabeul and spent my final six months at Wavess, a Berlin B2B SaaS startup, working on a platform that turns market signals into GTM actions for small B2B teams.",
     "That internship taught me the part of GTM work nobody demos: most of the job is throwing away the wrong accounts, the wrong people and the wrong sentences before anything reaches a customer. Since then I have built two systems around that idea, both on free tiers, both running on my own data.",
     "I write the decision down before I build the workflow. Every project here has its decision log, its telemetry and the bugs that changed it."
+  ],
+  "principles": [
+    {
+      "title": "Rules before models",
+      "text": "Plain rules screen every account before any model or paid call: domain, team size, industry, timezone, seen before. Spend stays predictable, and the model only sees what passed.",
+      "decision": "ADR-004"
+    },
+    {
+      "title": "Every provider has a fallback",
+      "text": "Each model call goes through a chain of providers set in config. A rate limit or an outage moves the call to the next model, and every failure is logged per provider.",
+      "decision": "ADR-034"
+    },
+    {
+      "title": "Telemetry before rewriting",
+      "text": "Every run writes its counters and error samples to an ops tab. Tuning is a config change with a revision number, one variable at a time, with the run that shows the effect.",
+      "decision": "ADR-JR-17"
+    },
+    {
+      "title": "A person approves what leaves",
+      "text": "The system drafts messages but has no way to send them. I review each draft, edit or reject it, and send it myself.",
+      "decision": "ADR-005"
+    }
   ],
   "never_publish": [
     "phone number",

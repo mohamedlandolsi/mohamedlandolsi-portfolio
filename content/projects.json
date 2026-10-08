@@ -47,29 +47,35 @@
         "value": 377,
         "label": "YC companies in the run"
       },
+      "gate_label": "Rules, no AI",
       "rejected": [
         {
           "reason": "Timezone outside UTC+0 to UTC+4",
+          "short": "timezone",
           "count": 234,
           "rule": "Allowed UTC offsets: 0 to 4"
         },
         {
           "reason": "Company no longer active",
+          "short": "inactive",
           "count": 86,
           "rule": "The YC directory must list the company as active"
         },
         {
           "reason": "Team size outside 2 to 150",
+          "short": "size",
           "count": 27,
           "rule": "Team size between 2 and 150 people"
         },
         {
           "reason": "Listed twice across directory tags",
+          "short": "duplicate",
           "count": 5,
           "rule": "Each company is counted once per run"
         },
         {
           "reason": "No website listed",
+          "short": "no website",
           "count": 2,
           "rule": "A website is required: accounts are keyed by their domain"
         }
@@ -84,7 +90,7 @@
         "Drafting and checks",
         "My review"
       ],
-      "caption": "One run of the YC directory source, 8 October 2026. Counts from the engine run log (ops tab)."
+      "caption": "One run of the YC directory source, 8 October 2026. Counts from the engine's own run log."
     },
     "links": {
       "repo": "TODO: https://github.com/mohamedlandolsi/personal-gtm-engine (confirm after push)",
