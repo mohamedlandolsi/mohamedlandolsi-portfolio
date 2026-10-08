@@ -46,6 +46,7 @@ Add a new entry before adding a dependency, a third-party script or a new kind o
 - **Decision:** `vercel.json` sets `git.deploymentEnabled` to `false`, so no push creates a deployment.
 - **Why:** The old site and `/Mohamed-Landolsi-CV.pdf` stay live through the build phases, and the repo can still be pushed after each phase.
 - **Trade-off:** No preview deployments from pushes. Before `/ship`: delete `vercel.json` (or set the flag to `true`) and make sure the Vercel project that receives the repo uses the Next.js preset. The current project was created for a static site.
+- **Closed in phase 8:** the receiving project is `tech-ba-portfolio` (the repo was renamed from `tech-ba-portfolio`; Vercel follows the rename). It already holds `www.mohamedlandolsi.tech` (primary), `mohamedlandolsi.tech` (redirects to www) and the `mohamedlandolsi.dev` pair, so no domain had to move. Its preset was switched from static to Next.js, and `vercel.json` now turns git deploys back on and names the framework. The old site's last deployment stays in the project for an instant rollback.
 
 ## P-09: remark-frontmatter for case study files
 - **Context:** Case studies in `content/case-studies/*.mdx` open with a YAML frontmatter block (slug, title, summary, status). `@next/mdx` does not understand frontmatter, so the block would render as text on the page.
