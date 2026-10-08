@@ -1,0 +1,70 @@
+/* Decision log: search and filters on top, then one panel of rows per project. The row itself
+   (.decision, summary, chevron, height transition) is defined in globals.css. */
+.decision-log { padding-bottom: 72px; }
+
+/* The page header is shorter than the home hero, so the list starts in the first screen. */
+.decision-hero { padding-bottom: 40px; }
+@media (max-width: 720px) { .decision-hero { padding-bottom: 32px; } }
+
+/* Search and filters */
+.decision-tools { display: grid; gap: 22px; padding-top: 40px; }
+.tool-input {
+  width: 100%; padding: 11px 14px;
+  border: 1px solid var(--color-line-strong); border-radius: var(--radius); background: var(--color-panel);
+  font-family: var(--font-mono); font-size: 1rem; color: var(--color-text);
+  transition: border-color 0.15s ease;
+}
+.tool-input::placeholder { color: var(--color-faint); opacity: 1; }
+.tool-input:hover { border-color: color-mix(in srgb, var(--color-cyan) 35%, transparent); }
+/* The browser's clear button, toned down to the weight of the row chevrons. */
+.tool-input::-webkit-search-cancel-button { opacity: 0.55; }
+.tool-filters { display: flex; flex-wrap: wrap; gap: 20px 40px; }
+.tool-group { min-width: 0; }
+.tool-group legend { padding: 0; }
+
+/* One choice per group: radio inputs drawn as chips. The chosen one is filled like the current nav link. */
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.seg-option { position: relative; display: block; }
+.seg-option input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.seg-option span {
+  display: block; padding: 7px 12px;
+  border: 1px solid var(--color-line-strong); border-radius: var(--radius); background: var(--color-panel);
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--color-dim);
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+}
+/* Narrow phones: the three project chips stay on one line. */
+@media (max-width: 400px) { .seg-option span { padding-inline: 10px; } }
+.seg-option:hover span { color: var(--color-text); border-color: color-mix(in srgb, var(--color-cyan) 35%, transparent); }
+.seg-option input:checked + span { border-color: var(--color-cyan); background: var(--color-cyan); color: var(--color-bg); }
+.seg-option input:focus-visible + span { outline: 2px solid var(--color-amber); outline-offset: 2px; }
+
+/* A project and its rows */
+.decision-group { padding-top: 56px; }
+.decision-group .sec-head { margin-bottom: 14px; }
+.decision-group-link { font-family: var(--font-mono); font-size: var(--text-meta); }
+.decision-list { grid-template-columns: minmax(0, 1fr); margin-top: 22px; }
+
+/* Phones: less air above the tools and the groups, so the first rows come sooner. */
+@media (max-width: 720px) {
+  .decision-tools { padding-top: 28px; }
+  .decision-group { padding-top: 40px; }
+}
+
+/* Rows share the panel of their list, split by its 1px lines. */
+.decision-row { margin-top: 0; border: 0; border-radius: 0; background: transparent; }
+/* A link moves focus to the row; the mark below shows where the reader landed, not a focus ring. */
+.decision-row:focus-visible { outline: none; }
+/* Superseded is a status, so it is amber, at the size of the ID. */
+.decision-status {
+  display: inline-block; margin-left: 4px; padding: 0 7px;
+  border: 1px solid color-mix(in srgb, var(--color-amber) 35%, transparent); border-radius: var(--radius);
+  font-size: 0.74rem; letter-spacing: 0.06em; color: var(--color-amber);
+}
+/* The list clips its corners, so the focus outline sits inside the row. */
+.decision-row > summary:focus-visible { outline-offset: -2px; }
+/* The decision a link pointed at. :target covers a full page load without JavaScript. */
+.decision-row:is([data-current], :target) > summary { background: var(--color-panel-2); box-shadow: inset 2px 0 0 var(--color-cyan); }
+/* Opened by a link: no height transition. */
+.decision-row[data-instant]::details-content { transition: none; }
+
+.decision-empty { margin-top: 40px; padding: 26px 24px; color: var(--color-dim); }

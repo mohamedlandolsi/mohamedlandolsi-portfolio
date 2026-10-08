@@ -353,14 +353,14 @@
   .decision-id { flex: none; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; color: var(--color-amber); }
   .decision-title { flex: 1; font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-cyan); }
   /* The reference's chevron, drawn in CSS (text presentation, not an emoji). */
-  .decision > summary::after { content: "\25B6\FE0E"; flex: none; font-size: 0.7rem; color: var(--color-faint); transition: transform 0.2s ease; }
+  .decision > summary::after { content: "\25B6\FE0E"; flex: none; width: 1em; height: 1em; line-height: 1; text-align: center; font-size: 0.7rem; color: var(--color-faint); transition: transform 0.2s ease; }
   .decision[open] > summary::after { transform: rotate(90deg); }
   .decision-content { padding: 6px 18px 22px; border-top: 1px solid var(--color-line); }
   .decision::details-content { block-size: 0; overflow: hidden; transition: block-size 0.34s ease, content-visibility 0.34s allow-discrete; }
   .decision[open]::details-content { block-size: auto; }
   .decision-fields > div { padding-top: 12px; }
   .decision-fields dd { max-width: 64ch; font-size: 0.92rem; color: var(--color-dim); }
-  .decision-superseded { margin-top: 12px; font-size: var(--text-meta); }
+  .decision-superseded { margin-top: 12px; font-size: 0.92rem; }
 
   /* Entrance on scroll, CSS only: content is visible without JS or where unsupported. */
   @supports (animation-timeline: view()) {
@@ -388,6 +388,9 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
+  /* The height transition of a decision lives on a pseudo-element the rule above does not reach.
+     Its own rule: a browser that does not know the selector must not drop the one above. */
+  .decision::details-content { transition: none !important; }
   body::before { display: none; }
 }
 

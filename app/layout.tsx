@@ -22,8 +22,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    // The theme toggle sets data-theme on <html>; React must not undo it.
-    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`} suppressHydrationWarning>
+    // The theme toggle sets data-theme on <html>; React must not undo it. data-scroll-behavior
+    // tells Next that scrolling is smooth in CSS, so route changes still jump instead of gliding.
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="flex min-h-dvh flex-col">
         <div className="bg-grid" aria-hidden="true" />
         <a href="#main" className="skip-link">

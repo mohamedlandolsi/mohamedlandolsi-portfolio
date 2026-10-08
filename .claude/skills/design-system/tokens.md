@@ -75,6 +75,7 @@ Body text is 1rem with line-height 1.55. Paragraph width: `.measure` (64ch) or t
 | Footer | `.foot-note` |
 | Tooltips | `[data-tip-host]` + `.tip` (CSS only; Escape handled by `components/TooltipDismiss`) |
 | Decisions | `.decision` (details/summary panel), `.decision-id` (amber mono), `.decision-title` (cyan mono), `.decision-content` |
+| Decision log | In `components/DecisionLog/decision-log.css`: `.decision-tools` (search and filters), `.tool-input`, `.seg` + `.seg-option` (radio inputs drawn as chips, the chosen one filled cyan like the current nav link), `.decision-group`, `.decision-list` (a `.cells` panel of `.decision-row` rows), `.decision-status` (amber status tag on a superseded row), `[data-current]` (the row a link pointed at), `.decision-empty` |
 | Reveal | `.reveal` (scroll-driven, CSS only, off under reduced motion) |
 
 ## Motion
