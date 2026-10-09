@@ -172,6 +172,8 @@
   }
   .nav-links a:hover { color: var(--color-text); text-decoration: none; transform: translateY(-1px); }
   .nav-links a[aria-current="page"] { color: var(--color-bg); background: var(--color-cyan); }
+  /* Press: whatever lifts on hover dips while it is held down. */
+  :is(.button, .project-link-btn, .cv-link, .theme-toggle, .nav-links a):active { transform: scale(0.98); transition-duration: 0.06s; }
   /* Narrow phones: the links take a second row so all four stay visible. */
   @media (max-width: 479px) {
     .nav-inner { flex-wrap: wrap; height: auto; padding-block: 10px 6px; row-gap: 4px; }
@@ -185,10 +187,12 @@
     display: flex; align-items: center; justify-content: center;
     border: 1px solid var(--color-line-strong); border-radius: var(--radius);
     background: var(--color-panel); color: var(--color-dim); cursor: pointer;
-    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.25s ease;
+    transition: color 0.15s ease, border-color 0.15s ease, background-color 0.25s ease, transform 0.15s ease;
   }
   .theme-toggle:hover { color: var(--color-cyan); border-color: var(--color-cyan); }
   .theme-toggle svg { width: 16px; height: 16px; }
+  /* After a click, the icon that appears fades in. Not on load: the attribute is set by the click. */
+  .theme-toggle[data-switched] svg { animation: iconIn 0.28s ease-out; }
   .theme-toggle .icon-sun { display: none; }
   :root[data-theme="light"] .theme-toggle .icon-moon { display: none; }
   :root[data-theme="light"] .theme-toggle .icon-sun { display: block; }
@@ -329,6 +333,11 @@
   .button:hover { text-decoration: none; border-color: var(--color-cyan); color: var(--color-cyan); transform: translateY(-1px); }
   .button-primary { border-color: var(--color-cyan); background: var(--color-cyan); color: var(--color-bg); }
   .button-primary:hover { color: var(--color-bg); }
+  /* Two labels in one place: the button keeps its width while one fades into the other. */
+  .label-swap { display: inline-grid; justify-items: center; }
+  .label-swap > span { grid-area: 1 / 1; transition: opacity 0.18s ease, transform 0.18s ease; }
+  .label-swap > [aria-hidden="true"] { opacity: 0; visibility: hidden; transform: translateY(4px); transition: opacity 0.18s ease, transform 0.18s ease, visibility 0s 0.18s; }
+  .copy-button[data-copied] { border-color: var(--color-cyan); color: var(--color-cyan); }
   .foot-note { padding-block: 40px 56px; text-align: center; font-family: var(--font-mono); font-size: 0.72rem; color: var(--color-faint); }
 
   /* Tooltips: CSS only, shown while their host ([data-tip-host]) has hover or focus. */
@@ -368,6 +377,10 @@
   .decision-fields dd { max-width: 64ch; font-size: 0.92rem; color: var(--color-dim); }
   .decision-superseded { margin-top: 12px; font-size: 0.92rem; }
 
+  /* Page switch: app/template.tsx mounts this again on every route, so each page fades in. */
+  /* No fill mode: once it has played, the wrapper carries no transform at all. */
+  .page-enter { animation: pageEnter 0.28s ease-out; }
+
   /* Entrance on scroll, CSS only: content is visible without JS or where unsupported. */
   @supports (animation-timeline: view()) {
     @media (prefers-reduced-motion: no-preference) {
@@ -377,6 +390,11 @@
 }
 
 @keyframes revealLift { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes pageEnter { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes iconIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: none; } }
+
+/* Palette switch: the old and the new page cross-fade (components/ThemeToggle starts it). */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.28s; animation-timing-function: ease; }
 @keyframes pulseDot {
   0%, 100% { transform: scale(1); box-shadow: 0 0 0 4px var(--glow-cyan); }
   50% { transform: scale(1.08); box-shadow: 0 0 0 8px var(--glow-cyan); }
@@ -397,6 +415,8 @@
   /* The height transition of a decision lives on a pseudo-element the rule above does not reach.
      Its own rule: a browser that does not know the selector must not drop the one above. */
   .decision::details-content { transition: none !important; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+  :is(.button, .project-link-btn, .cv-link, .theme-toggle, .nav-links a):active, .seg-option:active span { transform: none; }
   body::before { display: none; }
 }
 

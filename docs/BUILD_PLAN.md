@@ -134,3 +134,7 @@ Built on 8 October 2026 from the end-of-studies report and the defense deck, rea
 Trimmed after publishing, at Mohamed's request: anything that describes the security posture or the unfinished parts of the company's live product is out of the page, the log and `docs/reference/wavess-facts.md`. What stays is architecture, stack choices and the reasons for them. Rule for later edits: write about design and trade-offs, not about where the product is weak.
 
 Still open: the report grants no publication permission and has no confidentiality clause. Mohamed should confirm with the CEO that the remaining level of detail is fine to keep public.
+
+## Phase 11: footer and small effects
+
+Built on 9 October 2026. The footer no longer says "Built with Next.js." Four interaction effects were added (press, page switch, palette switch, copy confirmation): ADR P-13, listed in the design-system skill's `tokens.md`.

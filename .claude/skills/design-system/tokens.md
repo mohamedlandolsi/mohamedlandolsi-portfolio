@@ -88,6 +88,10 @@ Body text is 1rem with line-height 1.55. Paragraph width: `.measure` (64ch) or t
 | Availability chip, period badges | Soft amber glow, 4.5 to 5 s |
 | Panels, buttons, nav links | 1 to 2px lift on hover, 0.15 to 0.25 s |
 | `.reveal` | Fade and 14px rise as it enters the viewport (scroll-driven) |
+| Press | Buttons, link buttons, nav links, filter chips and the theme toggle scale to 0.98 while held |
+| Page switch | `.page-enter` (from `app/template.tsx`): 0.28 s fade and 6px rise each time a route opens |
+| Palette switch | 0.28 s cross-fade of the whole page (View Transitions, where supported); the icon that appears fades in from 0.8 scale over the same 0.28 s |
+| Copy e-mail | `.label-swap`: the two labels cross-fade in place; `.copy-button[data-copied]` takes a cyan outline for two seconds. No pop |
 | Sieve | Once on load, see `sieve.md` |
 
 `prefers-reduced-motion: reduce` turns all of it off, including the ambient light.

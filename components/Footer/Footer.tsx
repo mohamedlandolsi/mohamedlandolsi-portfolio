@@ -5,7 +5,7 @@ export function Footer() {
 
   return (
     <footer className="shell foot-note">
-      {name}, {process.env.BUILD_YEAR}. Built with Next.js.
+      {name}, {process.env.BUILD_YEAR}.
       {!isTodo(links.site_repo) && (
         <>
           {" "}

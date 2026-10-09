@@ -30,8 +30,9 @@
   display: block; padding: 7px 12px;
   border: 1px solid var(--color-line-strong); border-radius: var(--radius); background: var(--color-panel);
   font-family: var(--font-mono); font-size: 0.78rem; color: var(--color-dim);
-  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
 }
+.seg-option:active span { transform: scale(0.98); transition-duration: 0.06s; }
 /* Narrow phones: the three project chips stay on one line. */
 @media (max-width: 400px) { .seg-option span { padding-inline: 10px; } }
 .seg-option:hover span { color: var(--color-text); border-color: color-mix(in srgb, var(--color-cyan) 35%, transparent); }

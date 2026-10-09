@@ -1,14 +1,23 @@
 "use client";
 
+import type { MouseEvent } from "react";
+
 /**
  * Switches between the dark and light palettes. The first view follows the system setting
- * (CSS media query); the choice lasts for the visit, like the reference design.
+ * (CSS media query); the choice lasts for the visit, like the reference design. Where the browser
+ * can, the two palettes cross-fade; the icon that appears fades in (CSS, on [data-switched]).
  */
 export function ThemeToggle() {
-  function toggle() {
+  function toggle(event: MouseEvent<HTMLButtonElement>) {
     const root = document.documentElement;
     const current = root.dataset.theme ?? (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-    root.dataset.theme = current === "light" ? "dark" : "light";
+    const apply = () => {
+      root.dataset.theme = current === "light" ? "dark" : "light";
+    };
+    event.currentTarget.dataset.switched = "";
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (!still && typeof document.startViewTransition === "function") document.startViewTransition(apply);
+    else apply();
   }
 
   return (

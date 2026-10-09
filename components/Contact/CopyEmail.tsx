@@ -2,7 +2,10 @@
 
 import { useEffect, useState } from "react";
 
-/** Copies the address and confirms with "Copied" for two seconds. */
+/**
+ * Copies the address and confirms with "Copied" for two seconds. Both labels sit in the same
+ * place, so the button keeps its width while one fades into the other.
+ */
 export function CopyEmail({ email }: { email: string }) {
   const [copied, setCopied] = useState(false);
 
@@ -23,8 +26,11 @@ export function CopyEmail({ email }: { email: string }) {
 
   return (
     <>
-      <button type="button" className="button" onClick={copy} data-print="hide">
-        {copied ? "Copied" : "Copy e-mail"}
+      <button type="button" className="button copy-button" onClick={copy} data-copied={copied ? "" : undefined} data-print="hide">
+        <span className="label-swap">
+          <span aria-hidden={copied}>Copy e-mail</span>
+          <span aria-hidden={!copied}>Copied</span>
+        </span>
       </button>
       <span role="status" className="sr-only">
         {copied ? "E-mail address copied" : ""}

@@ -47,7 +47,7 @@ No blog at launch. No `/about` page (about lives on the home page). No contact f
 5. **Decisions teaser**: one sentence with the count from `decisions.json` and a link to the log.
 6. **About**: the three paragraphs from `profile.about`, languages, education in one line each, optional duotone photo.
 7. **Contact**: availability text, e-mail (copy button plus `mailto:`), LinkedIn, GitHub, CV.
-8. **Footer**: name, year, "Built with Next.js." Source link to the site repo.
+8. **Footer**: name and year. Source link to the site repo.
 
 ## Case study page
 
