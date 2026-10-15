@@ -135,6 +135,51 @@
     "status": "verified"
   },
   {
+    "id": "G16",
+    "value": "1.0",
+    "label": "Clay credit per enriched account, with one structured AI call instead of three (was 2.8)",
+    "inline": "one structured AI call per account at 1.0 credit, down from 2.8",
+    "source": "clay_ops C0 and C1 rows, Clay History",
+    "date": "2026-10-14",
+    "status": "verified"
+  },
+  {
+    "id": "G17",
+    "value": "10",
+    "label": "low-score accounts skipped by Clay run conditions, at 0 credits",
+    "inline": "10 low-score accounts skipped at 0 cost",
+    "source": "Accounts v2 table, Clay History",
+    "date": "2026-10-14",
+    "status": "verified"
+  },
+  {
+    "id": "G18",
+    "value": "19 of 20",
+    "label": "founders with a verified work email from a Clay waterfall with Conservative validation (4 of 4 guessed emails confirmed, 11.7 credits in total)",
+    "inline": "verified work emails for 19 of 20 founders, about 0.5 credit each",
+    "source": "clay_ops C2 rows, Clay History",
+    "date": "2026-10-14",
+    "status": "verified"
+  },
+  {
+    "id": "G19",
+    "value": "0",
+    "label": "credits to meter Clay: n8n reads the balance through Clay's Public API before and after every batch",
+    "inline": "every Clay batch metered by n8n through Clay's Public API",
+    "source": "clay_ops tab, workflows/clay_meter.json",
+    "date": "2026-10-14",
+    "status": "verified"
+  },
+  {
+    "id": "G20",
+    "value": "0",
+    "label": "rows written by a second import run: Clay results return through a CSV contract and idempotent n8n imports, with no hand pasting",
+    "inline": "no hand pasting, and a second import writes 0 rows",
+    "source": "workflows/gtm_clay_bridge.json, workflows/clay_email_import.json",
+    "date": "2026-10-14",
+    "status": "verified"
+  },
+  {
     "id": "J1",
     "value": "11",
     "label": "active job sources (12 wired)",

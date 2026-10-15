@@ -23,6 +23,11 @@ Status values: `verified` (checked against a primary record), `self-reported` (M
 | G13 | Validator rejections before it was relaxed | 28 of 35 LLM calls rejected in one run | `ops` tab `llm_calls=35 llm_failures=28` | 2026-10-07 | verified |
 | G14 | Founder lookups resolved from YC pages after the precision fix | 10 of 10 | `YC Founders` node stats, first run after the patch | 2026-10-07 | verified |
 | G15 | Search mismatch before the fix | wrong people attached at 5 companies with common-word names (one is Twenty) | manual review of `contacts` | 2026-10-07 | verified |
+| G16 | AI calls per enriched account in Clay, and cost per account | 1 structured JSON research call instead of 3; 1.0 credit per account, was 2.8 | `clay_ops` C0 and C1 rows ((1972.4 - 1947.4) / 25), `screenshots/c1-research-config.png`, `screenshots/c1-history.png` | 2026-10-14 | verified |
+| G17 | Low-score accounts skipped by Clay run conditions | 10 of 40 queued accounts, 0 credits spent on them | `screenshots/c1-table.png`; Clay History shows no runs on those rows | 2026-10-14 | verified |
+| G18 | Clay Work Email waterfall with Conservative validation | verified work emails for 19 of 20 primary founders (95%), 4 of 4 guessed emails confirmed, 11.7 credits in total (about 0.5 per verified email) | `clay_ops` C2 rows, Clay History (11.7 credits, 53 actions), `screenshots/c2-waterfall-config.png`, `screenshots/c2-history.png` | 2026-10-14 | verified |
+| G19 | Clay credit balance metered by n8n | read through Clay's Public API before and after every batch, at 0 credits | `screenshots/clay-ops-c1.png`, `screenshots/clay-ops-c2.png`, `workflows/clay_meter.json` | 2026-10-14 | verified |
+| G20 | Clay results returned to the engine with no hand pasting | CSV contract plus idempotent n8n imports; a second run writes 0 rows | `workflows/gtm_clay_bridge.json`, `workflows/clay_email_import.json` | 2026-10-14 | verified |
 
 ## Job Radar
 
@@ -81,4 +86,4 @@ Numbers quoted inside the Wavess decisions (`content/decisions.json`, IDs `ADR-W
 | "processing thousands of daily market signals" | No support in the report (1 scan per day per organization) | Omit |
 | "quota-aware fallback across 6 LLM providers" | 6 routes, 4 providers | W4 |
 | Job Radar "9 job sources", "Cerebras to Groq" | Outdated | J1; chain is Groq then Gemini |
-| GTM Engine "discovering B2B accounts via Apollo", "waterfall enrichment using Clay and Apollo" | Outdated: Apollo is off; discovery is YC, HN and seeds; founders come from YC pages and Tavily; Clay adds optional summaries | G1 to G6 |
+| GTM Engine "discovering B2B accounts via Apollo", "waterfall enrichment using Clay and Apollo" | Apollo is off; discovery is YC, HN and seeds; founders come from YC pages and Tavily. The Clay part is now supported only as a Clay email waterfall (Sprint 9), never "with Apollo" | G1 to G6 for discovery and people; G18 for the Clay waterfall |
