@@ -1,6 +1,7 @@
 import { Flow } from "./Flow";
 
-// Redrawn from docs/reference/gtm-engine-architecture.md (first diagram and the run order table).
+// Redrawn from docs/reference/gtm-engine-architecture.md (first diagram and the run order table),
+// with the Sprint 10 move of config, drafts and review into Neon Postgres.
 export const caption = "One cycle in run order.";
 
 export function GtmEngineOverview() {
@@ -13,13 +14,13 @@ export function GtmEngineOverview() {
         { title: "Digest" },
         {
           title: "My review",
-          body: "I approve, edit or reject each draft in the sheet, and send it myself.",
+          body: "I approve, edit or reject each draft in the console, and send it myself.",
           human: true,
         },
       ]}
       base={{
-        title: "One Google Sheet",
-        body: "Holds config, accounts, every queue and the ops log the steps read and write.",
+        title: "Google Sheets and Neon Postgres",
+        body: "Sheets holds accounts, contacts, the queues and the Clay hand-offs, mirrored into Postgres. Postgres holds config, drafts and every review decision.",
       }}
     />
   );
