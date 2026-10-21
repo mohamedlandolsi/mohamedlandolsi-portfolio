@@ -2,14 +2,17 @@
   {
     "slug": "personal-gtm-engine",
     "title": "Personal GTM Engine",
-    "one_liner": "An outbound engine that finds B2B startups likely to need GTM automation, verifies their founders, drafts a grounded first message and waits for my approval.",
+    "one_liner": "An outbound engine that finds B2B startups likely to need GTM automation, enriches them in Clay, verifies their founders, drafts a grounded first message and waits for my approval in a private console.",
     "role": "Solo: design, build, operation",
     "period": "September to October 2026",
-    "status": "Running on demand on my laptop (n8n in Docker)",
+    "status": "Running on demand on my laptop (n8n in Docker), with the review console on Vercel",
     "stack": [
       "n8n",
       "Google Sheets",
       "n8n Data Tables",
+      "Neon Postgres",
+      "Next.js",
+      "Vercel",
       "Clay",
       "Tavily",
       "Groq",
@@ -125,13 +128,37 @@
         "id": "discord-review-card",
         "file": "/screenshots/personal-gtm-engine/discord-review-card.png",
         "alt": "A review card in Discord with one draft: the proof point, a LinkedIn note with its character count, a longer message and three follow-ups. The recipient's name and company are covered.",
-        "caption": "One draft as it reaches me in Discord: LinkedIn note, longer message and follow-ups. I approve, edit or reject it in the sheet. The recipient's name and company are covered."
+        "caption": "One draft as it reached me in Discord, before the review console: LinkedIn note, longer message and follow-ups. The card now links to the draft in the console. The recipient's name and company are covered."
       },
       {
         "id": "ops-log",
         "file": "/screenshots/personal-gtm-engine/ops-log.png",
         "alt": "Rows of the ops tab in Google Sheets. Each row is one run: a timestamp, the workflow version, the sources read and columns of counters.",
         "caption": "The ops tab: one row per run with its time, the workflow version, the sources it read and its counters."
+      },
+      {
+        "id": "clay-research-config",
+        "file": "/screenshots/personal-gtm-engine/clay-research-config.png",
+        "alt": "The configuration panel of a Clay AI column named research: use case web research, model GPT 5 Nano, a Clay-managed account at 0.5 credit per row, and a prompt that allows only facts from the homepage and the pages it links to.",
+        "caption": "The one research column that replaced three. It runs on the cheapest model that passed the pilot and may only use facts it finds on the company's own pages."
+      },
+      {
+        "id": "clay-c1-history",
+        "file": "/screenshots/personal-gtm-engine/c1-history.png",
+        "alt": "Clay's usage history for the accounts table, by run: two pilot runs of two cells each on the company enrichment and research columns, then the full batch on both columns and a re-run of six research cells, with data credits and actions per run and a total of 25 credits and 50 actions.",
+        "caption": "Clay's own history for the account enrichment: the two-row pilots first, then the batch and one re-run. Each line is a run with its credits and actions."
+      },
+      {
+        "id": "clay-email-results",
+        "file": "/screenshots/personal-gtm-engine/c2-results-covered.png",
+        "alt": "Rows of the Clay contacts table after the waterfall. For each row, the provider that found the email (Findymail, Clay, or none found once), the validation status verified or not_found, and the provider again. The two columns that hold the email addresses are covered with solid grey blocks.",
+        "caption": "The waterfall's results for the founders it looked up: which provider found each address and whether it was verified. The email addresses are covered."
+      },
+      {
+        "id": "clay-ops",
+        "file": "/screenshots/personal-gtm-engine/clay-ops-c2.png",
+        "alt": "The clay_ops tab in Google Sheets: one row per meter reading with a timestamp, a before or after label, the module, the data credit balance and the action balance.",
+        "caption": "The meter's log from the first readings to the end of the email batch. The cost of each module is the difference between its before and after rows."
       }
     ],
     "featured": true,

@@ -19,7 +19,7 @@ Status values: `verified` (checked against a primary record), `self-reported` (M
 | G9 | Messages sent by the system without approval | 0 | design (no send path exists) and `send_status` column | ongoing | verified |
 | G10 | Workflow size | 3 workflows: 59, 13 and 14 nodes | workflow exports | 2026-10-08 | verified |
 | G11 | Architecture decisions written down | 66 | repo `docs/ADR.md` | 2026-10-08 | verified |
-| G12 | Monthly running cost | $0 | free tiers only (n8n self-hosted, Sheets, Groq, Gemini, Tavily free credits, Discord) | 2026-10 | verified |
+| G12 | Monthly running cost | $0 | free tiers only (n8n self-hosted, Sheets, Groq, Gemini, Tavily free credits, Discord, Clay trial credits, Neon Free, Vercel Hobby) | 2026-10 | verified |
 | G13 | Validator rejections before it was relaxed | 28 of 35 LLM calls rejected in one run | `ops` tab `llm_calls=35 llm_failures=28` | 2026-10-07 | verified |
 | G14 | Founder lookups resolved from YC pages after the precision fix | 10 of 10 | `YC Founders` node stats, first run after the patch | 2026-10-07 | verified |
 | G15 | Search mismatch before the fix | wrong people attached at 5 companies with common-word names (one is Twenty) | manual review of `contacts` | 2026-10-07 | verified |
@@ -28,6 +28,12 @@ Status values: `verified` (checked against a primary record), `self-reported` (M
 | G18 | Clay Work Email waterfall with Conservative validation | verified work emails for 19 of 20 primary founders (95%), 4 of 4 guessed emails confirmed, 11.7 credits in total (about 0.5 per verified email) | `clay_ops` C2 rows, Clay History (11.7 credits, 53 actions), `screenshots/c2-waterfall-config.png`, `screenshots/c2-history.png` | 2026-10-14 | verified |
 | G19 | Clay credit balance metered by n8n | read through Clay's Public API before and after every batch, at 0 credits | `screenshots/clay-ops-c1.png`, `screenshots/clay-ops-c2.png`, `workflows/clay_meter.json` | 2026-10-14 | verified |
 | G20 | Clay results returned to the engine with no hand pasting | CSV contract plus idempotent n8n imports; a second run writes 0 rows | `workflows/gtm_clay_bridge.json`, `workflows/clay_email_import.json` | 2026-10-14 | verified |
+| G21 | Second sync in a row between Sheets and Neon Postgres | 0 new outreach, ops and digest rows (48 accounts and 60 contacts mirrored, config `in_sync`, no warnings) | `sync_ops` id 37, n8n execution 233 | 2026-10-20 | verified |
+| G22 | Schema checks before the cutover | 47 checks passed on Postgres 16 against the real `outreach_queue` (58 rows): idempotent re-runs, state machine, race-safe push marks, veto, re-draft, config drift, the Phase 4b switch | Sprint 10 guide, re-verification of 2026-10-17 | 2026-10-17 | verified |
+| G23 | Hot accounts with a recent Clay trigger | 6 of 12, all hiring (a job posted in the last 90 days) | `Accounts v2` `trigger_fact`; `Clay Trigger Import` executions 247 and 248 (`written 6`, identical on the re-run); `GTM Neon Sync` execution 249 mirrored the same 6 | 2026-10-21 | verified |
+| G24 | First trigger run, job search limited to GTM titles | 2 of 12 hot accounts | Sprint 11 guide, Step 7 result | 2026-10-21 | verified |
+| G25 | Funding and news coverage on hot accounts | funding found for 2 of 12, both older than 365 days; news for 2 of 12, one from 2023 | Sprint 11 guide, Step 7 result (Intellizence and PredictLeads columns) | 2026-10-21 | verified |
+| G26 | Sync interval between Sheets and Neon | every 15 minutes while n8n runs | `GTM Neon Sync` schedule trigger, published version | 2026-10-20 | verified |
 
 ## Job Radar
 

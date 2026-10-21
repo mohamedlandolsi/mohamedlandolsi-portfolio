@@ -365,7 +365,8 @@
   .decision > summary { display: flex; gap: 14px; align-items: baseline; padding: 13px 18px; cursor: pointer; list-style: none; }
   .decision > summary::-webkit-details-marker { display: none; }
   .decision > summary:hover { background: var(--color-panel-2); }
-  .decision-id { flex: none; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; color: var(--color-amber); }
+  /* Wide enough for the longest ID (ADR-S10-2, ADR-WV-01), so titles line up in a list of mixed IDs. */
+  .decision-id { flex: none; min-width: 11ch; font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.06em; color: var(--color-amber); }
   .decision-title { flex: 1; font-family: var(--font-mono); font-size: 0.82rem; color: var(--color-cyan); }
   /* The reference's chevron, drawn in CSS (text presentation, not an emoji). */
   .decision > summary::after { content: "\25B6\FE0E"; flex: none; width: 1em; height: 1em; line-height: 1; text-align: center; font-size: 0.7rem; color: var(--color-faint); transition: transform 0.2s ease; }

@@ -180,6 +180,60 @@
     "status": "verified"
   },
   {
+    "id": "G21",
+    "value": "0",
+    "label": "new outreach, ops and digest rows written by a second sync in a row, with Sheets mirrored into Neon Postgres",
+    "inline": "a second sync in a row writes 0 new rows",
+    "source": "sync_ops id 37, n8n execution 233 (48 accounts, 60 contacts, config in_sync, no warnings)",
+    "date": "2026-10-20",
+    "status": "verified"
+  },
+  {
+    "id": "G22",
+    "value": "47",
+    "label": "checks passed on Postgres 16 against the real outreach queue before the cutover: idempotent re-runs, the approval state machine, race-safe push marks, config drift",
+    "inline": "47 checks against the real outreach queue",
+    "source": "Sprint 10 guide, re-verification of 2026-10-17 (schema.sql applied twice, 58 outreach rows)",
+    "date": "2026-10-17",
+    "status": "verified"
+  },
+  {
+    "id": "G23",
+    "value": "6 of 12",
+    "label": "hot accounts with a recent trigger from Clay, all of them a job posted in the last 90 days",
+    "inline": "6 of 12 hot accounts",
+    "source": "Accounts v2 trigger_fact; Clay Trigger Import executions 247 and 248 (written 6, identical on the re-run)",
+    "date": "2026-10-21",
+    "status": "verified"
+  },
+  {
+    "id": "G24",
+    "value": "2 of 12",
+    "label": "hot accounts with a trigger on the first run, when the job search was limited to GTM titles",
+    "inline": "2 of 12 hot accounts",
+    "source": "Sprint 11 guide, Step 7 result",
+    "date": "2026-10-21",
+    "status": "verified"
+  },
+  {
+    "id": "G25",
+    "value": "2 of 12",
+    "label": "hot accounts where the funding provider found a round, both older than a year (news: 2 of 12, one of them from 2023)",
+    "inline": "a funding round for 2 of 12, both older than a year",
+    "source": "Sprint 11 guide, Step 7 result (Intellizence and PredictLeads columns in Accounts v2)",
+    "date": "2026-10-21",
+    "status": "verified"
+  },
+  {
+    "id": "G26",
+    "value": "15 minutes",
+    "label": "interval of the sync between Sheets and Neon Postgres while n8n runs",
+    "inline": "every 15 minutes",
+    "source": "GTM Neon Sync schedule trigger (Every 15 Minutes), published version",
+    "date": "2026-10-20",
+    "status": "verified"
+  },
+  {
     "id": "J1",
     "value": "11",
     "label": "active job sources (12 wired)",

@@ -2,10 +2,10 @@
 slug: personal-gtm-engine
 title: Personal GTM Engine
 page_title: Personal GTM Engine: outbound with rules first
-summary: An outbound engine that finds B2B startups likely to need GTM automation, verifies their founders, drafts a grounded first message and waits for my approval.
+summary: An outbound engine that finds B2B startups likely to need GTM automation, enriches them in Clay, verifies their founders, drafts a grounded first message and waits for my approval in a private console.
 status: published
 published: 2026-10-08
-updated: 2026-10-08
+updated: 2026-10-21
 ---
 
 <ProjectFacts slug="personal-gtm-engine" />
@@ -16,14 +16,14 @@ I needed clients for remote GTM automation work, and I wanted the search itself 
 
 ## What I built
 
-Three n8n workflows share one Google Sheet. Each one reads what the previous one wrote, so I can inspect and correct anything between steps.
+A set of n8n workflows that started on one shared Google Sheet, so I could inspect and correct anything between steps. Clay now does the enrichment it is best at, and drafts and my decisions live in Postgres behind a private review console.
 
-<Diagram name="gtm-engine-overview" alt="Three workflows in sequence. The engine discovers, filters, scores and enriches accounts, then queues them for contact lookup. The contact finder reads founders from YC company pages, with a gated search as fallback. The engine drafts messages, a validator checks them, and the digest posts each draft to Discord for review in the sheet." />
+<Diagram name="gtm-engine-overview" alt="Three workflows in sequence. The engine discovers, filters, scores and enriches accounts, then queues them for contact lookup. The contact finder reads founders from YC company pages, with a gated search as fallback. The engine drafts messages, a validator checks them, and the digest pings Discord so I review each draft in the console. Google Sheets holds accounts, contacts and the Clay hand-offs; Neon Postgres holds config, drafts and review decisions." />
 
 1. **Discover and filter.** Companies come from Y Combinator's public directory, Hacker News hiring threads and a seed list. Plain rules run before any AI call: domain, team size, industry, keywords, timezone and seen-before.
-2. **Score and enrich.** Every account gets an explainable 0 to 100 score with its breakdown. A single website fetch detects the CRM and tooling the company actually uses.
-3. **Find the right person.** Founders are read from the company's YC page and accepted only if that page lists the same website. Companies outside YC go to a search with company and location gates.
-4. **Draft, check, review.** A fallback chain of three Groq models and Gemini writes a LinkedIn note, a longer message and three follow-ups from facts only. A rule-based validator rejects bad drafts and asks for one repair. Each draft arrives in Discord as a review card. Nothing is sent by the system.
+2. **Score and enrich.** Every account gets an explainable 0 to 100 score with its breakdown. A single website fetch detects the CRM and tooling the company actually uses. Accounts that score high enough go to Clay for structured research and, for the best ones, a recent trigger.
+3. **Find the right person.** Founders are read from the company's YC page and accepted only if that page lists the same website. Companies outside YC go to a search with company and location gates. Clay then looks for a verified work email for one founder per qualified account.
+4. **Draft, check, review.** A fallback chain of three Groq models and Gemini writes a LinkedIn note, a longer message and three follow-ups from facts only. A rule-based validator rejects bad drafts and asks for one repair. Discord pings me with a link, and I approve, edit or reject each draft in the console. Nothing is sent by the system.
 
 <Sieve project="personal-gtm-engine" />
 
@@ -37,11 +37,40 @@ The overview diagram is redrawn for reading. These are the workflows as they run
 <Screenshot project="personal-gtm-engine" id="accounts-sheet" />
 <Screenshot project="personal-gtm-engine" id="discord-review-card" />
 
+### Review moved off the sheet
+
+Reviewing drafts in a spreadsheet became the bottleneck, and I could not risk breaking a working engine to fix it. So I did not rewrite it. A new sync workflow mirrors the sheet into Neon Postgres <Metric claim="G26" inline /> and pushes my decisions back. Then the two tables that matter most for review moved over one at a time: the engine now reads its config from Postgres and writes new drafts straight there, each step behind a switch I can flip back.
+
+The approval rules live in one Postgres function, not in the UI. A draft moves between pending, edited, approved, rejected, superseded and sent, and the database refuses every other transition: editing an approved draft sends it back for approval, and only an approved draft can be marked sent. Every action writes an audit row with the values before and after. Each table names who owns which field, and a console change carries a version stamp, so a change made while a sync runs goes out on the next run instead of being marked done by mistake ([ADR-S10-3](/decisions#ADR-S10-3)).
+
+The console is a small Next.js app on Vercel's free plan, behind a single-owner password, and it works on my phone. Before the cutover the schema passed <Metric claim="G22" inline />. In production, <Metric claim="G21" inline />.
+
+### Clay as the enrichment layer
+
+At first Clay only wrote company summaries: three separate AI columns per account, and a person pasting the results back into the sheet. I rebuilt it as the enrichment worker. n8n still decides which rows go to Clay and what comes back ([ADR-082](/decisions#ADR-082)).
+
+**One research call per account.** A single structured column replaced the three, on the cheapest model that held up in a pilot: <Metric claim="G16" inline />. Run conditions keep Clay off accounts below the score threshold: <Metric claim="G17" inline />.
+
+<Screenshot project="personal-gtm-engine" id="clay-research-config" />
+<Screenshot project="personal-gtm-engine" id="clay-c1-history" />
+
+**Verified emails, not guesses.** A Work Email waterfall with Conservative validation looks up one founder per qualified account, so a catch-all address never counts as found, and a guessed address is never marked verified without a validator check. It returned <Metric claim="G18" inline />.
+
+<Screenshot project="personal-gtm-engine" id="clay-email-results" />
+
+**Every credit measured.** With <Metric claim="G19" inline />, the cost of a module is the difference between two rows in a log, not an estimate. Results come back through a CSV contract and n8n imports, with <Metric claim="G20" inline />.
+
+<Screenshot project="personal-gtm-engine" id="clay-ops" />
+
+**A reason to write now.** The latest addition gives each hot account one recent, sourced trigger: a relevant job opening first, then a funding round, then news ([ADR-S11-3](/decisions#ADR-S11-3)). It travels from Clay through the sheet and Postgres into the drafting prompt and the console, and the validator accepts it as a fact a draft may quote. The first run limited the job search to GTM titles and found a trigger for <Metric claim="G24" inline />. Funding did no better: <Metric claim="G25" inline />. Provider coverage for small startups was the limit, not the build, so I widened the job search to sales roles and then any role while keeping the order strict. The final run covers <Metric claim="G23" inline />.
+
+Two details mattered more than the providers. The news provider's date filter applies to when it first saw an article, not when the article was published, so the formula checks the article date itself. And the drafting validator rejects any currency sign, so a funding amount would have pushed every draft to the template: the import rewrites amounts as a number and a currency code, and the validator stays as strict as it was ([ADR-S11-7](/decisions#ADR-S11-7)).
+
 ## Decisions that mattered
 
 <Decision id="ADR-004" />
 <Decision id="ADR-076" />
-<Decision id="ADR-024" />
+<Decision id="ADR-S10-2" />
 
 ## What broke, and what I changed
 
@@ -53,15 +82,15 @@ The overview diagram is redrawn for reading. These are the workflows as they run
 
 ## Results
 
-<MetricRow claims="G6,G7,G9" />
+<MetricRow claims="G6,G18,G7,G9" />
 
-Numbers come from the engine's own run log. Every run appends counters and error samples to an ops tab, and debugging starts there.
+Numbers come from the engine's own run log. Every run appends counters and error samples to an ops tab, now mirrored in Postgres, and debugging starts there. Clay costs come from the meter's log.
 
 <Screenshot project="personal-gtm-engine" id="ops-log" />
 
 ## What I would do next
 
 - Measure reply rate on approved, hand-sent messages and feed it back into scoring.
-- Move the HTTP calls that live inside Code nodes into native nodes with retries, once the logic stops changing.
+- Let an approval send the message, behind a suppression list, a country gate and a daily cap enforced in SQL, once the console loop has run for a while ([ADR-S10-9](/decisions#ADR-S10-9)).
 
 <Links slug="personal-gtm-engine" />
