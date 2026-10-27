@@ -234,6 +234,51 @@
     "status": "verified"
   },
   {
+    "id": "G27",
+    "value": "7/7/7",
+    "label": "companies, contacts and deals synced to HubSpot, each deal associated with its company and contact",
+    "inline": "7 companies, 7 contacts and 7 deals",
+    "source": "Sprint 13 guide, section 8.1 results log, T4 (n8n execution 381): links 7/7/7, 0 failed, no rate-limit errors; T3 checked the records through the HubSpot connector",
+    "date": "2026-10-27",
+    "status": "verified"
+  },
+  {
+    "id": "G28",
+    "value": "0",
+    "label": "duplicates in HubSpot: a re-run writes 0, a lost link is adopted",
+    "inline": "0 records",
+    "source": "Sprint 13 guide, section 8.1 results log, T5 (n8n execution 399): created 0, updated 0, failed 0, outbox 0; T6 (execution 400) for the adoption",
+    "date": "2026-10-27",
+    "status": "verified"
+  },
+  {
+    "id": "G29",
+    "value": "1 of 1",
+    "label": "deleted company link adopted on the next run: same HubSpot ID, still 7 companies",
+    "inline": "still 7 companies",
+    "source": "Sprint 13 guide, section 8.1 results log, T6 (n8n execution 400): adopted 1, same ID, HubSpot still 7 companies",
+    "date": "2026-10-27",
+    "status": "verified"
+  },
+  {
+    "id": "G30",
+    "value": "29 of 29",
+    "label": "offline checks of the HubSpot outbox SQL pass (PGlite, schema applied twice)",
+    "inline": "29 of 29 offline checks",
+    "source": "Sprint 13 guide, section 8.1 results log, T0: scripts/s13_sql_test.mjs, local and in the container, after patch 1",
+    "date": "2026-10-27",
+    "status": "verified"
+  },
+  {
+    "id": "G31",
+    "value": "30 minutes",
+    "label": "interval of the HubSpot sync while n8n runs",
+    "inline": "every 30 minutes",
+    "source": "Sprint 13 guide, section 8.1 results log, T12 (n8n execution 416): scheduled trigger run, green, new v_hubspot_runs row",
+    "date": "2026-10-27",
+    "status": "verified"
+  },
+  {
     "id": "J1",
     "value": "11",
     "label": "active job sources (12 wired)",

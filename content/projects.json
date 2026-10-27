@@ -2,10 +2,10 @@
   {
     "slug": "personal-gtm-engine",
     "title": "Personal GTM Engine",
-    "one_liner": "An outbound engine that finds B2B startups likely to need GTM automation, enriches them in Clay, verifies their founders, drafts a grounded first message and waits for my approval in a private console.",
+    "one_liner": "An outbound engine that finds B2B startups likely to need GTM automation, enriches them in Clay, verifies their founders, drafts a grounded first message, waits for my approval in a private console and syncs approved accounts into HubSpot.",
     "role": "Solo: design, build, operation",
     "period": "September to October 2026",
-    "status": "Running on demand on my laptop (n8n in Docker), with the review console on Vercel",
+    "status": "Running on demand on my laptop (n8n in Docker), with the review console on Vercel. Approved accounts sync to HubSpot Free CRM every 30 minutes while n8n runs.",
     "stack": [
       "n8n",
       "Google Sheets",
@@ -13,6 +13,7 @@
       "Neon Postgres",
       "Next.js",
       "Vercel",
+      "HubSpot",
       "Clay",
       "Tavily",
       "Groq",
@@ -159,6 +160,12 @@
         "file": "/screenshots/personal-gtm-engine/clay-ops-c2.png",
         "alt": "The clay_ops tab in Google Sheets: one row per meter reading with a timestamp, a before or after label, the module, the data credit balance and the action balance.",
         "caption": "The meter's log from the first readings to the end of the email batch. The cost of each module is the difference between its before and after rows."
+      },
+      {
+        "id": "hubspot-deals",
+        "file": "/screenshots/personal-gtm-engine/hubspot-deals.png",
+        "alt": "The deal board in HubSpot with the renamed outbound stages as columns: Approved, Contacted, Replied, Meeting booked, Proposal and Won. Approved holds 7 deal cards created on 27 October 2026; every other column is empty. Deal names and company logos are covered with grey blocks.",
+        "caption": "The deal pipeline in HubSpot after the first full sync: every approved account arrived as a deal at stage Approved. Deal names and logos are covered."
       }
     ],
     "featured": true,

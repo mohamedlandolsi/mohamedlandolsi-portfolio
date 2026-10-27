@@ -34,6 +34,13 @@ Status values: `verified` (checked against a primary record), `self-reported` (M
 | G24 | First trigger run, job search limited to GTM titles | 2 of 12 hot accounts | Sprint 11 guide, Step 7 result | 2026-10-21 | verified |
 | G25 | Funding and news coverage on hot accounts | funding found for 2 of 12, both older than 365 days; news for 2 of 12, one from 2023 | Sprint 11 guide, Step 7 result (Intellizence and PredictLeads columns) | 2026-10-21 | verified |
 | G26 | Sync interval between Sheets and Neon | every 15 minutes while n8n runs | `GTM Neon Sync` schedule trigger, published version | 2026-10-20 | verified |
+| G27 | Records synced to HubSpot Free | 7 companies, 7 contacts, 7 deals, each deal associated with its company and contact (21 links) | Sprint 13 guide 8.1: T4, n8n execution 381 (0 failed, no 429); T3 checked through the HubSpot connector | 2026-10-27 | verified |
+| G28 | Writes on a second HubSpot sync in a row | 0 (created 0, updated 0, failed 0, outbox 0) | Sprint 13 guide 8.1: T5, n8n execution 399 | 2026-10-27 | verified |
+| G29 | Crash adoption: one company link deleted in Neon, then re-run | adopted 1, same HubSpot ID, still 7 companies | Sprint 13 guide 8.1: T6, n8n execution 400 | 2026-10-27 | verified |
+| G30 | Offline checks of the HubSpot SQL layer | 29 of 29 pass (PGlite, schema applied twice) | Sprint 13 guide 8.1: T0, `scripts/s13_sql_test.mjs` | 2026-10-27 | verified |
+| G31 | HubSpot sync interval | every 30 minutes while n8n runs | Sprint 13 guide 8.1: T12, n8n execution 416 | 2026-10-27 | verified |
+
+Not yet proven live (Sprint 13 tests T8 and T9 wait for a real send and a real reply): notes, tasks, the move to Contacted and the reply pull. The site says "built, awaiting first live send", never "working".
 
 ## Job Radar
 

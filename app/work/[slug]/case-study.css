@@ -18,6 +18,8 @@
 .case-body > h2 + * { margin-top: 1.75rem; }
 .case-body > p { color: var(--color-dim); }
 .case-body strong { font-weight: 600; color: var(--color-text); }
+/* A decision ID reads as one token: never split "ADR-094" at its hyphen. */
+.case-body > :is(p, ul, ol) a[href^="/decisions#ADR"] { white-space: nowrap; }
 .case-body > :is(.diagram, .case-wide) { margin-top: 2.25rem; margin-bottom: 2.25rem; }
 .case-body > h3 { margin-top: 3rem; }
 
