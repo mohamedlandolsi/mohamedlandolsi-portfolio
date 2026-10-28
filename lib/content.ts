@@ -97,7 +97,6 @@ export interface Video {
   description: string;
   /** ISO date the video went live. */
   published: string;
-  caption: string;
 }
 
 /** A redacted screenshot in public/screenshots/, shown in the project's case study. */
