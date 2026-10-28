@@ -5,7 +5,7 @@ page_title: Personal GTM Engine: outbound with rules first
 summary: An outbound engine that finds B2B startups likely to need GTM automation, enriches them in Clay, verifies their founders, drafts a grounded first message, waits for my approval in a private console and syncs approved accounts into HubSpot.
 status: published
 published: 2026-10-08
-updated: 2026-10-27
+updated: 2026-10-28
 ---
 
 <ProjectFacts slug="personal-gtm-engine" />
@@ -26,6 +26,12 @@ A set of n8n workflows that started on one shared Google Sheet, so I could inspe
 4. **Draft, check, review.** A fallback chain of three Groq models and Gemini writes a LinkedIn note, a longer message and three follow-ups from facts only. A rule-based validator rejects bad drafts and asks for one repair. Discord pings me with a link, and I approve, edit or reject each draft in the console. Nothing is sent by the system.
 
 <Sieve project="personal-gtm-engine" />
+
+### The narrated walkthrough
+
+The same pipeline, told end to end over real screens, from one YC run to the deals in HubSpot.
+
+<Video project="personal-gtm-engine" />
 
 ### The same system on screen
 

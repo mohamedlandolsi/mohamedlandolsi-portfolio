@@ -6,6 +6,7 @@ export function ProjectFacts({ slug }: { slug: string }) {
   const links = [
     { label: "Repository", href: project.links.repo },
     { label: "Loom walkthrough", href: project.links.loom },
+    { label: "Watch the walkthrough", href: project.video ? "#walkthrough" : undefined },
   ].filter((link): link is { label: string; href: string } => !isTodo(link.href));
   const rows = [
     { label: "Role", value: project.role },

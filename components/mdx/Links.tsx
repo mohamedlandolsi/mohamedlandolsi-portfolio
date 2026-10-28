@@ -8,6 +8,7 @@ export function Links({ slug }: { slug: string }) {
   const links = [
     { label: "Repository on GitHub", href: project.links.repo },
     { label: "Loom walkthrough", href: project.links.loom },
+    { label: "Watch the walkthrough", href: project.video ? "#walkthrough" : undefined },
   ].filter((link): link is { label: string; href: string } => !isTodo(link.href));
 
   if (links.length === 0 && decisions === 0) return null;

@@ -168,6 +168,15 @@
         "caption": "The deal pipeline in HubSpot after the first full sync: every approved account arrived as a deal at stage Approved. Deal names and logos are covered."
       }
     ],
+    "video": {
+      "file": "/video/personal-gtm-engine/explainer.mp4",
+      "poster": "/video/personal-gtm-engine/poster.jpg",
+      "captions": "/video/personal-gtm-engine/captions.vtt",
+      "width": 1920,
+      "height": 1080,
+      "title": "Personal GTM Engine: narrated walkthrough",
+      "caption": "Captions are on by default. In the review console scenes, company names, contacts and draft text are covered."
+    },
     "featured": true,
     "order": 1
   },

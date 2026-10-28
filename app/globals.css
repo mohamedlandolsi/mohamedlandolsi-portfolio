@@ -181,6 +181,8 @@
     .nav-links { margin-left: -10px; }
     .nav-links a { padding: 6px 10px; }
     .nav-mark { order: 0; }
+    /* The two-row header is taller, so anchored targets land below it. */
+    [id] { scroll-margin-top: 96px; }
   }
   .theme-toggle {
     flex-shrink: 0; margin-left: 14px; width: 34px; height: 34px;
