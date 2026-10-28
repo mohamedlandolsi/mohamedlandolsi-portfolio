@@ -83,6 +83,19 @@ export interface Sieve {
   caption: string;
 }
 
+/** A narrated walkthrough in public/video/, with every prospect name covered before it got there. */
+export interface Video {
+  /** Paths under public/, starting with "/video/". */
+  file: string;
+  poster: string;
+  captions: string;
+  width: number;
+  height: number;
+  /** Accessible name of the player. */
+  title: string;
+  caption: string;
+}
+
 /** A redacted screenshot in public/screenshots/, shown in the project's case study. */
 export interface Screenshot {
   id: string;
@@ -103,6 +116,7 @@ export interface Project {
   metrics: ProjectMetric[];
   sieve?: Sieve;
   screenshots?: Screenshot[];
+  video?: Video;
   links: { repo?: string; loom?: string };
   featured: boolean;
   order: number;

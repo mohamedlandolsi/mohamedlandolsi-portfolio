@@ -7,6 +7,7 @@ import { Metric } from "@/components/mdx/Metric";
 import { MetricRow } from "@/components/mdx/MetricRow";
 import { Screenshot } from "@/components/mdx/Screenshot";
 import { SieveFigure } from "@/components/mdx/SieveFigure";
+import { Video } from "@/components/mdx/Video";
 
 /** "What broke, and what I changed" becomes "what-broke-and-what-i-changed", for deep links. */
 function anchor(children: ReactNode): string | undefined {
@@ -33,6 +34,7 @@ const components: MDXComponents = {
   ProjectFacts: () => null,
   Screenshot,
   Sieve: SieveFigure,
+  Video,
 };
 
 export function useMDXComponents(): MDXComponents {

@@ -29,6 +29,10 @@
 .case-body > .shot-narrow { max-width: 27rem; }
 .shot > a { display: block; }
 .shot img { display: block; width: 100%; height: auto; }
+/* The walkthrough keeps its frame shape before the poster arrives. */
+.shot video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; }
+/* The panel clips its edges, so the player's focus ring is drawn inside it. */
+.shot video:focus-visible { outline-offset: -2px; }
 .shot .diagram-caption { max-width: none; margin: 0; padding: 12px max(16px, calc(100% - 64ch)) 14px 16px; border-top: 1px solid var(--color-line-strong); }
 .shot .diagram-caption a { white-space: nowrap; }
 .case-body > .metric-row { margin-top: 2rem; margin-bottom: 1.5rem; }

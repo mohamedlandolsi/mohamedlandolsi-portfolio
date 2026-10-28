@@ -42,6 +42,8 @@ Status values: `verified` (checked against a primary record), `self-reported` (M
 
 Not yet proven live (Sprint 13 tests T8 and T9 wait for a real send and a real reply): notes, tasks, the move to Contacted and the reply pull. The site says "built, awaiting first live send", never "working".
 
+TODO (Mohamed): the walkthrough video (`public/video/personal-gtm-engine/explainer.mp4`, added 2026-10-28) shows numbers that have no row above. Give each a source and date, or re-render the video without it: 49 accounts scored and explained (G5 has 48 on 2026-10-08), 37 verified founder emails, 42 drafts in the review queue, 10 n8n workflows (G10 has 3 on 2026-10-08), and about 0.46 credit per verified email (G18 says about 0.5). Every other number in the video matches a row above (G1 to G3, G6, G7, G9, G12, G16, G18, G27, G28, G31).
+
 ## Job Radar
 
 | ID | Claim | Value | Source | Date | Status |
