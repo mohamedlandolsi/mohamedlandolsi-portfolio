@@ -91,8 +91,12 @@ export interface Video {
   captions: string;
   width: number;
   height: number;
-  /** Accessible name of the player. */
+  /** Accessible name of the player, and the title of its own page. */
   title: string;
+  /** One sentence for its own page, its metadata and search results. */
+  description: string;
+  /** ISO date the video went live. */
+  published: string;
   caption: string;
 }
 
