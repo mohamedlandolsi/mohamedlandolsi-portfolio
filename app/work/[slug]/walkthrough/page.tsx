@@ -49,7 +49,7 @@ export default async function Walkthrough({ params }: PageProps<"/work/[slug]/wa
         <p className="thesis">{video.description}</p>
       </header>
       <div className="case-body">
-        <Video project={slug} standalone />
+        <Video project={slug} />
         <div className="button-row walkthrough-actions">
           <Link href={`/work/${slug}`} className="button">
             Read the case study

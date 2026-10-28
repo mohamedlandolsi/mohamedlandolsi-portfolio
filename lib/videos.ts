@@ -3,16 +3,13 @@ import { join } from "node:path";
 import { getProject, getProjects, type Video } from "@/lib/content";
 
 // The walkthroughs listed in content/projects.json, with their length read from the file at build
-// time, so the caption can show it without the player fetching the video first. Each one also has
-// a page of its own, the link to share.
+// time for structured data and the sitemap. Each one also has a page of its own, the link to share.
 
 export interface VideoFile extends Video {
   slug: string;
   /** The video's own page. */
   path: string;
   seconds: number;
-  /** "2 min 24 s" */
-  length: string;
   /** "PT2M24S", for structured data. */
   isoDuration: string;
 }
@@ -44,7 +41,6 @@ export function getVideo(slug: string): VideoFile {
     slug,
     path: walkthroughPath(slug),
     seconds,
-    length: minutes > 0 ? `${minutes} min ${seconds % 60} s` : `${seconds} s`,
     isoDuration: `PT${minutes > 0 ? `${minutes}M` : ""}${seconds % 60}S`,
   };
 }
