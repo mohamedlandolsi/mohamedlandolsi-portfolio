@@ -1,5 +1,5 @@
 import { getProfile, isTodo } from "@/lib/content";
-import { CopyEmail } from "./CopyEmail";
+import { CopyButton } from "@/components/CopyButton/CopyButton";
 
 export function Contact() {
   const { availability, links } = getProfile();
@@ -20,7 +20,7 @@ export function Contact() {
         <a href={`mailto:${links.email}`} className="button button-primary [overflow-wrap:anywhere]">
           {links.email}
         </a>
-        <CopyEmail email={links.email} />
+        <CopyButton text={links.email} label="Copy e-mail" status="E-mail address copied" />
         {profiles.map((link) => (
           <a key={link.label} href={link.href} className="button">
             {link.label}

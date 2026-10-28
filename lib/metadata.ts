@@ -29,19 +29,28 @@ interface PageMeta {
   noindex?: boolean;
   /** A case study is shared as an article, with its ISO dates when the file states them. */
   article?: { published?: string; updated?: string };
+  /** A walkthrough page is shared as a video, so a link preview can point at the file. */
+  video?: { url: string; width: number; height: number };
 }
 
 /** Title, description, canonical URL and the matching Open Graph and X fields for one page. */
-export function pageMetadata({ title, description, path, noindex, article }: PageMeta): Metadata {
+export function pageMetadata({ title, description, path, noindex, article, video }: PageMeta): Metadata {
   const fullTitle = title ? `${title} | ${name}` : siteTitle;
   const shared = { siteName: name, locale: "en", url: path, title: fullTitle, description };
+  const openGraph: Metadata["openGraph"] = video
+    ? {
+        type: "video.other",
+        ...shared,
+        videos: [{ url: new URL(video.url, siteUrl).href, type: "video/mp4", width: video.width, height: video.height }],
+      }
+    : article
+      ? { type: "article", ...shared, authors: [links.site], publishedTime: article.published, modifiedTime: article.updated }
+      : { type: "website", ...shared };
   return {
     ...(title && { title }),
     description,
     alternates: { canonical: path },
-    openGraph: article
-      ? { type: "article", ...shared, authors: [links.site], publishedTime: article.published, modifiedTime: article.updated }
-      : { type: "website", ...shared },
+    openGraph,
     twitter: { card: "summary_large_image", title: fullTitle, description },
     ...(noindex && { robots: { index: false, follow: false } }),
   };

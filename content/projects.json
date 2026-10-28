@@ -175,6 +175,8 @@
       "width": 1920,
       "height": 1080,
       "title": "Personal GTM Engine: narrated walkthrough",
+      "description": "How my outbound engine finds B2B startups, rejects most of them with plain rules, enriches the rest in Clay, drafts a checked first message, waits for my approval and syncs approved accounts into HubSpot.",
+      "published": "2026-10-28",
       "caption": "Captions are on by default. In the review console scenes, company names, contacts and draft text are covered."
     },
     "featured": true,

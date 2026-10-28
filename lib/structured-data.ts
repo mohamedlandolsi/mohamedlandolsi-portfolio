@@ -2,6 +2,7 @@ import type { CaseStudyMeta } from "@/lib/case-studies";
 import { getProfile, isTodo, type Project } from "@/lib/content";
 import { siteTitle, siteUrl } from "@/lib/metadata";
 import { getScreenshots } from "@/lib/screenshots";
+import type { VideoFile } from "@/lib/videos";
 
 // schema.org nodes, built from content/ only. Each page renders the nodes it needs in one graph
 // (components/JsonLd); the IDs let a case study point at the same person and site as the home page.
@@ -92,4 +93,30 @@ export function caseStudyGraph(meta: CaseStudyMeta, project: Project): object[] 
     author: { "@id": PERSON_ID },
   };
   return [article, ...(software ? [software] : []), personRef, website];
+}
+
+/** A walkthrough's own page: the video, with the case study it explains. */
+export function walkthroughGraph(video: VideoFile, project: Project): object[] {
+  const url = absolute(video.path);
+  const videoObject = {
+    "@type": "VideoObject",
+    "@id": `${url}#video`,
+    url,
+    name: video.title,
+    description: video.description,
+    thumbnailUrl: absolute(video.poster),
+    contentUrl: absolute(video.file),
+    uploadDate: video.published,
+    duration: video.isoDuration,
+    width: video.width,
+    height: video.height,
+    inLanguage: "en",
+    caption: absolute(video.captions),
+    author: { "@id": PERSON_ID },
+    publisher: { "@id": PERSON_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+    // the case study this video explains (caseStudyGraph uses the same ID)
+    about: { "@id": absolute(`/work/${project.slug}#article`) },
+  };
+  return [videoObject, personRef, website];
 }
